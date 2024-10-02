@@ -66,24 +66,6 @@ export type TDistrict =
 export type TGender = "Male" | "Female" | "Other";
 export type TUserRole = "admin" | "traveler";
 
-export type TTraveler = {
-  _id: string;
-  user: string; // ObjectId reference to User
-  name: string;
-  email: string;
-  phone: string;
-  bio: string;
-  postsCount?: number;
-  profileImg?: string; // Optional field
-  gender: "Male" | "Female" | "Other";
-  followers?: string[]; // Array of ObjectId references to Traveler
-  following?: string[]; // Array of ObjectId references to Traveler
-  district: string;
-  dateOfBirth: Date;
-  createdAt?: Date; // Timestamp field
-  updatedAt?: Date; // Timestamp field
-};
-
 export type TUser = {
   _id: string;
   email: string;
@@ -102,4 +84,33 @@ export type TDecodedUser = {
 export type TSignin = {
   email: string;
   password: string;
+};
+
+export type TTraveler = {
+  _id: string;
+  user: string;
+  name: string;
+  email: string;
+  phone: string;
+  bio: string;
+  postsCount: number;
+  profileImg: string;
+  gender: "Male" | "Female" | "Other";
+  followers: TTraveler[];
+  following: TTraveler[];
+  district: string;
+  dateOfBirth: string;
+};
+
+export type TAdmin = {
+  _id: string;
+  user: string;
+  name: string;
+  email: string;
+  phone: string;
+  gender: string;
+  profileImg: string;
+  dateOfBirth: string;
+  district: string;
+  isDeleted: boolean;
 };
