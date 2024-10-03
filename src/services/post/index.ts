@@ -1,6 +1,7 @@
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
+import delay from "@/utils/delay";
 import { revalidateTag } from "next/cache";
 
 export const getPost = async () => {

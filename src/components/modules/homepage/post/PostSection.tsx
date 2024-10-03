@@ -3,22 +3,31 @@ import { TPost } from "@/types/post";
 import { Empty } from "antd";
 import React from "react";
 import PostCard from "./PostCard";
+import { getCategory } from "@/services/category";
+import CreatePost from "./CreatePost";
 
 const PostSection = async () => {
   const posts = await getPost();
+  const categories = await getCategory();
 
   return (
-    <>
-      {posts?.data?.length === 0 ? (
-        <Empty description="No post found" />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {posts.data?.map((post: TPost) => {
-            return <PostCard key={post?._id} post={post} />;
-          })}
+    <div className="w-3/6 mx-auto">
+      <div className="px-4 py-4 relative flex flex-col gap-8 flex-1">
+        <CreatePost categories={categories?.data} />
+
+        <div className="">
+          {posts?.data?.length === 0 ? (
+            <Empty description="No post found" />
+          ) : (
+            <div className="space-y-8 gap-5">
+              {posts.data?.map((post: TPost) => {
+                return <PostCard key={post?._id} post={post} />;
+              })}
+            </div>
+          )}
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 

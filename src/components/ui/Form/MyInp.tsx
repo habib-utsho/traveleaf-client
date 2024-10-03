@@ -1,3 +1,4 @@
+"use client";
 import { Form, Input, InputNumber, Select } from "antd";
 import React from "react";
 
@@ -47,6 +48,14 @@ const MyInp: React.FC<MyInpProps> = ({
         <Input
           defaultValue={defaultValue}
           prefix={prefix}
+          value={value}
+          size={size}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
+      ) : type === "textarea" ? (
+        <Input.TextArea
+          defaultValue={defaultValue}
           value={value}
           size={size}
           placeholder={placeholder}

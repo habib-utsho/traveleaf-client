@@ -1,25 +1,24 @@
-import { Skeleton } from "antd";
+"use client";
+import { Card, Skeleton } from "antd";
 import React from "react";
 
-const SpecialtyLoadingCard = () => {
+const PostLoadingCard = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-      {[...Array(9)].map((elem) => {
-        return (
-          <div
-            key={elem}
-            className="flex items-center gap-5 shadow dark:shadow-white p-4 rounded-md"
-          >
-            <Skeleton className="w-[70px] h-[80px] shadow rounded-md" />
-            <div className="space-y-2">
-              <Skeleton className="w-[80px] h-[15px] shadow rounded-md" />
-              <Skeleton className="w-[150px] h-[25px] shadow rounded-md" />
-            </div>
+    <div className="px-4 relative flex justify-between gap-2 flex-1">
+      <div className="py-4 w-4/6 mx-auto space-y-2">
+        <div className="space-y-2 rounded">
+          <Skeleton.Button active className="!h-[550px] !w-full" />
+
+          <div className="flex items-center gap-4">
+            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
+            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
+            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
+            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
           </div>
-        );
-      })}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default SpecialtyLoadingCard;
+export default PostLoadingCard;

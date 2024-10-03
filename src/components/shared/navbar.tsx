@@ -1,13 +1,12 @@
 "use client";
-import { Layout, Menu, Dropdown, Button, Drawer } from "antd";
-import { MenuOutlined, GithubOutlined } from "@ant-design/icons";
+import { Layout, Menu, Button, Drawer } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 import NavbarProfileDropdown from "./NavbarProfileDropdown";
 import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/config/site";
-import Container from "../ui/Container";
 
 const { Header } = Layout;
 
@@ -45,12 +44,12 @@ export const Navbar = () => {
       style={{ position: "sticky", top: 0, zIndex: 1, width: "100%" }}
       className="!text-black !bg-white border-b"
     >
-      <Container className="flex justify-between items-center">
+      <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="logo">
           <Link href="/" className="flex justify-start items-center gap-2">
             <Image src={logo} height={40} width={40} alt="logo" />
-            <p className="font-bold text-inherit">DocEye</p>
+            <p className="font-bold text-inherit">TraveLeaf</p>
           </Link>
         </div>
 
@@ -91,7 +90,7 @@ export const Navbar = () => {
             <NavbarProfileDropdown />
           </div>
         </Drawer>
-      </Container>
+      </div>
     </Header>
   );
 };

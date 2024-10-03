@@ -66,3 +66,5 @@ export const districts = [
 ];
 
 export const genders = ["Male", "Female", "Other"];
+
+export const role = { ADMIN: "admin", TRAVELER: "traveler" } as const;
