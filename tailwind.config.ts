@@ -1,3 +1,4 @@
+import Paragraph from "antd/es/skeleton/Paragraph";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -21,6 +22,9 @@ const config: Config = {
           700: "#0085B9", // Even darker shade
           800: "#00709E", // Dark shade
           900: "#005B84", // Darkest shade
+        },
+        paragraph: {
+          DEFAULT: "#333333", // Dark gray for paragraphs
         },
         secondary: {
           DEFAULT: "#A4D65E", // Soft red for secondary actions

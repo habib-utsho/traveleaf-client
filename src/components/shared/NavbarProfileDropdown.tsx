@@ -3,10 +3,10 @@ import { Avatar, Button, Dropdown, Menu, Skeleton } from "antd";
 import { HeartFilled } from "@ant-design/icons";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
-import useUserData from "@/hooks/user.hook";
 import { signOut } from "@/services/authService";
 import { protectedRoutes } from "@/constant";
 import { siteConfig } from "@/config/site";
+import { useUserData } from "@/hooks/user.hook";
 
 const NavbarProfileDropdown = () => {
   const { isLoading, user, setUser } = useUserData();

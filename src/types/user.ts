@@ -100,6 +100,7 @@ export type TTraveler = {
   following: TTraveler[];
   district: string;
   dateOfBirth: string;
+  isDeleted: boolean;
 };
 
 export type TAdmin = {

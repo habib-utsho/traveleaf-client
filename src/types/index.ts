@@ -16,3 +16,8 @@ export type TResponse<T> = {
   data: T;
   meta?: TMeta;
 };
+
+export type TFilterQuery = {
+  name: string;
+  value: any;
+};

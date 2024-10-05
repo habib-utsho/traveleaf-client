@@ -1,7 +1,7 @@
 "use client";
 import MyInp from "@/components/ui/Form/MyInp";
 import { useCreatePost } from "@/hooks/post.hook";
-import useUserData from "@/hooks/user.hook";
+import { useUserData } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
 import { UploadOutlined } from "@ant-design/icons";

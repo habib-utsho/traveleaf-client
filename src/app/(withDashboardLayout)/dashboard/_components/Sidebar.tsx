@@ -1,103 +1,82 @@
 import { Layout, Menu } from "antd";
 import React from "react";
 import { MailFilled } from "@ant-design/icons";
-import useUserData from "@/hooks/user.hook";
 import { role } from "@/constant/user.constant";
+import { useUserData } from "@/hooks/user.hook";
+import logo from "@/assets/images/logo.png";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
   const { user } = useUserData();
+  const pathname = usePathname();
 
-  let sidebarItems: { key: string; label: string }[] = [];
-  if (user?.role === role.ADMIN) {
-    sidebarItems = [
-      {
-        key: "/admin/dashboard",
-        label: "Dashboard",
-      },
-      {
-        key: "/admin/users",
-        label: "Users",
-      },
-      {
-        key: "/admin/categories",
-        label: "Categories",
-      },
-      {
-        key: "/admin/posts",
-        label: "Posts",
-      },
-      {
-        key: "/admin/subscription",
-        label: "Subscription",
-      },
-    ];
-  }
-  if (user?.role === role.TRAVELER) {
-    sidebarItems = [
-      {
-        key: "/traveler/dashboard",
-        label: "Dashboard",
-      },
-      {
-        key: "/categories",
-        label: "Categories",
-      },
-      {
-        key: "/traveler/posts",
-        label: "Posts",
-      },
-      {
-        key: "/traveler/profile",
-        label: "Profile",
-      },
-      {
-        key: "/traveler/subscription",
-        label: "Subscription",
-      },
-    ];
-  }
+  const sidebarItems =
+    user?.role === role.ADMIN
+      ? [
+          { key: "/dashboard/admin", label: "Dashboard" },
+          { key: "/dashboard/admin/users", label: "Users" },
+          { key: "/dashboard/admin/categories", label: "Categories" },
+          { key: "/dashboard/admin/posts", label: "Posts" },
+          { key: "/dashboard/admin/subscription", label: "Subscription" },
+        ]
+      : user?.role === role.TRAVELER
+      ? [
+          { key: "/dashboard/traveler", label: "Dashboard" },
+          { key: "/dashboard/traveler/categories", label: "Categories" },
+          { key: "/dashboard/traveler/traveler/posts", label: "Posts" },
+          { key: "/dashboard/traveler/traveler/profile", label: "Profile" },
+          {
+            key: "/dashboard/traveler/traveler/subscription",
+            label: "Subscription",
+          },
+        ]
+      : [];
 
   return (
     <Sider
-      collapsible
-      breakpoint="lg"
-      collapsedWidth="0"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
-      className="!h-screen !sticky !top-0"
+      // collapsible
+      // breakpoint="lg"
+      // collapsedWidth="0"
+      className="!h-screen !sticky !top-0 !overflow-y-auto"
     >
       <div className="demo-logo-vertical" />
-      <div className="mb-6 space-y-2 mt-4 mx-3">
-        {/* {user?.profileImg && (
+      <div className="text-center p-4">
+        <Image
+          src={logo}
+          alt="TraveLeaf"
+          className="h-[120px] w-[120px] mx-auto"
+        />
+      </div>
+
+      {/* {user?.profileImg && (
+        <div className="mb-6 space-y-2 mt-4 mx-3 text-center">
           <Image
-            height={200}
-            width={200}
+            height={100}
+            width={100}
             src={user.profileImg}
-            alt={user.name || "User Image"}
-            className="w-full rounded-md h-[150px]"
+            alt={user || "User Image"}
+            className="w-full rounded-full"
           />
-        )} */}
-        <h2 className="text-gray">
+        </div>
+      )} */}
+
+      <div className="mb-6 mx-3 text-gray-500">
+        <h2>
           <MailFilled /> {user?.email}
         </h2>
       </div>
 
       <Menu
-        // onClick={({ key }) => {
-        //   key ? navigate(key) : navigate("/dashboard");
-        // }}
         theme="dark"
-        // defaultSelectedKeys={["Dashboard"]}
         mode="inline"
+        selectedKeys={[pathname]}
         items={sidebarItems.map(({ key, label }) => ({
           key,
-          label,
+          label: <Link href={key}>{label}</Link>,
         }))}
       />
     </Sider>

@@ -1,14 +1,32 @@
 "use client";
 import React from "react";
-import signBG from "@/assets/images/auth/signBg.jpg";
+import signBG from "@/assets/images/about/6345959.jpg";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Button, Form, FormProps } from "antd";
+import { Button, Divider, Form, FormProps, Table } from "antd";
 import { useUserSignin } from "@/hooks/auth.hook";
 import { TSignin } from "@/types/user";
 import Container from "@/components/ui/Container";
 import MyInp from "@/components/ui/Form/MyInp";
 import { LockOutlined } from "@ant-design/icons";
+
+const columns = [
+  {
+    key: "email",
+    title: "Email",
+    dataIndex: "email",
+  },
+  {
+    key: "password",
+    title: "Password",
+    dataIndex: "password",
+  },
+  {
+    key: "role",
+    title: "Role",
+    dataIndex: "role",
+  },
+];
 
 // Need to change password
 const SigninPage = () => {
@@ -28,10 +46,18 @@ const SigninPage = () => {
     handleSignin(payload);
   };
 
-  const defaultValues = {
-    email: "utsho926@gmail.com",
-    password: "1234@@aA",
-  };
+  const signinData = [
+    {
+      email: "admin@gmail.com",
+      password: "1234@@aA",
+      role: "admin",
+    },
+    {
+      email: "utsho926@gmail.com",
+      password: "1234@@aA",
+      role: "traveler",
+    },
+  ];
 
   return (
     <div
@@ -88,10 +114,25 @@ const SigninPage = () => {
                     </span>
                   </Link>
                 </p>
-                <div className="flex gap-3 items-center">
-                  <hr className="h-px w-full bg-slate-500" />
-                  <span className="text-slate-500">or</span>
-                  <hr className="h-px w-full bg-slate-500" />
+
+                <Divider />
+                <div className="w-full my-shadow-1 rounded">
+                  <Table
+                    columns={columns}
+                    dataSource={signinData}
+                    pagination={false}
+                    size="large"
+                    onRow={(record) => ({
+                      onClick: () => {
+                        form.setFieldsValue({
+                          email: record.email,
+                          password: record.password,
+                        });
+                      },
+                      className: "cursor-pointer",
+                    })}
+                    scroll={{ x: 240 }}
+                  />
                 </div>
               </div>
             </div>
