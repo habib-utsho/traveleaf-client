@@ -2,15 +2,17 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-import {
-  CalendarOutlined,
-  PhoneOutlined,
-  PushpinOutlined,
-  ClockCircleOutlined,
-} from "@ant-design/icons";
+import { ClockCircleOutlined } from "@ant-design/icons";
 import { getTravelerById } from "@/services/authService";
-import { Divider } from "antd";
-import profileBanner from "@/assets/images/profile/profile_banner.png";
+import { Divider, Empty } from "antd";
+import profileBanner from "@/assets/images/profile/profile_banner.jpg";
+import { LocationIcon, VerifiedBadgeIcon } from "@/components/ui/icons";
+import { TTraveler } from "@/types/user";
+import ContactInfoModal from "./_components/ContactInfoModal";
+import { getPost } from "@/services/post";
+import { TPost } from "@/types/post";
+import { TResponse } from "@/types";
+import PostCard from "@/components/modules/homepage/post/PostCard";
 
 const TravelerDetailsPage = async ({
   params,
@@ -18,12 +20,11 @@ const TravelerDetailsPage = async ({
   params: { slug: string };
 }) => {
   // Fetch the traveler data using the ID (slug from URL parameters)
-  const { data: traveler } = await getTravelerById(params?.slug);
+  const travelerRes = await getTravelerById(params?.slug);
+  const postRes = await getPost([{ name: "author", value: params?.slug }]);
 
-  console.log(traveler, "traveler");
-
-  // Format the created date using moment
-  const formattedDate = moment(traveler?.createdAt).format("MMMM DD, YYYY");
+  const traveler = travelerRes as TResponse<TTraveler>;
+  const posts = postRes as TResponse<TPost[]>;
 
   return (
     <div className="py-8 bg-gray-100 min-h-screen">
@@ -36,90 +37,74 @@ const TravelerDetailsPage = async ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {traveler?.profileImg && (
+        {traveler?.data?.profileImg && (
           <Image
-            src={traveler.profileImg}
-            alt={traveler.name}
+            src={traveler.data?.profileImg}
+            alt={traveler.data?.name}
             width={100}
             height={100}
-            className="rounded-full absolute -bottom-12 left-[350px] border-4 border-primary"
+            className="rounded-full absolute -bottom-12 left-[500px] border-4 border-primary"
           />
         )}
       </div>
       <Container>
         <div className="max-w-4xl mx-auto space-y-4">
-          {/* Traveler Name */}
-          <h2 className="font-semibold text-2xl md:text-3xl">
-            {traveler?.name}
-          </h2>
-
-          {/* Traveler Details */}
-          <div className="flex items-center justify-between mb-8 text-gray-600">
-            <div className="flex items-center gap-2">
-              {traveler?.profileImg && (
-                <Image
-                  src={traveler.profileImg}
-                  alt={traveler.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-              )}
-              <div className="flex flex-col text-sm">
-                <span className="font-semibold">{traveler?.name}</span>
-                <div className="flex gap-1 items-center">
-                  <CalendarOutlined />
-                  {formattedDate}
-                </div>
-              </div>
+          <div className="space-y-1">
+            <div className="flex justify-between gap-4 flex-wrap">
+              {/* Traveler Name */}
+              <h2 className="font-semibold text-2xl md:text-3xl flex gap-1 items-center">
+                {traveler?.data?.name}
+                {traveler?.data?.user?.status === "premium" && (
+                  <VerifiedBadgeIcon className="text-primary" />
+                )}
+              </h2>
+              <p className="flex gap-1 items-center">
+                <ClockCircleOutlined />
+                {moment().diff(
+                  moment(traveler?.data?.dateOfBirth),
+                  "years"
+                )}{" "}
+                years old
+              </p>
             </div>
 
-            <div className="flex gap-3 flex-wrap items-center">
-              {/* Email */}
-              <div className="inline-flex items-center gap-1 text-md font-bold text-gray-700">
-                <PhoneOutlined />
-                <span>{traveler?.email}</span>
-              </div>
+            {/* Address  */}
+            <div className="flex items-center gap-[2px] flex-wrap">
+              <p className="flex items-center gap-1">
+                <LocationIcon /> {traveler.data?.district}, Bangladesh
+              </p>
+              <ContactInfoModal travelerAdmin={traveler?.data} />
+            </div>
+            {/* BIo */}
+            <p className="text-gray-500">{traveler?.data?.bio}</p>
+            <p className="text-gray-500">
+              Total posts: {traveler?.data?.postsCount}
+            </p>
+
+            {/* Followers and following */}
+            <div className="flex gap-4 items-center flex-wrap font-semibold text-sm">
+              <p className=" text-primary cursor-pointer">
+                {traveler.data?.followers?.length} Followers
+              </p>
+              <p className=" text-primary cursor-pointer">
+                {traveler.data?.following?.length} Following
+              </p>
             </div>
           </div>
 
-          {/* Traveler Bio */}
-          {traveler?.bio && (
-            <div className="mb-8">
-              <p className="text-lg text-gray-700">{traveler.bio}</p>
-            </div>
-          )}
+          <Divider className="!my-14" />
 
-          {/* Traveler Profile Image */}
-          {traveler?.profileImg && (
-            <div className="relative w-full h-80 mb-8">
-              <Image
-                src={traveler.profileImg}
-                alt={traveler.name}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-          )}
-
-          {/* Location and Status */}
-          <div className="flex items-center gap-3 justify-between text-gray-600">
-            <p className="flex gap-1 items-center text-gray-600">
-              <PushpinOutlined /> {traveler?.district}
-            </p>
-            <p className="flex gap-1 items-center">
-              <ClockCircleOutlined />
-              {moment().diff(moment(traveler?.dateOfBirth), "years")} years old
-            </p>
-          </div>
-
-          <Divider />
-
-          {/* Additional Details */}
-          <div className="mt-10 flex items-center justify-between text-gray-600">
-            <div>Status: {traveler?.status}</div>
-            <div>Role: {traveler?.user?.role}</div>
+          {/* Posts */}
+          <div className="">
+            {posts?.meta?.total === 0 ? (
+              <Empty description="No post found" />
+            ) : (
+              <div className="space-y-8 gap-5">
+                {posts.data?.map((post: TPost) => {
+                  return <PostCard key={post?._id} post={post} />;
+                })}
+              </div>
+            )}
           </div>
         </div>
       </Container>

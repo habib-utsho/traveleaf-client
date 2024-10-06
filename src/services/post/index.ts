@@ -1,17 +1,25 @@
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
+import { TFilterQuery } from "@/types";
 import delay from "@/utils/delay";
 import { revalidateTag } from "next/cache";
 
-export const getPost = async () => {
+export const getPost = async (query: TFilterQuery[] | undefined) => {
   const fetchOption = {
     next: {
       tags: ["post"],
     },
   };
+  const params = new URLSearchParams();
+
+  if (query) {
+    query.forEach((element: TFilterQuery) => {
+      params.append(element.name, element.value);
+    });
+  }
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/post`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/post?${params.toString()}`,
     fetchOption
   );
   return response.json();

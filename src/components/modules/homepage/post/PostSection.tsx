@@ -7,7 +7,7 @@ import { getAllCategory } from "@/services/category";
 import CreatePost from "./CreatePost";
 
 const PostSection = async () => {
-  const posts = await getPost();
+  const posts = await getPost(undefined);
   const categories = await getAllCategory();
 
   return (

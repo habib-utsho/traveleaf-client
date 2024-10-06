@@ -88,7 +88,7 @@ export type TSignin = {
 
 export type TTraveler = {
   _id: string;
-  user: string;
+  user: TUser;
   name: string;
   email: string;
   phone: string;
@@ -101,11 +101,13 @@ export type TTraveler = {
   district: string;
   dateOfBirth: string;
   isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type TAdmin = {
   _id: string;
-  user: string;
+  user: TUser;
   name: string;
   email: string;
   phone: string;
@@ -114,4 +116,6 @@ export type TAdmin = {
   dateOfBirth: string;
   district: string;
   isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
