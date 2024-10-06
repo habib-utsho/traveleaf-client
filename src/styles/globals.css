@@ -2,7 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 /* Footer */
 .footer-top {
   clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+}
+
+
+
+/* Quil */
+.post-editor-container {
+  border: 1px solid #e0e0e0; /* Light border for the editor */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding around the editor */
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.ql-toolbar {
+  border: none; /* Remove border from the toolbar */
+  background-color: #f7f7f7; /* Light background for the toolbar */
+  border-radius: 8px 8px 0 0; /* Rounded corners on top */
+}
+
+.ql-container {
+  border: none; /* Remove border from the editor */
+  border-radius: 0 0 8px 8px; /* Rounded corners on bottom */
+}
+
+.ql-snow .ql-editor {
+  min-height: 300px; /* Adjust this value to your desired height */
+  padding: 12px; /* Padding inside the editor */
+  font-family: Arial, sans-serif; /* Set font family */
+  font-size: 16px; /* Font size */
+  line-height: 1.5; /* Line height for readability */
+  overflow-y: auto; /* Allow scrolling if content exceeds the height */
 }

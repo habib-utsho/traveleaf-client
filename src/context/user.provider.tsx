@@ -10,7 +10,7 @@ type TUserProvider = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const UserContext = createContext<TUserProvider | null>(null);
+export const UserContext = createContext<TUserProvider | null | any>(null);
 
 const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<TDecodedUser | null>(null);

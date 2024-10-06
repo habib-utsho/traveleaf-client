@@ -7,11 +7,12 @@ import logo from "@/assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SidebarLoading from "./SidebarLoading";
 
 const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
-  const { user } = useUserData();
+  const { user, isLoading } = useUserData();
   const pathname = usePathname();
 
   const sidebarItems =
@@ -36,11 +37,14 @@ const Sidebar: React.FC = () => {
         ]
       : [];
 
+  if (isLoading) {
+    return <SidebarLoading />;
+  }
+
   return (
     <Sider
-      // collapsible
-      // breakpoint="lg"
-      // collapsedWidth="0"
+      collapsible
+      breakpoint="lg"
       className="!h-screen !sticky !top-0 !overflow-y-auto"
     >
       <div className="demo-logo-vertical" />

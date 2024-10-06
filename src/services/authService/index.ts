@@ -50,6 +50,7 @@ const getCurrentUser = async () => {
   if (accessToken) {
     decodedToken = await jwtDecode(accessToken);
     return {
+      ...decodedToken,
       _id: decodedToken?._id,
       email: decodedToken?.email,
       role: decodedToken?.role,
@@ -58,9 +59,28 @@ const getCurrentUser = async () => {
   return decodedToken;
 };
 
+const getTravelerById = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/traveler/${id}`);
+    return response.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data?.message || e.message);
+  }
+};
+const getAdminById = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/admin/${id}`);
+    return response.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data?.message || e.message);
+  }
+};
+
 export {
   registerTraveler as registerPatient,
   signinUser,
   getCurrentUser,
+  getTravelerById,
+  getAdminById,
   signOut,
 };

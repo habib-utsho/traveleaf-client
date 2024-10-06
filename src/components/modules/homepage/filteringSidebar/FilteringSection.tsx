@@ -1,8 +1,8 @@
-import { getCategory } from "@/services/category";
+import { getAllCategory } from "@/services/category";
 import React from "react";
 
 const FilteringSection = async () => {
-  const category = await getCategory();
+  const category = await getAllCategory();
 
   return (
     <div className="h-screen sticky left-0 top-[65px]  bg-white border-r border-primary w-[200px] px-2 pt-4">

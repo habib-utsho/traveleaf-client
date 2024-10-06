@@ -6,6 +6,7 @@ import {
   ArrowUpOutlined,
   ClockCircleOutlined,
   CommentOutlined,
+  DownloadOutlined,
   PushpinOutlined,
 } from "@ant-design/icons";
 import { Card, Image as ImageAntD, Tooltip } from "antd";
@@ -45,7 +46,7 @@ const PostCard = ({ post }: { post: TPost }) => {
       <Card.Meta
         title={
           <Link
-            href={`/specialty/${post?._id}`}
+            href={`/blog/${post?._id}`}
             className="text-primary inline-block"
           >
             <Tooltip title={post.title}>
@@ -70,22 +71,27 @@ const PostCard = ({ post }: { post: TPost }) => {
         />
       </div>
 
-      <div className="mt-4 flex gap-6 flex-wrap">
-        <div className="inline-flex items-center gap-1 bg-gray-400 text-md font-bold rounded-3xl px-2 py-[3px] text-white">
-          <span>
-            <ArrowUpOutlined className="text-lg" />
+      <div className="flex gap-2 justify-between items-center">
+        <div className="flex gap-6 flex-wrap">
+          <div className="inline-flex items-center gap-1 bg-gray-400 text-md font-bold rounded-3xl px-2 py-[3px] text-white cursor-pointer">
+            <span>
+              <ArrowUpOutlined className="text-lg" />
+            </span>
+            <span>500</span>
+            <span>
+              <ArrowDownOutlined className="text-lg" />
+            </span>
+          </div>
+
+          <span className="flex items-center gap-1 cursor-pointer">
+            <CommentOutlined className="text-lg" /> 500
           </span>
-          <span>500</span>
-          <span>
-            <ArrowDownOutlined className="text-lg" />
+          <span className="flex items-center cursor-pointer">
+            <ShareIcon />
           </span>
         </div>
-
-        <span className="flex items-center gap-1">
-          <CommentOutlined className="text-lg" /> 500
-        </span>
-        <span className="flex items-center">
-          <ShareIcon />
+        <span className="flex items-center cursor-pointer text-gray-700">
+          <DownloadOutlined />
         </span>
       </div>
     </Card>

@@ -16,6 +16,18 @@ export const getPost = async () => {
   );
   return response.json();
 };
+export const getSinglePost = async (id: string) => {
+  const fetchOption = {
+    next: {
+      tags: ["post"],
+    },
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/post/${id}`,
+    fetchOption
+  );
+  return response.json();
+};
 
 export const createPost = async (payload: FormData) => {
   try {

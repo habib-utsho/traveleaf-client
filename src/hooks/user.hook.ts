@@ -15,9 +15,9 @@ const useUserData = () => {
   return context;
 };
 
-const useGetAllTraveler = (query: TFilterQuery[]) => {
+const useGetAllTraveler = (query: TFilterQuery[] = []) => {
   return useQuery({
-    queryKey: ["traveler", query],
+    queryKey: ["traveler", ...query.map(({ name, value }) => [name, value])],
     queryFn: async () => {
       return await getAllTraveler(query);
     },

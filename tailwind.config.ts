@@ -1,4 +1,3 @@
-import Paragraph from "antd/es/skeleton/Paragraph";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -28,6 +27,7 @@ const config: Config = {
         },
         secondary: {
           DEFAULT: "#A4D65E", // Soft red for secondary actions
+          // DEFAULT: "#ffd700", // Soft red for secondary actions
           // DEFAULT: "#D1C4E9", // Soft red for secondary actions
         },
         accent: {

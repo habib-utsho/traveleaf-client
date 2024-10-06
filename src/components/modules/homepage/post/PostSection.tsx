@@ -3,12 +3,12 @@ import { TPost } from "@/types/post";
 import { Empty } from "antd";
 import React from "react";
 import PostCard from "./PostCard";
-import { getCategory } from "@/services/category";
+import { getAllCategory } from "@/services/category";
 import CreatePost from "./CreatePost";
 
 const PostSection = async () => {
   const posts = await getPost();
-  const categories = await getCategory();
+  const categories = await getAllCategory();
 
   return (
     <div className="w-3/6 mx-auto">

@@ -47,7 +47,7 @@ const NavbarProfileDropdown = () => {
   return (
     <>
       {isLoading ? (
-        <Skeleton.Avatar active size="large" />
+        <Skeleton.Avatar active size="large" className="relative top-3" />
       ) : user?.email ? (
         <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
           <Avatar
