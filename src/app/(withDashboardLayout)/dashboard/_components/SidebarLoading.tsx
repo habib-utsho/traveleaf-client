@@ -6,7 +6,7 @@ const SidebarLoading = () => {
   return (
     <div className="h-screen bg-slate-800 rounded-r-md w-[200px] fixed top-0 left-0 !z-[5000]">
       <Link href={"/"} className="text-lg text-center pt-4 pb-2 block">
-        Doc Eye
+        TraveLeaf
       </Link>
       {
         <ul className="rounded mt-4 mb-2 px-2">

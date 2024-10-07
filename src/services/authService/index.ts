@@ -1,24 +1,13 @@
 "use server";
 
 import axiosInstance from "@/lib/axiosInstance";
-import { TSignin, TTraveler } from "@/types/user";
+import { TPasswordUpdate, TSignin } from "@/types/user";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
-const registerTraveler = async (payload: TTraveler) => {
-  const formData = new FormData();
-  formData.append("data", JSON.stringify(payload));
-
-  // Append image file if present
-  //   if (fileList.length > 0 && fileList[0]?.originFileObj) {
-  //     console.log(fileList[0].originFileObj, "fileList[0].originFileObj");
-  //     formData.append("file", fileList[0].originFileObj);
-  //   }
+const registerTraveler = async (payload: FormData) => {
   try {
-    const response = await axiosInstance.post(
-      `/user/create-traveler`,
-      formData
-    );
+    const response = await axiosInstance.post(`/user/create-traveler`, payload);
     return response.data;
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
@@ -44,6 +33,18 @@ const signOut = () => {
   cookies().delete("TLrefreshToken");
 };
 
+const changePassword = async (payload: TPasswordUpdate) => {
+  try {
+    const response = await axiosInstance.patch(
+      `/auth/change-password`,
+      payload
+    );
+    return response.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data?.message || e.message);
+  }
+};
+
 const getCurrentUser = async () => {
   const accessToken = cookies().get("TLaccessToken")?.value;
   let decodedToken = null;
@@ -51,12 +52,18 @@ const getCurrentUser = async () => {
     decodedToken = await jwtDecode(accessToken);
     return {
       ...decodedToken,
-      _id: decodedToken?._id,
-      email: decodedToken?.email,
-      role: decodedToken?.role,
     };
   }
   return decodedToken;
+};
+
+const getMe = async () => {
+  try {
+    const response = await axiosInstance.get(`/user/me`);
+    return response.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data?.message || e.message);
+  }
 };
 
 const getTravelerById = async (id: string) => {
@@ -77,10 +84,12 @@ const getAdminById = async (id: string) => {
 };
 
 export {
-  registerTraveler as registerPatient,
+  registerTraveler,
   signinUser,
   getCurrentUser,
   getTravelerById,
   getAdminById,
   signOut,
+  changePassword,
+  getMe,
 };

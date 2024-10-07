@@ -1,5 +1,6 @@
 "use server";
 import { TFilterQuery } from "@/types";
+import { TAdmin, TTraveler } from "@/types/user";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -41,4 +42,37 @@ const deleteTraveler = async (id: string) => {
   return response.json();
 };
 
-export { getAllTraveler, deleteTraveler };
+const updateTraveler = async (id: string, payload: FormData) => {
+  const accessToken = cookies().get("TLaccessToken")?.value;
+  const fetchOption = {
+    method: "PATCH",
+    headers: {
+      Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
+    },
+    body: JSON.stringify(payload),
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/traveler/${id}`,
+    fetchOption
+  );
+  revalidateTag("traveler");
+  return response.json();
+};
+const updateAdmin = async (id: string, payload: FormData) => {
+  const accessToken = cookies().get("TLaccessToken")?.value;
+  const fetchOption = {
+    method: "PATCH",
+    headers: {
+      Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
+    },
+    body: JSON.stringify(payload),
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/admin/${id}`,
+    fetchOption
+  );
+  revalidateTag("admin");
+  return response.json();
+};
+
+export { getAllTraveler, deleteTraveler, updateTraveler, updateAdmin };

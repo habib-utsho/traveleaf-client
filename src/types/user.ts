@@ -79,11 +79,22 @@ export type TDecodedUser = {
   _id: string;
   email: string;
   role: TUserRole;
+  iat: number;
+  exp: number;
+  user: string;
+  profileImg: string;
+  name: string;
+  phone: string;
 };
 
 export type TSignin = {
   email: string;
   password: string;
+};
+
+export type TPasswordUpdate = {
+  oldPassword: string;
+  newPassword: string;
 };
 
 export type TTraveler = {

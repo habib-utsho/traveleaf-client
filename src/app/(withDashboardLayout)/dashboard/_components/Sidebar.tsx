@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SidebarLoading from "./SidebarLoading";
+import ProfilePage from "../traveler/profile/page";
+import ChangePassword from "../traveler/change-password/page";
 
 const { Sider } = Layout;
 
@@ -23,16 +25,22 @@ const Sidebar: React.FC = () => {
           { key: "/dashboard/admin/categories", label: "Categories" },
           { key: "/dashboard/admin/posts", label: "Posts" },
           { key: "/dashboard/admin/subscription", label: "Subscription" },
+          { key: "/dashboard/admin/profile", label: "Profile" },
+          { key: "/dashboard/admin/change-password", label: "Change password" },
         ]
       : user?.role === role.TRAVELER
       ? [
           { key: "/dashboard/traveler", label: "Dashboard" },
           { key: "/dashboard/traveler/categories", label: "Categories" },
           { key: "/dashboard/traveler/traveler/posts", label: "Posts" },
-          { key: "/dashboard/traveler/traveler/profile", label: "Profile" },
           {
             key: "/dashboard/traveler/traveler/subscription",
             label: "Subscription",
+          },
+          { key: "/dashboard/traveler/profile", label: "Profile" },
+          {
+            key: "/dashboard/traveler/change-password",
+            label: "Change password",
           },
         ]
       : [];
