@@ -44,12 +44,13 @@ const deleteTraveler = async (id: string) => {
 
 const updateTraveler = async (id: string, payload: FormData) => {
   const accessToken = cookies().get("TLaccessToken")?.value;
+
   const fetchOption = {
     method: "PATCH",
     headers: {
       Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
     },
-    body: JSON.stringify(payload),
+    body: payload,
   };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/traveler/${id}`,
@@ -60,12 +61,13 @@ const updateTraveler = async (id: string, payload: FormData) => {
 };
 const updateAdmin = async (id: string, payload: FormData) => {
   const accessToken = cookies().get("TLaccessToken")?.value;
+
   const fetchOption = {
     method: "PATCH",
     headers: {
       Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
     },
-    body: JSON.stringify(payload),
+    body: payload,
   };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/admin/${id}`,

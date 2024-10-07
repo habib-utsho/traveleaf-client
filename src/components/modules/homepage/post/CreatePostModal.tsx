@@ -25,7 +25,6 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleSubmitPost = (values: TPost) => {
-    console.log(values, postContent);
     if (!postContent) {
       return message.error("Content is required!");
     }
