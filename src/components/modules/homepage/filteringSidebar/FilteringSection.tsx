@@ -1,4 +1,5 @@
 import { getAllCategory } from "@/services/category";
+import { TCategory } from "@/types/category";
 import React from "react";
 
 const FilteringSection = async () => {
@@ -9,7 +10,7 @@ const FilteringSection = async () => {
       <div className="space-y-2 border rounded p-1">
         <h2 className="font-semibold text-md">Category</h2>
         <ul className="flex flex-col space-y-1 h-[250px] overflow-y-auto">
-          {category?.data?.map((cat: any) => {
+          {category?.data?.map((cat: TCategory) => {
             return (
               <li
                 className="bg-primary-50 py-1 px-2 rounded text-sm"

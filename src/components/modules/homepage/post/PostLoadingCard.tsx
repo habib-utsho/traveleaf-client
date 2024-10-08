@@ -1,5 +1,5 @@
 "use client";
-import { Card, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import React from "react";
 
 const PostLoadingCard = () => {

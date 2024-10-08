@@ -1,7 +1,7 @@
 import MyInp from "@/components/ui/Form/MyInp";
 import { useCreateCategory, useUpdateCategory } from "@/hooks/category.hook";
 import { TCategory } from "@/types/category";
-import { Button, Form, message, Modal } from "antd";
+import { Button, Form, Modal } from "antd";
 import React, { useEffect } from "react";
 
 type TProps = {

@@ -10,6 +10,7 @@ export const createSubscription = async (payload: TSubscription) => {
     const response = await axiosInstance.post(`/subscription`, payload);
     revalidateTag("subscription");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to subscribe!"

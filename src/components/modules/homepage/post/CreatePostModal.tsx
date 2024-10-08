@@ -1,6 +1,6 @@
 "use client";
 import MyInp from "@/components/ui/Form/MyInp";
-import { useCreatePost, useDeletePost } from "@/hooks/post.hook";
+import { useCreatePost } from "@/hooks/post.hook";
 import { useUserData } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
@@ -45,9 +45,14 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
   useEffect(() => {
     if (isSuccess) {
       form.resetFields();
+      setFileList([]);
       setIsModalOpen(false);
+      setPostContent("");
     }
-  }, [form, isSuccess]);
+    if (isPendingCreatePost) {
+      message.loading("Please wait...");
+    }
+  }, [form, isSuccess, isPendingCreatePost]);
 
   const toolbarOptions = [
     [{ header: [1, 2, false] }],

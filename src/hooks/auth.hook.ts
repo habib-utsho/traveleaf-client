@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   TDecodedUser,
-  TTraveler,
   TSignin,
   TPasswordUpdate,
 } from "../types/user";

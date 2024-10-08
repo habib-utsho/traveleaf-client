@@ -11,6 +11,7 @@ import Image from "next/image";
 const { Search } = Input;
 const User = () => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TFilterQuery[]>([]);
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
 

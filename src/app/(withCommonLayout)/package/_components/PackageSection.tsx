@@ -1,39 +1,35 @@
-import Empty from "@/src/components/shared/Empty";
-import { getSpecialty } from "@/src/services/specialty";
-import { TSpecialty } from "@/src/types/specialty";
-import { Image } from "@nextui-org/image";
-import { Tooltip } from "@nextui-org/tooltip";
+import { Empty, Tooltip } from "antd";
 import Link from "next/link";
-import React from "react";
+import { getAllPackages } from "@/services/package";
+import { TPackage } from "@/types/package";
 
-const SpecialtySection = async () => {
-  const specialty = await getSpecialty();
+const PackageSection = async () => {
+  const packages = await getAllPackages([
+    { name: "isDeleted", value: "false" },
+  ]);
 
   return (
     <>
-      {specialty?.data?.length === 0 ? (
-        <Empty description="No specialty found" />
+      {packages?.data?.length === 0 ? (
+        <Empty description="No packages found" />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {specialty.data?.map((item: TSpecialty) => {
+          {packages.data.map((packageI: TPackage) => {
             return (
               <Link
-                href={`/specialty/${item?._id}`}
-                className="flex items-center gap-5 shadow dark:shadow-white p-4 rounded-md"
+                key={packageI._id} // Use a key prop to uniquely identify each element
+                href={`/package/${packageI._id}`}
+                className="flex items-center gap-5 shadow dark:shadow-white p-4 rounded-md border "
               >
-                <figure className="">
-                  <Image
-                    src={item.icon}
-                    alt={item.name}
-                    isBlurred
-                    className="max-w-[50px] rounded-md"
-                  />
-                </figure>
-                <div>
-                  <h2 className={`text-lg font-bold`}>{item.name}</h2>
-                  <Tooltip content={item.description}>
-                    <p className="line-clamp-3">{item.description}</p>
+                <div className="space-y-2">
+                  <h2 className="text-lg font-bold">{packageI.name}</h2>
+                  <Tooltip title={packageI.description}>
+                    <p className="line-clamp-3">{packageI.description}</p>
                   </Tooltip>
+                  <p className="text-sm text-gray-500">
+                    Price: {packageI.price} {packageI.currencyType} /{" "}
+                    {packageI.durationInMonths} month(s)
+                  </p>
                 </div>
               </Link>
             );
@@ -44,4 +40,4 @@ const SpecialtySection = async () => {
   );
 };
 
-export default SpecialtySection;
+export default PackageSection;

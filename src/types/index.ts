@@ -19,5 +19,6 @@ export type TResponse<T> = {
 
 export type TFilterQuery = {
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 };

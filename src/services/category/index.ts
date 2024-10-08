@@ -28,6 +28,7 @@ export const createCategory = async (payload: TCategory) => {
     const response = await axiosInstance.post(`/category`, payload);
     revalidateTag("category");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to create category!"
@@ -42,6 +43,7 @@ export const updateCategory = async (payload: TCategory) => {
     );
     revalidateTag("category");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to update category!"
@@ -53,6 +55,7 @@ export const deleteCategory = async (id: string) => {
     const response = await axiosInstance.delete(`/category/${id}`);
     revalidateTag("category");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to delete category!"

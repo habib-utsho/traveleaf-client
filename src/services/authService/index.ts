@@ -9,6 +9,7 @@ const registerTraveler = async (payload: FormData) => {
   try {
     const response = await axiosInstance.post(`/user/create-traveler`, payload);
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
   }
@@ -22,6 +23,7 @@ const signinUser = async (payload: TSignin) => {
       cookies().set("TLrefreshToken", response?.data?.data?.refreshToken);
     }
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error(e.response?.data?.message || e.message, "error");
     throw new Error(e.response?.data?.message || e.message);
@@ -40,6 +42,7 @@ const changePassword = async (payload: TPasswordUpdate) => {
       payload
     );
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
   }
@@ -70,6 +73,7 @@ const getTravelerById = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/traveler/${id}`);
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
   }
@@ -78,6 +82,7 @@ const getAdminById = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/admin/${id}`);
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
   }

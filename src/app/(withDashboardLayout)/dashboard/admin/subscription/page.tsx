@@ -2,7 +2,6 @@
 import { Empty, Input, Skeleton, Table } from "antd";
 import { useState } from "react";
 import { TFilterQuery } from "@/types";
-import { TSubscription } from "@/types/subscription"; // Make sure to define TSubscription in your types
 import Image from "next/image";
 import { useGetAllSubscription } from "@/hooks/subscription.hook";
 import { TPackage } from "@/types/package";
@@ -12,6 +11,7 @@ const { Search } = Input;
 
 const Subscription = () => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TFilterQuery[]>([]);
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
 

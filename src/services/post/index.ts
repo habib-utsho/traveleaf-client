@@ -14,6 +14,7 @@ export const createPost = async (payload: FormData) => {
 
     revalidateTag("post");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to create post!"
@@ -58,6 +59,7 @@ export const deletePost = async (id: string) => {
     const response = await axiosInstance.delete(`/post/${id}`);
     revalidateTag("post");
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(
       e.response?.data?.message || e.message || "Failed to delete post!"

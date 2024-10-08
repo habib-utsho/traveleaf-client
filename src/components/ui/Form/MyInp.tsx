@@ -15,6 +15,7 @@ type MyInpProps = {
     | "select"
     | "textarea"
     | "date";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules?: any[];
   disabled?: boolean;
   placeholder: string;

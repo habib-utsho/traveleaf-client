@@ -34,13 +34,7 @@ const SigninPage = () => {
   const redirect = searchParams.get("redirect");
   const [form] = Form.useForm();
 
-  const {
-    mutate: handleSignin,
-    isPending,
-    isSuccess,
-    data,
-    error,
-  } = useUserSignin({ redirect });
+  const { mutate: handleSignin, isPending } = useUserSignin({ redirect });
 
   const onSubmit: FormProps<TSignin>["onFinish"] = (payload: TSignin) => {
     handleSignin(payload);
@@ -88,6 +82,7 @@ const SigninPage = () => {
                   type="email"
                   name="email"
                   label="Email"
+                  rules={[{ required: true, message: "Email is required" }]}
                 />
                 <MyInp
                   placeholder="Enter your password"
@@ -95,6 +90,7 @@ const SigninPage = () => {
                   name="password"
                   label="Password"
                   prefix={<LockOutlined />}
+                  rules={[{ required: true, message: "Password is required" }]}
                 />
 
                 <Button
