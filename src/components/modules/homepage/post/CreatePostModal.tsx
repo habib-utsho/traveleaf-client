@@ -1,6 +1,6 @@
 "use client";
 import MyInp from "@/components/ui/Form/MyInp";
-import { useCreatePost } from "@/hooks/post.hook";
+import { useDeletePost } from "@/hooks/post.hook";
 import { useUserData } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
@@ -21,7 +21,7 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
     mutate: createPost,
     isPending: isPendingCreatePost,
     isSuccess,
-  } = useCreatePost();
+  } = useDeletePost();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleSubmitPost = (values: TPost) => {

@@ -7,7 +7,7 @@ export type TPost = {
   banner: string;
   content: string;
   author: TTraveler | TAdmin;
-  authorType: string;
+  authorType: "Traveler" | "Admin";
   category: TCategory;
   isPremium: boolean;
   upvotes: number;

@@ -1,6 +1,5 @@
 "use server";
 import { TFilterQuery } from "@/types";
-import { TAdmin, TTraveler } from "@/types/user";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 

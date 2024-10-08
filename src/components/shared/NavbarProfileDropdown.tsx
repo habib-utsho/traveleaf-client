@@ -33,10 +33,10 @@ const NavbarProfileDropdown = () => {
         <a href={`/dashboard/${user?.role}`}>Dashboard</a>
       </Menu.Item>
       <Menu.Item key="profile">
-        <a href="/dashboard/profile">Profile</a>
+        <a href={`/dashboard//${user?.role}/profile`}>Profile</a>
       </Menu.Item>
       <Menu.Item key="change-password">
-        <a href="/dashboard/change-password">Change Password</a>
+        <a href={`/dashboard/${user?.role}/change-password`}>Change Password</a>
       </Menu.Item>
       <Menu.Item key="signOut" danger onClick={handleSignOut}>
         Sign out
@@ -52,7 +52,10 @@ const NavbarProfileDropdown = () => {
         <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
           <Avatar
             size="large"
-            src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
+            src={
+              user?.profileImg ||
+              "https://i.pravatar.cc/150?u=a04258a2462d826712d"
+            }
             className="cursor-pointer"
           />
         </Dropdown>

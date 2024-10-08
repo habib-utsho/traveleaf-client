@@ -1,46 +1,115 @@
 import { Layout, Menu } from "antd";
-import React from "react";
-import { MailFilled } from "@ant-design/icons";
+import React, { useState } from "react";
+import {
+  MailFilled,
+  UserOutlined,
+  DashboardOutlined,
+  FileTextOutlined,
+  SettingOutlined,
+  EditOutlined,
+  KeyOutlined,
+} from "@ant-design/icons";
 import { role } from "@/constant/user.constant";
 import { useUserData } from "@/hooks/user.hook";
 import logo from "@/assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SidebarLoading from "./SidebarLoading";
-import ProfilePage from "../traveler/profile/page";
-import ChangePassword from "../traveler/change-password/page";
 
 const { Sider } = Layout;
 
 const Sidebar: React.FC = () => {
   const { user, isLoading } = useUserData();
   const pathname = usePathname();
+  const router = useRouter();
+  const [collapsed, setCollapsed] = useState(false); // State to track sidebar collapse
 
+  // Sidebar items with profile submenu
   const sidebarItems =
     user?.role === role.ADMIN
       ? [
-          { key: "/dashboard/admin", label: "Dashboard" },
-          { key: "/dashboard/admin/users", label: "Users" },
-          { key: "/dashboard/admin/categories", label: "Categories" },
-          { key: "/dashboard/admin/posts", label: "Posts" },
-          { key: "/dashboard/admin/subscription", label: "Subscription" },
-          { key: "/dashboard/admin/profile", label: "Profile" },
-          { key: "/dashboard/admin/change-password", label: "Change password" },
+          {
+            key: "/dashboard/admin",
+            label: "Dashboard",
+            icon: <DashboardOutlined />,
+          },
+          {
+            key: "/dashboard/admin/users",
+            label: "Users",
+            icon: <UserOutlined />,
+          },
+          {
+            key: "/dashboard/admin/categories",
+            label: "Categories",
+            icon: <FileTextOutlined />,
+          },
+          {
+            key: "/dashboard/admin/posts",
+            label: "Posts",
+            icon: <FileTextOutlined />,
+          },
+          {
+            key: "/dashboard/admin/subscription",
+            label: "Subscription",
+            icon: <SettingOutlined />,
+          },
+          {
+            key: "/dashboard/admin/profile",
+            label: "Profile",
+            icon: <UserOutlined />,
+            children: [
+              {
+                key: "/dashboard/admin/profile",
+                label: "Edit Profile",
+                icon: <EditOutlined />,
+              },
+              {
+                key: "/dashboard/admin/change-password",
+                label: "Change Password",
+                icon: <KeyOutlined />,
+              },
+            ],
+          },
         ]
       : user?.role === role.TRAVELER
       ? [
-          { key: "/dashboard/traveler", label: "Dashboard" },
-          { key: "/dashboard/traveler/categories", label: "Categories" },
-          { key: "/dashboard/traveler/traveler/posts", label: "Posts" },
           {
-            key: "/dashboard/traveler/traveler/subscription",
-            label: "Subscription",
+            key: "/dashboard/traveler",
+            label: "Dashboard",
+            icon: <DashboardOutlined />,
           },
-          { key: "/dashboard/traveler/profile", label: "Profile" },
           {
-            key: "/dashboard/traveler/change-password",
-            label: "Change password",
+            key: "/dashboard/traveler/categories",
+            label: "Categories",
+            icon: <FileTextOutlined />,
+          },
+          {
+            key: "/dashboard/traveler/posts",
+            label: "Posts",
+            icon: <FileTextOutlined />,
+          },
+          {
+            key: "/dashboard/traveler/subscription",
+            label: "Subscription",
+            icon: <SettingOutlined />,
+          },
+          {
+            key: "/dashboard/traveler/profile",
+            label: "Profile",
+            icon: <UserOutlined />,
+            children: [
+              {
+                key: "/dashboard/traveler/profile",
+                label: "Edit Profile",
+                icon: <EditOutlined />,
+              },
+              {
+                key: "/dashboard/traveler/change-password",
+                label: "Change Password",
+                icon: <KeyOutlined />,
+              },
+            ],
           },
         ]
       : [];
@@ -52,7 +121,8 @@ const Sidebar: React.FC = () => {
   return (
     <Sider
       collapsible
-      breakpoint="lg"
+      collapsed={collapsed}
+      onCollapse={setCollapsed}
       className="!h-screen !sticky !top-0 !overflow-y-auto"
     >
       <div className="demo-logo-vertical" />
@@ -60,37 +130,44 @@ const Sidebar: React.FC = () => {
         <Image
           src={logo}
           alt="TraveLeaf"
-          className="h-[120px] w-[120px] mx-auto"
+          className={`${
+            collapsed ? "!h-[40px] !w-[40px]" : "h-[120px]  w-[120px]"
+          }  mx-auto cursor-pointer`}
+          onClick={() => router.push("/")}
         />
       </div>
 
-      {/* {user?.profileImg && (
-        <div className="mb-6 space-y-2 mt-4 mx-3 text-center">
-          <Image
-            height={100}
-            width={100}
-            src={user.profileImg}
-            alt={user || "User Image"}
-            className="w-full rounded-full"
-          />
+      {!collapsed && (
+        <div className="mb-6 mx-3 text-gray-500">
+          <h2>
+            <MailFilled /> {user?.email}
+          </h2>
         </div>
-      )} */}
+      )}
 
-      <div className="mb-6 mx-3 text-gray-500">
-        <h2>
-          <MailFilled /> {user?.email}
-        </h2>
-      </div>
-
-      <Menu
-        theme="dark"
-        mode="inline"
-        selectedKeys={[pathname]}
-        items={sidebarItems.map(({ key, label }) => ({
-          key,
-          label: <Link href={key}>{label}</Link>,
-        }))}
-      />
+      <Menu theme="dark" mode="inline" selectedKeys={[pathname]}>
+        {sidebarItems.map(({ key, label, icon, children }) =>
+          children ? (
+            <Menu.SubMenu
+              key={key}
+              icon={collapsed ? icon : icon}
+              title={collapsed ? icon : label}
+            >
+              {children.map((child) => (
+                <Menu.Item key={child.key} icon={child.icon}>
+                  <Link href={child.key}>
+                    {collapsed ? child.icon : child.label}
+                  </Link>
+                </Menu.Item>
+              ))}
+            </Menu.SubMenu>
+          ) : (
+            <Menu.Item key={key} icon={icon}>
+              <Link href={key}>{collapsed ? icon : label}</Link>
+            </Menu.Item>
+          )
+        )}
+      </Menu>
     </Sider>
   );
 };

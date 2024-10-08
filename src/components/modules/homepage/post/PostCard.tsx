@@ -8,23 +8,39 @@ import {
   CommentOutlined,
   DownloadOutlined,
   PushpinOutlined,
+  TrophyOutlined,
 } from "@ant-design/icons";
 import { Card, Image as ImageAntD, Tooltip } from "antd";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const PostCard = ({ post }: { post: TPost }) => {
+  const router = useRouter();
   return (
     <Card key={post?._id} className="shadow dark:shadow-white">
       <Card.Meta
         title={
           <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
-            <div>
-              <Link
-                href={`/profile/${post?.author?._id}`}
-                className="flex items-center gap-2 flex-wrap text-primary"
+            <Tooltip
+              title={
+                post?.authorType === "Traveler"
+                  ? "Click to view profile"
+                  : post?.authorType === "Admin"
+                  ? "Admin - No profile view available"
+                  : ""
+              }
+            >
+              <div
+                onClick={() =>
+                  post?.authorType === "Traveler" &&
+                  router.push(`/profile/${post?.author?._id}`)
+                }
+                className={`flex items-center gap-2 flex-wrap text-primary ${
+                  post?.authorType === "Admin" ? "" : "cursor-pointer"
+                }`}
               >
                 <Image
                   src={post.author?.profileImg}
@@ -33,9 +49,20 @@ const PostCard = ({ post }: { post: TPost }) => {
                   width={30}
                   height={30}
                 />
-                <span>{post.author?.name}</span>
-              </Link>
-            </div>
+                <div className="flex gap-[2px] flex-col p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200">
+                  <span className="font-semibold text-primary">
+                    {post.author?.name}
+                  </span>
+                  {post.authorType === "Admin" && (
+                    <span className="flex gap-1 items-center font-semibold text-warning">
+                      <TrophyOutlined />
+                      {post.authorType}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </Tooltip>
+
             <p className="flex flex-wrap gap-1 items-center">
               <ClockCircleOutlined />
               {moment(new Date(post.createdAt)).fromNow()}

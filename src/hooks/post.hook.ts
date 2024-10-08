@@ -1,4 +1,9 @@
-import { createPost, getPost } from "@/services/post";
+import {
+  createPost,
+  deletePost,
+  getAllPost,
+  getSinglePost,
+} from "@/services/post";
 import { TFilterQuery } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // import { useRouter } from "next/navigation";
@@ -26,12 +31,44 @@ export const useCreatePost = () => {
     },
   });
 };
-export const useGetPost = (query: TFilterQuery[] = []) => {
+export const useGetAllPost = (query: TFilterQuery[] = []) => {
   // const router = useRouter();
   return useQuery({
     queryKey: ["post", ...query.map(({ name, value }) => [name, value])],
     queryFn: async () => {
-      return await getPost(query);
+      return await getAllPost(query);
+    },
+  });
+};
+export const useGetSinglePost = (id: string) => {
+  // const router = useRouter();
+  return useQuery({
+    queryKey: ["post"],
+    queryFn: async () => {
+      return await getSinglePost(id);
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["post"],
+    mutationFn: async (id: string) => await deletePost(id),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "post deleted successfully!");
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+
+        // router.push("/post");
+      } else {
+        message.error(data?.message || "Failed to delete post!");
+      }
+    },
+    onError(error) {
+      message.error(error?.message || "Failed to delete post!");
     },
   });
 };

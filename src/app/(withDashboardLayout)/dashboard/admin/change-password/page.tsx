@@ -24,11 +24,7 @@ const ChangePassword = () => {
       message.loading("Changing password...");
     }
     if (isSuccessChangePassword) {
-      message.success("Password changed successfully!");
       changePassForm.resetFields();
-    }
-    if (error) {
-      message.error(error?.message || "Failed to change password!");
     }
   }, [isLoadingChangePassword, isSuccessChangePassword, error, changePassForm]);
 

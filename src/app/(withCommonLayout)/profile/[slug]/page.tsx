@@ -9,7 +9,7 @@ import profileBanner from "@/assets/images/profile/profile_banner.jpg";
 import { LocationIcon, VerifiedBadgeIcon } from "@/components/ui/icons";
 import { TTraveler } from "@/types/user";
 import ContactInfoModal from "./_components/ContactInfoModal";
-import { getPost } from "@/services/post";
+import { getAllPost } from "@/services/post";
 import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
 import PostCard from "@/components/modules/homepage/post/PostCard";
@@ -21,7 +21,7 @@ const TravelerDetailsPage = async ({
 }) => {
   // Fetch the traveler data using the ID (slug from URL parameters)
   const travelerRes = await getTravelerById(params?.slug);
-  const postRes = await getPost([{ name: "author", value: params?.slug }]);
+  const postRes = await getAllPost([{ name: "author", value: params?.slug }]);
 
   const traveler = travelerRes as TResponse<TTraveler>;
   const posts = postRes as TResponse<TPost[]>;

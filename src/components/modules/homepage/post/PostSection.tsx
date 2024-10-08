@@ -1,4 +1,4 @@
-import { getPost } from "@/services/post";
+import { getAllPost } from "@/services/post";
 import { TPost } from "@/types/post";
 import { Empty } from "antd";
 import React from "react";
@@ -7,7 +7,7 @@ import { getAllCategory } from "@/services/category";
 import CreatePost from "./CreatePost";
 
 const PostSection = async () => {
-  const posts = await getPost(undefined);
+  const posts = await getAllPost(undefined);
   const categories = await getAllCategory();
 
   return (

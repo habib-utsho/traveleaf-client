@@ -9,7 +9,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <div className="flex justify-between relative">
         <Sidebar />
-        <main className="flex-1 bg-slate-50 text-black">
+        <main className="flex-1 min-h-screen bg-slate-50 text-black">
           <DashboardNavbar />
           {children}
         </main>
