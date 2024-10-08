@@ -11,6 +11,7 @@ export const createPost = async (payload: FormData) => {
         "Content-Type": "multipart/form-data",
       },
     });
+
     revalidateTag("post");
     return response.data;
   } catch (e: any) {
