@@ -10,6 +10,7 @@ type TUserProvider = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const UserContext = createContext<TUserProvider | null | any>(null);
 
 const UserContextProvider = ({ children }: { children: ReactNode }) => {

@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+
+import React, { Suspense } from "react";
 import signBG from "@/assets/images/about/6345959.jpg";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"; // Keep this
 import { Button, Divider, Form, FormProps, Table } from "antd";
 import { useUserSignin } from "@/hooks/auth.hook";
 import { TSignin } from "@/types/user";
@@ -28,10 +29,9 @@ const columns = [
   },
 ];
 
-// Need to change password
 const SigninPage = () => {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  const searchParams = useSearchParams(); // Keep this hook
+  const redirect = searchParams.get("redirect"); // Get the "redirect" param
   const [form] = Form.useForm();
 
   const { mutate: handleSignin, isPending } = useUserSignin({ redirect });
@@ -96,8 +96,10 @@ const SigninPage = () => {
                 <Button
                   loading={isPending}
                   htmlType="submit"
-                  color="primary"
-                  className="text-white"
+                  type="primary"
+                  block
+                  size="middle"
+                  className="text-white w-full"
                 >
                   Signin
                 </Button>
@@ -133,7 +135,7 @@ const SigninPage = () => {
               </div>
             </div>
 
-            {/* signin right */}
+            {/* Signin right */}
             <div className="bg-slate-800 bg-opacity-60 hidden xl:flex items-center justify-center text-white rounded-r flex-1 p-5">
               <div className="space-y-4">
                 <h2 className="my-subtitle">
@@ -149,4 +151,13 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+// Wrapping with Suspense
+const SigninPageWrapper = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SigninPage />
+    </Suspense>
+  );
+};
+
+export default SigninPageWrapper;

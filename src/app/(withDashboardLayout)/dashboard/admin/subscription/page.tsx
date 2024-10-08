@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useGetAllSubscription } from "@/hooks/subscription.hook";
 import { TPackage } from "@/types/package";
 import moment from "moment";
+import { TSubscription } from "@/types/subscription";
 
 const { Search } = Input;
 
@@ -100,7 +101,7 @@ const Subscription = () => {
           dataSource={subscriptions?.data}
           scroll={{ x: 800 }}
           loading={isLoadingSubscriptions}
-          rowClassName={(record) =>
+          rowClassName={(record: TSubscription) =>
             !record.isActive ? "opacity-50 pointer-events-none" : ""
           }
           pagination={{

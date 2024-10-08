@@ -64,6 +64,7 @@ const getMe = async () => {
   try {
     const response = await axiosInstance.get(`/user/me`);
     return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new Error(e.response?.data?.message || e.message);
   }
