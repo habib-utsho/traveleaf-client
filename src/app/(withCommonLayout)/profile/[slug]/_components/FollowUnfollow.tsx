@@ -55,16 +55,22 @@ const FollowUnfollow = ({ traveler }: { traveler: TTraveler }) => {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
-    <div>
+    <div className="space-y-2">
+      {/* <div className="flex gap-4 items-center flex-wrap font-semibold text-sm">
+        <p className=" text-primary cursor-pointer">
+          {traveler?.followers?.length} Followers
+        </p>
+        <p className=" text-primary cursor-pointer">
+          {traveler?.following?.length} Following
+        </p>
+      </div> */}
       {isFollowing ? (
         <Button
           type="primary"
           danger
           icon={<MinusCircleOutlined />}
-          loading={isPendingUnfollow}
+          loading={isLoading || isPendingUnfollow}
           onClick={handleUnfollow}
         >
           Unfollow
@@ -73,7 +79,7 @@ const FollowUnfollow = ({ traveler }: { traveler: TTraveler }) => {
         <Button
           type="primary"
           icon={<PlusCircleOutlined />}
-          loading={isPendingFollow}
+          loading={isLoading || isPendingFollow}
           onClick={handleFollow}
           className="!rounded-3xl"
         >

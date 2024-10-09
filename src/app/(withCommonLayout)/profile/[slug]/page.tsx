@@ -14,6 +14,7 @@ import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
 import PostCard from "@/components/modules/homepage/post/PostCard";
 import FollowUnfollow from "./_components/FollowUnfollow";
+import FollowersFollowingModal from "./_components/FollowersFollowingModal";
 
 const TravelerDetailsPage = async ({
   params,
@@ -83,17 +84,19 @@ const TravelerDetailsPage = async ({
             </p>
 
             {/* Followers and following */}
-            <div className="flex gap-4 items-center flex-wrap font-semibold text-sm">
-              <p className=" text-primary cursor-pointer">
+            {/* <p className=" text-primary cursor-pointer">
                 {traveler.data?.followers?.length} Followers
               </p>
               <p className=" text-primary cursor-pointer">
                 {traveler.data?.following?.length} Following
-              </p>
+              </p> */}
+            <div className="flex gap-4 items-center flex-wrap font-semibold text-sm">
+              <FollowersFollowingModal traveler={traveler?.data} isFollowers />
+              <FollowersFollowingModal traveler={traveler?.data} isFollowing />
             </div>
 
             {/* Action to follow and unfollow */}
-              <FollowUnfollow traveler={traveler?.data} />
+            <FollowUnfollow traveler={traveler?.data} />
           </div>
 
           <Divider className="!my-14" />
