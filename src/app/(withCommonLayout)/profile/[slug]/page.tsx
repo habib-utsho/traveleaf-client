@@ -13,6 +13,7 @@ import { getAllPost } from "@/services/post";
 import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
 import PostCard from "@/components/modules/homepage/post/PostCard";
+import FollowUnfollow from "./_components/FollowUnfollow";
 
 const TravelerDetailsPage = async ({
   params,
@@ -90,6 +91,9 @@ const TravelerDetailsPage = async ({
                 {traveler.data?.following?.length} Following
               </p>
             </div>
+
+            {/* Action to follow and unfollow */}
+              <FollowUnfollow traveler={traveler?.data} />
           </div>
 
           <Divider className="!my-14" />

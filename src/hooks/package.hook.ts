@@ -3,6 +3,7 @@ import {
   deletePackage,
   getAllPackages,
   getSinglePackage,
+  updatePackage,
 } from "@/services/package";
 import { TFilterQuery } from "@/types";
 import { TPackage } from "@/types/package";
@@ -33,8 +34,34 @@ export const useCreatePackage = () => {
     },
   });
 };
+
+export const useUpdatePackage = () => {
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["package"],
+    mutationFn: async (payload: TPackage) => await updatePackage(payload),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "package updated successfully!");
+        queryClient.invalidateQueries({ queryKey: ["package"] });
+
+        // router.push("/package");
+      } else {
+        message.error(data?.message || "Failed to update package!");
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError(error: any) {
+      message.error(error?.message || "Failed to create package!");
+    },
+  });
+};
+
 export const useGetAllPackage = (query: TFilterQuery[] = []) => {
   // const router = useRouter();
+
   return useQuery({
     queryKey: ["package", ...query.map(({ name, value }) => [name, value])],
     queryFn: async () => {

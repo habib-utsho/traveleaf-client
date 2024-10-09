@@ -58,6 +58,38 @@ const updateTraveler = async (id: string, payload: FormData) => {
   revalidateTag("traveler");
   return response.json();
 };
+const followTraveler = async (id: string) => {
+  const accessToken = cookies().get("TLaccessToken")?.value;
+
+  const fetchOption = {
+    method: "PATCH",
+    headers: {
+      Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
+    },
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/traveler/follow-traveler/${id}`,
+    fetchOption
+  );
+  revalidateTag("traveler");
+  return response.json();
+};
+const unfollowTraveler = async (id: string) => {
+  const accessToken = cookies().get("TLaccessToken")?.value;
+
+  const fetchOption = {
+    method: "PATCH",
+    headers: {
+      Authorization: ` ${accessToken ? `Bearer ${accessToken}` : undefined}`,
+    },
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/traveler/unfollow-traveler/${id}`,
+    fetchOption
+  );
+  revalidateTag("traveler");
+  return response.json();
+};
 const updateAdmin = async (id: string, payload: FormData) => {
   const accessToken = cookies().get("TLaccessToken")?.value;
 
@@ -76,4 +108,11 @@ const updateAdmin = async (id: string, payload: FormData) => {
   return response.json();
 };
 
-export { getAllTraveler, deleteTraveler, updateTraveler, updateAdmin };
+export {
+  getAllTraveler,
+  deleteTraveler,
+  updateTraveler,
+  updateAdmin,
+  followTraveler,
+  unfollowTraveler,
+};

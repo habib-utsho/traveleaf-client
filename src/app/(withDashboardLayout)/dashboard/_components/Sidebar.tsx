@@ -8,6 +8,7 @@ import {
   SettingOutlined,
   EditOutlined,
   KeyOutlined,
+  TrophyOutlined,
 } from "@ant-design/icons";
 import { role } from "@/constant/user.constant";
 import { useUserData } from "@/hooks/user.hook";
@@ -48,6 +49,11 @@ const Sidebar: React.FC = () => {
             key: "/dashboard/admin/posts",
             label: "Posts",
             icon: <FileTextOutlined />,
+          },
+          {
+            key: "/dashboard/admin/package",
+            label: "Packages",
+            icon: <TrophyOutlined />,
           },
           {
             key: "/dashboard/admin/subscription",

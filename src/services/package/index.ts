@@ -27,6 +27,11 @@ export const getAllPackages = async (query: TFilterQuery[] = []) => {
     params.append(name, value);
   });
 
+  console.log(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/package?${params.toString()}`,
+    "tst"
+  );
+
   const fetchOption = {
     next: {
       tags: ["package"],

@@ -3,13 +3,15 @@ import { UserContext } from "../context/user.provider";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   deleteTraveler,
+  followTraveler,
   getAllTraveler,
+  unfollowTraveler,
   updateAdmin,
   updateTraveler,
 } from "@/services/user";
 import { TFilterQuery } from "@/types";
 import { message } from "antd";
-import { getAdminById, getTravelerById } from "@/services/authService";
+import { getAdminById, getMe, getTravelerById } from "@/services/authService";
 
 const useUserData = () => {
   const context = useContext(UserContext);
@@ -19,6 +21,15 @@ const useUserData = () => {
   }
 
   return context;
+};
+
+const useGetMe = () => {
+  return useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      return await getMe();
+    },
+  });
 };
 
 const useGetAllTraveler = (query: TFilterQuery[] = []) => {
@@ -83,6 +94,46 @@ const useUpdateTraveler = () => {
     },
   });
 };
+const useFollowTraveler = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["traveler"],
+    mutationFn: async (id: string) => await followTraveler(id),
+    async onSuccess(data) {
+      if (data?.success) {
+        queryClient.invalidateQueries({ queryKey: ["traveler"] });
+        // message.success(
+        //   data?.message || "You have successfully followed the traveler.!"
+        // );
+      } else {
+        message.error(data?.message || "Failed to follow!");
+      }
+    },
+    // onError(error) {
+    //   message.error(error?.message || "Failed to follow!");
+    // },
+  });
+};
+const useUnfollowTraveler = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ["traveler"],
+    mutationFn: async (id: string) => await unfollowTraveler(id),
+    async onSuccess(data) {
+      if (data?.success) {
+        queryClient.invalidateQueries({ queryKey: ["traveler"] });
+        // message.success(
+        //   data?.message || "You have successfully unfollowed the traveler.!"
+        // );
+      } else {
+        message.error(data?.message || "Failed to unfollow!");
+      }
+    },
+    // onError(error) {
+    //   message.error(error?.message || "Failed to unfollow!");
+    // },
+  });
+};
 const useUpdateAdmin = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -105,10 +156,13 @@ const useUpdateAdmin = () => {
 
 export {
   useUserData,
+  useGetMe,
   useGetAllTraveler,
   useGetTravelerById,
   useGetAdminById,
   useDeleteTraveler,
   useUpdateTraveler,
   useUpdateAdmin,
+  useFollowTraveler,
+  useUnfollowTraveler,
 };

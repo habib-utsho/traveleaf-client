@@ -25,6 +25,7 @@ type MyInpProps = {
   size?: "small" | "middle" | "large";
   prefix?: React.ReactNode;
   mode?: "multiple" | "tags" | undefined;
+  rows?: number;
 };
 
 // className="my-inp"
@@ -42,6 +43,7 @@ const MyInp: React.FC<MyInpProps> = ({
   value,
   prefix,
   mode,
+  rows,
 }) => {
   return (
     <Form.Item name={name} label={label} rules={rules} className="flex-1">
@@ -61,6 +63,7 @@ const MyInp: React.FC<MyInpProps> = ({
           size={size}
           placeholder={placeholder}
           disabled={disabled}
+          rows={rows || 4}
         />
       ) : type === "number" ? (
         <InputNumber
@@ -70,6 +73,7 @@ const MyInp: React.FC<MyInpProps> = ({
           size={size}
           placeholder={placeholder}
           disabled={disabled}
+          className="!w-full"
         />
       ) : type === "password" ? (
         <Input.Password
