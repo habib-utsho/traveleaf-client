@@ -35,8 +35,6 @@ body {
   clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
 }
 
-
-
 /* Quil */
 .post-editor-container {
   border: 1px solid #e0e0e0; /* Light border for the editor */
@@ -64,4 +62,11 @@ body {
   font-size: 16px; /* Font size */
   line-height: 1.5; /* Line height for readability */
   overflow-y: auto; /* Allow scrolling if content exceeds the height */
+}
+
+/* Initially hide print content */
+@media screen {
+  #printContent {
+    display: none;
+  }
 }

@@ -17,7 +17,7 @@ export const siteConfig = {
       href: "/package",
     },
     {
-      label: "Contact us",
+      label: "Contact Us",
       href: "/contact",
     },
   ],
@@ -35,7 +35,7 @@ export const siteConfig = {
       href: "/package",
     },
     {
-      label: "Contact us",
+      label: "Contact Us",
       href: "/contact",
     },
   ],
