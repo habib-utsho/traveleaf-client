@@ -2,7 +2,7 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-import { ClockCircleOutlined } from "@ant-design/icons";
+import ClockCircleOutlined from "@ant-design/icons/ClockCircleOutlined";
 import { getTravelerById } from "@/services/authService";
 import { Divider, Empty } from "antd";
 import profileBanner from "@/assets/images/profile/profile_banner.jpg";

@@ -1,6 +1,6 @@
 "use client";
 import { Layout, Menu, Button, Drawer } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import MenuOutlined from "@ant-design/icons/MenuOutlined";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 import NavbarProfileDropdown from "./NavbarProfileDropdown";

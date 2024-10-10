@@ -5,7 +5,8 @@ import {
   useUnfollowTraveler,
 } from "@/hooks/user.hook";
 import { TTraveler } from "@/types/user";
-import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import MinusCircleOutlined from "@ant-design/icons/MinusCircleOutlined";
+import PlusCircleOutlined from "@ant-design/icons/PlusCircleOutlined";
 import { Button, message } from "antd";
 import React, { useEffect, useState } from "react";
 
