@@ -66,3 +66,27 @@ export const deletePost = async (id: string) => {
     );
   }
 };
+export const upvotePost = async (id: string) => {
+  try {
+    const response = await axiosInstance.patch(`/post/upvote/${id}`);
+    revalidateTag("post");
+    return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
+    throw new Error(
+      e.response?.data?.message || e.message || "Failed to upvoted post!"
+    );
+  }
+};
+export const downvotePost = async (id: string) => {
+  try {
+    const response = await axiosInstance.patch(`/post/downvote/${id}`);
+    revalidateTag("post");
+    return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
+    throw new Error(
+      e.response?.data?.message || e.message || "Failed to downvote post!"
+    );
+  }
+};

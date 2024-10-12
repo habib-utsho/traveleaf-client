@@ -10,8 +10,7 @@ export type TPost = {
   authorType: "Traveler" | "Admin";
   category: TCategory;
   isPremium: boolean;
-  upvotes: number;
-  downvotes: number;
+  votes: number;
   upvotedBy: TTraveler[] | TAdmin[];
   downvotedBy: TTraveler[] | TAdmin[];
   isDeleted: boolean;

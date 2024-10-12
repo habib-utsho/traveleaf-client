@@ -1,11 +1,7 @@
 "use client";
-import { ShareIcon } from "@/components/ui/icons";
 import { TPost } from "@/types/post";
 import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
   ClockCircleOutlined,
-  CommentOutlined,
   DownloadOutlined,
   PushpinOutlined,
   TrophyOutlined,
@@ -16,9 +12,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import PostAction from "./PostAction";
 
 const PostCard = ({ post }: { post: TPost }) => {
+
+
   const router = useRouter();
+
+
   return (
     <Card key={post?._id} className="shadow dark:shadow-white">
       <Card.Meta
@@ -29,8 +30,8 @@ const PostCard = ({ post }: { post: TPost }) => {
                 post?.authorType === "Traveler"
                   ? "Click to view profile"
                   : post?.authorType === "Admin"
-                  ? "Admin - No profile view available"
-                  : ""
+                    ? "Admin - No profile view available"
+                    : ""
               }
             >
               <div
@@ -38,9 +39,8 @@ const PostCard = ({ post }: { post: TPost }) => {
                   post?.authorType === "Traveler" &&
                   router.push(`/profile/${post?.author?._id}`)
                 }
-                className={`flex items-center gap-2 flex-wrap text-primary ${
-                  post?.authorType === "Admin" ? "" : "cursor-pointer"
-                }`}
+                className={`flex items-center gap-2 flex-wrap text-primary ${post?.authorType === "Admin" ? "" : "cursor-pointer"
+                  }`}
               >
                 <Image
                   src={post.author?.profileImg}
@@ -99,24 +99,10 @@ const PostCard = ({ post }: { post: TPost }) => {
       </div>
 
       <div className="flex gap-2 justify-between items-center">
-        <div className="flex gap-6 flex-wrap">
-          <div className="inline-flex items-center gap-1 bg-gray-400 text-md font-bold rounded-3xl px-2 py-[3px] text-white cursor-pointer">
-            <span>
-              <ArrowUpOutlined className="text-lg" />
-            </span>
-            <span>500</span>
-            <span>
-              <ArrowDownOutlined className="text-lg" />
-            </span>
-          </div>
 
-          <span className="flex items-center gap-1 cursor-pointer">
-            <CommentOutlined className="text-lg" /> 500
-          </span>
-          <span className="flex items-center cursor-pointer">
-            <ShareIcon />
-          </span>
-        </div>
+        {/* Upvote and downvote */}
+        <PostAction post={post} />
+
         <span className="flex items-center cursor-pointer text-gray-700">
           <DownloadOutlined />
         </span>

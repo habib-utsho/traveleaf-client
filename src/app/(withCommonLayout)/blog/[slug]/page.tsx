@@ -4,19 +4,19 @@ import Image from "next/image";
 import React from "react";
 import moment from "moment";
 import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
-  CommentOutlined,
   PushpinOutlined,
 } from "@ant-design/icons";
-import { ShareIcon } from "@/components/ui/icons";
 import { Divider } from "antd";
+import PostAction from "@/components/modules/homepage/post/PostAction";
+import { TPost } from "@/types/post";
+import { TResponse } from "@/types";
+import Comments from "./_components/comments";
 
 const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Fetch the post using the slug from the URL parameters
-  const { data: post } = await getSinglePost(params?.slug);
+  const { data: post } = await getSinglePost(params?.slug) as TResponse<TPost>;
 
   // Format the post date using moment
   const formattedDate = moment(post?.createdAt).format("MMMM DD, YYYY");
@@ -49,24 +49,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
               </div>
             </div>
 
-            <div className="flex gap-3 flex-wrap items-center">
-              {/* Upvotes and Downvotes */}
-              <div className="inline-flex items-center gap-1 bg-gray-400 text-md font-bold rounded-3xl px-2 py-[3px] text-white cursor-pointer">
-                <ArrowUpOutlined className="text-lg" />
-                <span>500</span>
-                <ArrowDownOutlined className="text-lg" />
-              </div>
-
-              {/* Comments */}
-              <span className="flex items-center gap-1 cursor-pointer">
-                <CommentOutlined className="text-lg" /> 500
-              </span>
-
-              {/* Share Icon */}
-              <span className="flex items-center cursor-pointer">
-                <ShareIcon />
-              </span>
-            </div>
+          <PostAction post={post}/>
           </div>
 
           {/* Post Banner */}
@@ -97,7 +80,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
 
           {/* Post Content */}
           <div
-            className="prose prose-lg prose-gray max-w-none leading-relaxed"
+            className="prose prose-lg prose-gray max-w-none leading-relaxed my-article"
             dangerouslySetInnerHTML={{ __html: post?.content }}
           />
 
@@ -106,9 +89,18 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
           {/* Footer Section */}
           <div className="mt-10 flex items-center justify-between text-gray-600">
             <div>
-              {post?.upvotes} upvotes | {post?.downvotes} downvotes
+              {post.upvotedBy?.length} upvotes | {post?.downvotedBy?.length} downvotes
             </div>
           </div>
+
+        <Divider/>
+
+
+        {/* Comments */}
+        {post?._id && <Comments post={post}/>}
+
+
+
         </div>
       </Container>
     </div>
