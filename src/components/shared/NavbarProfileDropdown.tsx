@@ -1,11 +1,10 @@
 "use client";
 import { Avatar, Button, Dropdown, Menu, Skeleton } from "antd";
-import { HeartFilled } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/services/authService";
 import { protectedRoutes } from "@/constant";
-import { siteConfig } from "@/config/site";
 import { useGetMe, useUserData } from "@/hooks/user.hook";
 import { VerifiedBadgeIcon } from "../ui/icons";
 
@@ -14,6 +13,9 @@ const NavbarProfileDropdown = () => {
   const { data:meData, isPending:isLoadingMeData } = useGetMe();
   const router = useRouter();
   const pathname = usePathname();
+
+
+
 
   const handleSignOut = async () => {
     signOut();
@@ -70,8 +72,8 @@ const NavbarProfileDropdown = () => {
       ) : (
         <Button
           type="primary"
-          href={siteConfig.links.sponsor}
-          icon={<HeartFilled />}
+          href={'/signin'}
+          icon={<UserOutlined />}
         >
           Sign In
         </Button>

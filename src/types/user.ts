@@ -112,6 +112,7 @@ export type TTraveler = {
   following: TTraveler[];
   district: string;
   dateOfBirth: string;
+  status: "basic" | "premium";
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

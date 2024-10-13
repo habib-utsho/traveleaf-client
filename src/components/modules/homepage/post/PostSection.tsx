@@ -6,9 +6,15 @@ import PostCard from "./PostCard";
 import { getAllCategory } from "@/services/category";
 import CreatePost from "./CreatePost";
 
-const PostSection = async () => {
+type TProps = {
+  pagination?: { limit: number; page: number };
+  category?: string | null;
+}
+const PostSection = async ({pagination, category}: TProps) => {
+  console.log(pagination, category, 'post section ')
   const posts = await getAllPost(undefined);
   const categories = await getAllCategory();
+
 
   return (
     <div className="w-3/6 mx-auto">

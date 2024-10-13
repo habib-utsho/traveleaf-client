@@ -92,7 +92,13 @@ const Comments = ({ post }: { post: TPost }) => {
     return (
         <div className='space-y-6' id='comments'>
             {/* Add comment */}
-            <Form form={form} onFinish={handleCreateComment} layout='vertical'>
+      {!user?.data && (
+    <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-2 mb-4">
+       <span className="text-primary" >You{"'"}re not logged in</span> to comment
+    </div>
+  )}
+      
+      <Form className={`${!user?.data && 'blur pointer-events-none'}`} form={form} onFinish={handleCreateComment} layout='vertical'>
                 <MyInp
                     type='textarea'
                     name={'comment'}
@@ -179,7 +185,7 @@ const Comments = ({ post }: { post: TPost }) => {
                     <MyInp
                         type='textarea'
                         name={"comment"}
-                        label='Edit your comment'
+                        label=''
                         defaultValue={editingComment?.comment}
                         placeholder="Edit your comment..."
                         rows={4}

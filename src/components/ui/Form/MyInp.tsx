@@ -15,6 +15,7 @@ type MyInpProps = {
     | "select"
     | "textarea"
     | "date";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules?: any[];
   disabled?: boolean;
   placeholder?: string;
@@ -107,7 +108,7 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : type === "radio" ? (
         <Radio.Group defaultValue={defaultValue} value={value} disabled={disabled}>
           {options?.map(option => (
-            <Radio key={option.value} value={option.value}>
+            <Radio key={option.label} value={option.value}>
               {option.label}
             </Radio>
           ))}

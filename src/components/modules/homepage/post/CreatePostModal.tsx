@@ -1,11 +1,11 @@
 "use client";
 import MyInp from "@/components/ui/Form/MyInp";
 import { useCreatePost } from "@/hooks/post.hook";
-import { useGetMe, useUserData } from "@/hooks/user.hook";
+import { useGetMe } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Modal, Radio, Upload, UploadFile } from "antd";
+import { Button, Form, Input, message, Modal, Upload, UploadFile } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -64,6 +64,7 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
     ["link", "image"],
     ["clean"], // Remove formatting button
   ];
+
 
 
   return (

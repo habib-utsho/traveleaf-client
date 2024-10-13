@@ -18,7 +18,7 @@ const DynamicPostSection = dynamic(
   { ssr: false }
 );
 
-const page = async () => {
+const Homepage = () => {
   return (
     <div className="flex gap-2 justify-between">
       <ErrorBoundary fallback={<FilteringErr />}>
@@ -36,4 +36,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Homepage;

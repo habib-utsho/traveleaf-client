@@ -437,12 +437,7 @@ export const LocationIcon: React.FC<IconSvgProps> = (props) => (
     />
   </svg>
 );
-<<<<<<< HEAD
-
-export const TwoBarMenuIcon: React.FC<IconSvgProps> = (props) => (
-=======
 export const DownloadIcon: React.FC<IconSvgProps> = (props) => (
->>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
   <svg
     aria-hidden="true"
     fill="none"
@@ -455,16 +450,30 @@ export const DownloadIcon: React.FC<IconSvgProps> = (props) => (
     width="1em"
     {...props}
   >
-<<<<<<< HEAD
-    
-  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
 
-=======
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
     />
->>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
+  </svg>
+);
+
+export const TwoBarMenuIcon: React.FC<IconSvgProps> = (props) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    width="1em"
+    {...props}
+  >
+
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+
   </svg>
 );

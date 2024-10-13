@@ -4,12 +4,12 @@ import Loading from '@/components/ui/Loading';
 import { useGetSinglePackage } from '@/hooks/package.hook';
 import { useGetAllPost } from '@/hooks/post.hook';
 import { useCreateSubscription } from '@/hooks/subscription.hook';
-import { useGetMe } from '@/hooks/user.hook';
+import { useGetMe, useUserData } from '@/hooks/user.hook';
 import { TResponse } from '@/types';
 import { TPackage } from '@/types/package';
 import { TPost } from '@/types/post';
 import { TTraveler } from '@/types/user';
-import { Empty, Button, Card, Typography } from 'antd';
+import { Button, Card, Typography } from 'antd';
 import React from 'react';
 
 const { Title, Paragraph } = Typography;
@@ -17,6 +17,8 @@ const { Title, Paragraph } = Typography;
 const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
     const { data: packageRes, isLoading: isLoadingPackage } = useGetSinglePackage(params.slug);
     const packageData = packageRes as TResponse<TPackage>;
+
+  const { isLoading:isLoadingBaseUser, user:baseUser } = useUserData();
 
     const { data: userRes, isLoading: isLoadingUser } = useGetMe();
     const user = userRes as TResponse<TTraveler>;
@@ -47,24 +49,7 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
         return <Loading />;
     }
 
-    if (!packageData || !user?.data) {
-        return <Empty description="Package or user data not found." />;
-    }
 
-    if (!(postsRes?.meta?.total > 0)) {
-        return (
-            <div className='h-[350px] flex items-center justify-center'>
-                <Empty description="You have no upvoted posts to subscribe to this package." />
-            </div>
-        );
-    }
-
-    if (!hasUpvotedPosts) {
-        return <div className='h-[350px] flex items-center justify-center'>
-
-            <Empty description="You have no upvoted posts." />;
-        </div>
-    }
 
     return (
         <div className='py-8'>
@@ -76,12 +61,21 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
                         <strong>Price:</strong> ${packageData.data?.price} {packageData.data?.currencyType}<span className='text-sm'>/{packageData.data?.durationInMonths}</span>
                     </Paragraph>
                     <Button
-                        loading={isLoadingCreateSubscription}
+                        loading={isLoadingCreateSubscription || isLoadingPackage || isLoadingPosts || isLoadingUser || isLoadingBaseUser}
                         type="primary"
                         onClick={handleCreateSubscription}
+                        disabled={user?.data?.status === 'premium' || !hasUpvotedPosts || !user?.data || !packageData?.data || baseUser?.role === 'admin'}
                     >
-                        Subscribe to Package
+                        {!user?.data ? "Sign In needed!" : baseUser?.role === 'admin' ? "Your'e admin" : user?.data?.status === 'premium'
+                            ? "Already Subscribed"
+                            : !hasUpvotedPosts
+                                ? "Need At Least One Upvote Post to Subscribe"
+                                : !packageData?.data
+                                    ? "Package Not Available"
+                                    : "Subscribe to Package"
+                        }
                     </Button>
+
                 </Card>
             </Container>
         </div>

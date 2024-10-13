@@ -44,18 +44,18 @@ const TravelerDetailsPage = async ({
       </div>
       <Container>
 
-
-
         <div className="max-w-4xl mx-auto space-y-4 relative">
-        {traveler?.data?.profileImg && (
-          <Image
-            src={traveler.data?.profileImg}
-            alt={traveler.data?.name}
-            width={100}
-            height={100}
-            className="rounded-full absolute -top-[140px] left-0 border-4 border-primary"
-            />
-        )}
+          {traveler?.data?.profileImg && (
+            <div className="absolute -top-[140px] left-0 h-[120px] w-[120px]">
+              <Image
+                src={traveler.data?.profileImg}
+                alt={traveler.data?.name}
+                width={100}
+                height={100}
+                className="rounded-full h-full w-full  border-4 border-primary"
+              />
+            </div>
+          )}
           <div className="space-y-1">
             <div className="flex justify-between gap-4 flex-wrap">
               {/* Traveler Name */}

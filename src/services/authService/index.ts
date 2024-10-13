@@ -62,7 +62,19 @@ const getCurrentUser = async () => {
 
 const getMe = async () => {
   try {
+    const token = cookies().get("TLaccessToken")?.value
+
+    if(!token){
+      return {
+        success: false,
+        message: "Token not found",
+        data: null
+      }
+    }
     const response = await axiosInstance.get(`/user/me`);
+    if (!response.data) {
+      throw new Error("User not found");
+    }
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {

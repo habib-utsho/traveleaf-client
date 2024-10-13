@@ -3,30 +3,18 @@ import { getSinglePost } from "@/services/post";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-<<<<<<< HEAD
 import {
-  CalendarOutlined,
-  ClockCircleOutlined,
-  PushpinOutlined,
   TrophyOutlined,
 } from "@ant-design/icons";
-import { Divider } from "antd";
 import PostAction from "@/components/modules/homepage/post/PostAction";
 import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
 import Comments from "./_components/comments";
 import ViewProfileAvatar from "@/components/modules/homepage/post/ViewProfileAvatar";
-=======
-import ArrowDownOutlined from "@ant-design/icons/ArrowDownOutlined";
-import ArrowUpOutlined from "@ant-design/icons/ArrowUpOutlined";
 import CalendarOutlined from "@ant-design/icons/CalendarOutlined";
 import ClockCircleOutlined from "@ant-design/icons/ClockCircleOutlined";
-import CommentOutlined from "@ant-design/icons/CommentOutlined";
 import PushpinOutlined from "@ant-design/icons/PushpinOutlined";
-import { ShareIcon } from "@/components/ui/icons";
 import { Divider } from "antd";
-import DownloadPost from "@/components/modules/homepage/post/DownloadPost";
->>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
 
 const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Fetch the post using the slug from the URL parameters
@@ -84,57 +72,6 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
                 {moment(new Date(post.createdAt)).fromNow()}
               </p>
             </div>
-<<<<<<< HEAD
-=======
-
-            <div className="flex gap-3 flex-wrap items-center">
-              {/* Upvotes and Downvotes */}
-              <div className="inline-flex items-center gap-1 bg-gray-400 text-md font-bold rounded-3xl px-2 py-[3px] text-white cursor-pointer">
-                <ArrowUpOutlined className="text-lg" />
-                <span>500</span>
-                <ArrowDownOutlined className="text-lg" />
-              </div>
-
-              {/* Comments */}
-              <span className="flex items-center gap-1 cursor-pointer">
-                <CommentOutlined className="text-lg" /> 500
-              </span>
-
-              {/* Share Icon */}
-              <span className="flex items-center cursor-pointer">
-                <ShareIcon />
-              </span>
-
-              {/* Share Icon */}
-              <DownloadPost post={post} />
-            </div>
-          </div>
-
-          {/* Post Banner */}
-          {post?.banner && (
-            <div className="relative w-full h-80 mb-8">
-              <Image
-                src={post.banner}
-                alt={post.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-          )}
-
-          <div className="flex items-center gap-3 justify-between text-gray-600">
-            {/* Post Category */}
-            <p className="flex gap-1 items-center text-gray-600">
-              <PushpinOutlined /> {post?.category?.name}
-            </p>
-
-            {/* Post Date and Time */}
-            <p className="flex gap-1 items-center">
-              <ClockCircleOutlined />
-              {moment(new Date(post.createdAt)).fromNow()}
-            </p>
->>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
           </div>
 
           {/* Post Content */}

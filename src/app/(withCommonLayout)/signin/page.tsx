@@ -58,7 +58,7 @@ const SigninPage = () => {
       className="min-h-screen  flex items-center justify-center bg-cover bg-center bg-slate-800 bg-blend-overlay my-28 md:my-0"
       style={{ backgroundImage: `url(${signBG.src})` }}
     >
-      <Container className="w-full xl:w-3/6 mx-auto">
+      <Container className="w-full md:w-4/6 xl:w-3/6 mx-auto">
         <Form
           form={form}
           name="signinForm"

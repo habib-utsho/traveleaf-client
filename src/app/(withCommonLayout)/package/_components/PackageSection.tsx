@@ -19,7 +19,7 @@ const PackageSection = async () => {
               <Link
                 key={packageI._id} // Use a key prop to uniquely identify each element
                 href={`/package/${packageI._id}`}
-                className="flex items-center gap-5 shadow dark:shadow-white p-4 rounded-md border "
+                className="flex items-center gap-5 shadow hover:shadow-xl transition-all duration-500 dark:shadow-white p-4 rounded-md border "
               >
                 <div className="space-y-2">
                   <h2 className="text-lg font-bold">{packageI.name}</h2>
