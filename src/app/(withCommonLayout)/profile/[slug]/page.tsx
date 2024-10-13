@@ -15,6 +15,7 @@ import { TResponse } from "@/types";
 import PostCard from "@/components/modules/homepage/post/PostCard";
 import FollowUnfollow from "./_components/FollowUnfollow";
 import FollowersFollowingModal from "./_components/FollowersFollowingModal";
+import EditProfile from "./_components/EditProfile";
 
 const TravelerDetailsPage = async ({
   params,
@@ -24,7 +25,6 @@ const TravelerDetailsPage = async ({
   // Fetch the traveler data using the ID (slug from URL parameters)
   const travelerRes = await getTravelerById(params?.slug);
   const postRes = await getAllPost([{ name: "author", value: params?.slug }]);
-
 
   const traveler = travelerRes as TResponse<TTraveler>;
   const posts = postRes as TResponse<TPost[]>;
@@ -47,13 +47,17 @@ const TravelerDetailsPage = async ({
         <div className="max-w-4xl mx-auto space-y-4 relative">
           {traveler?.data?.profileImg && (
             <div className="absolute -top-[140px] left-0 h-[120px] w-[120px]">
-              <Image
-                src={traveler.data?.profileImg}
-                alt={traveler.data?.name}
-                width={100}
-                height={100}
-                className="rounded-full h-full w-full  border-4 border-primary"
-              />
+              <div className="relative">
+
+                <Image
+                  src={traveler.data?.profileImg}
+                  alt={traveler.data?.name}
+                  width={100}
+                  height={100}
+                  className="rounded-full h-full w-full  border-4 border-primary"
+                />
+                {traveler?.data && <EditProfile traveler={traveler?.data} className="absolute bottom-0 right-0 text-xl" />}
+              </div>
             </div>
           )}
           <div className="space-y-1">
@@ -64,6 +68,7 @@ const TravelerDetailsPage = async ({
                 {traveler?.data?.user?.status === "premium" && (
                   <VerifiedBadgeIcon className="text-primary" />
                 )}
+
               </h2>
               <p className="flex gap-1 items-center">
                 <ClockCircleOutlined />

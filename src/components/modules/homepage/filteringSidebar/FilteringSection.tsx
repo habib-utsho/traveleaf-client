@@ -11,8 +11,6 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const { data: categories, isPending: isLoadingCategories } = useGetAllCategory();
 
 
-
-
   return (
     <div className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4  ${isMobile ? "block" : 'hidden md:block w-[200px] h-screen sticky space-y-4'} `}>
       <Search

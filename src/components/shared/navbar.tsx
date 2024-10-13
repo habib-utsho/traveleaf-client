@@ -26,7 +26,7 @@ export const Navbar = () => {
   if (user?.data?._id) { // Assuming `user` is null when not signed in
     menuItems.push({
       key: `/profile/${user?.data?._id}`, // or the route for the profile
-      label: <Link href={`/profile/${user?.data?._id}`}>Profile</Link>,
+      label: <Link href={`/profile/${user?.data?._id}`}>My Profile</Link>,
     });
   }
 
@@ -41,9 +41,10 @@ export const Navbar = () => {
   );
 
   if (user?.data?._id) {
+
     drawerMenuItems.props.items.push({
       key: '/profile',
-      label: <Link href="/profile">Profile</Link>,
+      label: <Link href="/profile">My Profile</Link>,
     });
   }
   // Handle Drawer visibility
