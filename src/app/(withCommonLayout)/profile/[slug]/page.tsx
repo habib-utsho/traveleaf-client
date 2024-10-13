@@ -2,7 +2,7 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-import { ClockCircleOutlined } from "@ant-design/icons";
+import ClockCircleOutlined from "@ant-design/icons/ClockCircleOutlined";
 import { getTravelerById } from "@/services/authService";
 import { Divider, Empty } from "antd";
 import profileBanner from "@/assets/images/profile/profile_banner.jpg";
@@ -24,6 +24,7 @@ const TravelerDetailsPage = async ({
   // Fetch the traveler data using the ID (slug from URL parameters)
   const travelerRes = await getTravelerById(params?.slug);
   const postRes = await getAllPost([{ name: "author", value: params?.slug }]);
+
 
   const traveler = travelerRes as TResponse<TTraveler>;
   const posts = postRes as TResponse<TPost[]>;
@@ -100,7 +101,7 @@ const TravelerDetailsPage = async ({
             </div>
 
             {/* Action to follow and unfollow */}
-            <FollowUnfollow traveler={traveler?.data} />
+            {<FollowUnfollow traveler={traveler?.data} />}
           </div>
 
           <Divider className="!my-14" />

@@ -5,7 +5,8 @@ import {
   useUnfollowTraveler,
 } from "@/hooks/user.hook";
 import { TTraveler } from "@/types/user";
-import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import MinusCircleOutlined from "@ant-design/icons/MinusCircleOutlined";
+import PlusCircleOutlined from "@ant-design/icons/PlusCircleOutlined";
 import { Button, message } from "antd";
 import React, { useEffect, useState } from "react";
 
@@ -55,16 +56,11 @@ const FollowUnfollow = ({ traveler }: { traveler: TTraveler }) => {
     });
   };
 
+  if (!data?.data?._id) return null;
+  if (data?.data?._id === traveler?._id) return null;
+
   return (
     <div className="space-y-2">
-      {/* <div className="flex gap-4 items-center flex-wrap font-semibold text-sm">
-        <p className=" text-primary cursor-pointer">
-          {traveler?.followers?.length} Followers
-        </p>
-        <p className=" text-primary cursor-pointer">
-          {traveler?.following?.length} Following
-        </p>
-      </div> */}
       {isFollowing ? (
         <Button
           type="primary"

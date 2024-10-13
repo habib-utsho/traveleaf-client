@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+<<<<<<< HEAD
 
 html{
   scroll-behavior: smooth;
 }
 
+=======
+>>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -35,8 +38,6 @@ body {
 .footer-top {
   clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
 }
-
-
 
 /* Quil */
 .post-editor-container {
@@ -67,6 +68,7 @@ body {
   overflow-y: auto; /* Allow scrolling if content exceeds the height */
 }
 
+<<<<<<< HEAD
 
 
 /* My container */
@@ -136,3 +138,11 @@ u {
   background-color: #f7b733;
   color: black;
 }
+=======
+/* Initially hide print content */
+@media screen {
+  #printContent {
+    display: none;
+  }
+}
+>>>>>>> 9334aa32c4fda69d9eceaf0d8a02229e9abc78dd
