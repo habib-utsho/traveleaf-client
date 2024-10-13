@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import PostAction from "./PostAction";
+import ViewProfileAvatar from "./ViewProfileAvatar";
 
 const PostCard = ({ post }: { post: TPost }) => {
 
@@ -21,52 +22,21 @@ const PostCard = ({ post }: { post: TPost }) => {
 
 
   return (
-    <Card key={post?._id} className="shadow dark:shadow-white">
+    <Card key={post?._id} className={`shadow dark:shadow-white  ${post.isPremium && '!border-2 !border-primary'}`}>
       <Card.Meta
         title={
-          <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
-            <Tooltip
-              title={
-                post?.authorType === "Traveler"
-                  ? "Click to view profile"
-                  : post?.authorType === "Admin"
-                    ? "Admin - No profile view available"
-                    : ""
-              }
-            >
-              <div
-                onClick={() =>
-                  post?.authorType === "Traveler" &&
-                  router.push(`/profile/${post?.author?._id}`)
-                }
-                className={`flex items-center gap-2 flex-wrap text-primary ${post?.authorType === "Admin" ? "" : "cursor-pointer"
-                  }`}
-              >
-                <Image
-                  src={post.author?.profileImg}
-                  alt={post.author?.name}
-                  className="rounded-full"
-                  width={30}
-                  height={30}
-                />
-                <div className="flex gap-[2px] flex-col p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200">
-                  <span className="font-semibold text-primary">
-                    {post.author?.name}
-                  </span>
-                  {post.authorType === "Admin" && (
-                    <span className="flex gap-1 items-center font-semibold text-warning">
-                      <TrophyOutlined />
-                      {post.authorType}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </Tooltip>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4 text-sm">
+            <ViewProfileAvatar post={post}/>
 
-            <p className="flex flex-wrap gap-1 items-center">
+    <div className="flex justify-center items-start md:items-end flex-col gap-2">
+    <p className="flex flex-wrap gap-1 items-center text-xs text-gray-500">
               <ClockCircleOutlined />
               {moment(new Date(post.createdAt)).fromNow()}
             </p>
+
+            {post.isPremium && <span className="text-xs text-gray-500"><TrophyOutlined className="!text-primary-500"/> Premium content</span>}
+    </div>
+
           </div>
         }
       />
@@ -75,7 +45,7 @@ const PostCard = ({ post }: { post: TPost }) => {
           <Link
             href={`/blog/${post?._id}`}
             className="text-primary inline-block"
-          >
+            >
             <Tooltip title={post.title}>
               <span className="line-clamp-1">{post.title}</span>
             </Tooltip>

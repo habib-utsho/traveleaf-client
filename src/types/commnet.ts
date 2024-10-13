@@ -10,7 +10,7 @@ export type TCreateComment = {
     updatedAt?: string;
   }
 export type TComment = {
-    _id?: string
+    _id: string
     user: TTraveler
     post: TPost
     comment: string

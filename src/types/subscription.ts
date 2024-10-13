@@ -1,6 +1,11 @@
 import { TPackage } from "./package";
 import { TTraveler } from "./user";
 
+export interface TCreateSubscription {
+  user: string;
+  package: string;
+  isActive?: boolean;
+}
 export interface TSubscription {
   _id: string;
   user: TTraveler;

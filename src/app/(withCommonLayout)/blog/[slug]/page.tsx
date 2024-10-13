@@ -7,12 +7,14 @@ import {
   CalendarOutlined,
   ClockCircleOutlined,
   PushpinOutlined,
+  TrophyOutlined,
 } from "@ant-design/icons";
 import { Divider } from "antd";
 import PostAction from "@/components/modules/homepage/post/PostAction";
 import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
 import Comments from "./_components/comments";
+import ViewProfileAvatar from "@/components/modules/homepage/post/ViewProfileAvatar";
 
 const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Fetch the post using the slug from the URL parameters
@@ -25,57 +27,51 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
     <div className="py-8 bg-gray-100 min-h-screen">
       <Container>
         <div className="max-w-4xl mx-auto space-y-4">
-          {/* Title */}
-          <h2 className="font-semibold text-2xl md:text-3xl">{post.title}</h2>
+          <div className="bg-white p-4 rounded-t-xl">
+            {/* Title */}
+            <h2 className="font-semibold text-2xl md:text-3xl">{post.title}</h2>
 
-          {/* Author & Engagement Details */}
-          <div className="flex items-center justify-between mb-8 text-gray-600">
-            <div className="flex items-center gap-2">
-              {post?.author?.profileImg && (
-                <Image
-                  src={post.author.profileImg}
-                  alt={post.author.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-              )}
-              <div className="flex flex-col text-sm">
-                <span className="font-semibold">{post?.author?.name}</span>
-                <div className="flex gap-1 items-center">
-                  <CalendarOutlined />
-                  {formattedDate}
-                </div>
+            {/* Author & Engagement Details */}
+            <div className="flex items-center justify-between mb-8 text-gray-600 mt-6">
+              <div className="flex flex-col gap-[4px]">
+              <ViewProfileAvatar post={post} />
+              <div className="flex gap-1 items-center text-sm text-gray-500">
+                <CalendarOutlined />
+                {formattedDate}
+              </div>
+              </div>
+              <div className="flex items-start md:items-end justify-center flex-col flex-wrap gap-1">
+
+                {post.isPremium && <span className="text-sm text-gray-500"><TrophyOutlined className="!text-primary-500"/> Premium content</span>}
+                <PostAction post={post} />
               </div>
             </div>
 
-          <PostAction post={post}/>
-          </div>
+            {/* Post Banner */}
+            {post?.banner && (
+              <div className="relative w-full h-80 mb-8">
+                <Image
+                  src={post.banner}
+                  alt={post.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-lg shadow-lg"
+                />
+              </div>
+            )}
 
-          {/* Post Banner */}
-          {post?.banner && (
-            <div className="relative w-full h-80 mb-8">
-              <Image
-                src={post.banner}
-                alt={post.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg shadow-lg"
-              />
+            <div className="flex items-center gap-3 justify-between text-gray-600">
+              {/* Post Category */}
+              <p className="flex gap-1 items-center text-gray-600">
+                <PushpinOutlined /> {post?.category?.name}
+              </p>
+
+              {/* Post Date and Time */}
+              <p className="flex gap-1 items-center">
+                <ClockCircleOutlined />
+                {moment(new Date(post.createdAt)).fromNow()}
+              </p>
             </div>
-          )}
-
-          <div className="flex items-center gap-3 justify-between text-gray-600">
-            {/* Post Category */}
-            <p className="flex gap-1 items-center text-gray-600">
-              <PushpinOutlined /> {post?.category?.name}
-            </p>
-
-            {/* Post Date and Time */}
-            <p className="flex gap-1 items-center">
-              <ClockCircleOutlined />
-              {moment(new Date(post.createdAt)).fromNow()}
-            </p>
           </div>
 
           {/* Post Content */}
@@ -93,11 +89,11 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
 
-        <Divider/>
+          <Divider />
 
 
-        {/* Comments */}
-        {post?._id && <Comments post={post}/>}
+          {/* Comments */}
+          {post?._id && post.authorType === 'Traveler' && <Comments post={post} />}
 
 
 

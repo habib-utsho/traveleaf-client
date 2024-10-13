@@ -1,21 +1,22 @@
 "use client";
 import MyInp from "@/components/ui/Form/MyInp";
 import { useCreatePost } from "@/hooks/post.hook";
-import { useUserData } from "@/hooks/user.hook";
+import { useGetMe, useUserData } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Modal, Upload, UploadFile } from "antd";
+import { Button, Form, Input, message, Modal, Radio, Upload, UploadFile } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
-  const { isLoading, user } = useUserData();
+  // const { isLoading, user } = useUserData();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
   const [form] = Form.useForm();
+  const { data: user, isPending: isLoading } = useGetMe()
   const [postContent, setPostContent] = useState("");
   const {
     mutate: createPost,
@@ -64,11 +65,12 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
     ["clean"], // Remove formatting button
   ];
 
+
   return (
     <div className="flex-1">
       <Input
-        onClick={() => (user ? setIsModalOpen(true) : router.push("/signin"))}
-        placeholder={`What's on your mind? ${user?.role || ""}`}
+        onClick={() => (user?.data?._id ? setIsModalOpen(true) : router.push("/signin"))}
+        placeholder={`What's on your mind${user?.data?.name ? `, ${user?.data?.name}` : ""} ?`}
         size="large"
       />
       <Modal
@@ -140,13 +142,9 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
             name="category"
             rules={[{ required: true, message: "Please select a category!" }]}
           />
-          {/* <MyInp
-            type="textarea"
-            placeholder="What's on your mind ?"
-            label="Content"
-            name={"content"}
-            rules={[{ required: true, message: "Content is required!" }]}
-          /> */}
+
+{user?.data?.status === 'premium' && <MyInp name={'isPremium'} label="Is premium?" type="radio" defaultValue="false" options={[{label: "True", value: true}, {label: "False", value:false}]}/> }
+
           <ReactQuill
             theme="snow"
             value={postContent}
@@ -157,18 +155,22 @@ const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
             }}
           />
 
-          <div className="text-right">
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="large"
-              className="w-3/6 md:w-2/6 mt-4"
-              loading={isPendingCreatePost}
-            >
-              Post
-            </Button>
-          </div>
-        </Form>
+
+
+
+
+            <div className="text-right">
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                className="w-3/6 md:w-2/6 mt-4"
+                loading={isPendingCreatePost}
+              >
+                Post
+              </Button>
+            </div>
+          </Form>
       </Modal>
     </div>
   );

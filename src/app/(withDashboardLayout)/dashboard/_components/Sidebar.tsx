@@ -86,11 +86,6 @@ const Sidebar: React.FC = () => {
             icon: <DashboardOutlined />,
           },
           {
-            key: "/dashboard/traveler/categories",
-            label: "Categories",
-            icon: <FileTextOutlined />,
-          },
-          {
             key: "/dashboard/traveler/posts",
             label: "Posts",
             icon: <FileTextOutlined />,

@@ -69,13 +69,13 @@ import { TComment, TCreateComment } from "@/types/commnet";
     });
   };
   
-  export const useUpdaetComment = () => {
+  export const useUpdateComment = () => {
     // const router = useRouter();
     const queryClient = useQueryClient();
   
     return useMutation({
       mutationKey: ["comment"],
-      mutationFn: async (payload: TComment) => await updateComment(payload),
+      mutationFn: async (payload: Partial<TComment>) => await updateComment(payload),
       async onSuccess(data) {
         if (data?.success) {
           message.success(data?.message || "comment updated successfully!");

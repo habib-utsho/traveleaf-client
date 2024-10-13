@@ -56,9 +56,9 @@ const PostAction = ({ post }: { post: TPost }) => {
                 </span>
             </div>}
 
-            <span className="flex items-center gap-1 cursor-pointer" onClick={() => router.push(`/blog/${post._id}#comments`)}>
+          {post.authorType === 'Traveler' &&  <span className="flex items-center gap-1 cursor-pointer" onClick={() => router.push(`/blog/${post._id}#comments`)}>
                 <CommentOutlined className="text-lg" /> {comments?.data?.length || 0}
-            </span>
+            </span>}
             <span className="flex items-center cursor-pointer">
                 <ShareIcon />
             </span>

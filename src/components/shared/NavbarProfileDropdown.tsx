@@ -6,10 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/services/authService";
 import { protectedRoutes } from "@/constant";
 import { siteConfig } from "@/config/site";
-import { useUserData } from "@/hooks/user.hook";
+import { useGetMe, useUserData } from "@/hooks/user.hook";
+import { VerifiedBadgeIcon } from "../ui/icons";
 
 const NavbarProfileDropdown = () => {
   const { isLoading, user, setUser } = useUserData();
+  const { data:meData, isPending:isLoadingMeData } = useGetMe();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -44,13 +46,15 @@ const NavbarProfileDropdown = () => {
     </Menu>
   );
 
+
   return (
     <>
-      {isLoading ? (
+      {isLoading || isLoadingMeData ? (
         <Skeleton.Avatar active size="large" className="relative top-3" />
       ) : user?.email ? (
         <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
-          <Avatar
+         <div className="relative">
+         <Avatar
             size="large"
             src={
               user?.profileImg ||
@@ -58,6 +62,10 @@ const NavbarProfileDropdown = () => {
             }
             className="cursor-pointer"
           />
+          {meData?.data?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center bg-primary bg-opacity-20 text-primary absolute top-0 right-0">
+            <VerifiedBadgeIcon /> 
+          </span>}
+         </div>
         </Dropdown>
       ) : (
         <Button
