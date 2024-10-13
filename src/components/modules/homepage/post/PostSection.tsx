@@ -17,7 +17,7 @@ const PostSection = async ({pagination, category}: TProps) => {
 
 
   return (
-    <div className="w-3/6 mx-auto">
+    <div className="w-full md:w-3/6 mx-auto">
       <div className="px-4 py-4 relative flex flex-col gap-8 flex-1">
         <CreatePost categories={categories?.data} />
 

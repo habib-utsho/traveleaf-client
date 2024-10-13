@@ -64,7 +64,7 @@ const NavbarProfileDropdown = () => {
             }
             className="cursor-pointer"
           />
-          {meData?.data?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center bg-primary bg-opacity-20 text-primary absolute top-0 right-0">
+          {meData?.data?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center text-primary text-xl absolute top-0 right-0">
             <VerifiedBadgeIcon /> 
           </span>}
          </div>

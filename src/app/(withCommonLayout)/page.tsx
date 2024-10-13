@@ -23,13 +23,13 @@ const Homepage = () => {
     <div className="flex gap-2 justify-between">
       <ErrorBoundary fallback={<FilteringErr />}>
         <Suspense fallback={<FilteringLoading />}>
-          <DynamicFilteringSection />
+          <DynamicFilteringSection isMobile={false} />
         </Suspense>
       </ErrorBoundary>
 
       <ErrorBoundary fallback={<PostErrorCard />}>
         <Suspense fallback={<PostLoadingCard />}>
-          <DynamicPostSection />
+          <DynamicPostSection/>
         </Suspense>
       </ErrorBoundary>
     </div>

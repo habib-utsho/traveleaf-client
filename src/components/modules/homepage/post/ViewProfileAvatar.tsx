@@ -1,4 +1,5 @@
 'use client'
+import { VerifiedBadgeIcon } from '@/components/ui/icons';
 import { TPost } from '@/types/post';
 import { TrophyOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
@@ -8,6 +9,7 @@ import React from 'react';
 
 const ViewProfileAvatar = ({ post }: { post: TPost }) => {
     const router = useRouter()
+
     return (
         <div>
             <Tooltip
@@ -35,8 +37,10 @@ const ViewProfileAvatar = ({ post }: { post: TPost }) => {
                         height={30}
                     />
                     <div className="flex gap-[2px] flex-col p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200">
-                        <span className="font-semibold text-primary">
-                            {post.author?.name}
+                        <span className="font-semibold text-primary flex items-center gap-1">
+                            {post.author?.name}           {post?.author?.user?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center  text-primary text-xl">
+                                <VerifiedBadgeIcon />
+                            </span>}
                         </span>
                         {post.authorType === "Admin" && (
                             <span className="flex gap-1 items-center font-semibold text-warning">

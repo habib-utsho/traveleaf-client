@@ -8,11 +8,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import { useGetMe } from "@/hooks/user.hook";
+import FilteringSection from "../modules/homepage/filteringSidebar/FilteringSection";
 
 const { Header } = Layout;
 
 export const Navbar = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [isFilteringDrawerVisible, setIsFilteringDrawerVisible] = useState(false);
   const { data: user, isPending: isLoadingUser } = useGetMe()
 
   // Map navigation items from siteConfig
@@ -52,6 +54,14 @@ export const Navbar = () => {
   const closeDrawer = () => {
     setIsDrawerVisible(false);
   };
+  const showFilteringDrawer = () => {
+
+    setIsFilteringDrawerVisible(true);
+  };
+
+  const closeFilteringDrawer = () => {
+    setIsFilteringDrawerVisible(false);
+  };
 
   return (
     <Header
@@ -60,7 +70,8 @@ export const Navbar = () => {
     >
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <div className="logo">
+        <div className="logo flex items-center gap-1">
+          <MenuOutlined onClick={showFilteringDrawer} className="inline-block md:!hidden " />
           <Link href="/" className="flex justify-start items-center gap-2">
             <Image src={logo} height={40} width={40} alt="logo" />
             <p className="font-bold text-inherit">TraveLeaf</p>
@@ -68,7 +79,7 @@ export const Navbar = () => {
         </div>
 
         {/* Large Screen Menu */}
-        {isLoadingUser? <Skeleton.Button className="!h-[40px] !w-[350px]"/> :<Menu
+        {isLoadingUser ? <Skeleton.Button className="!h-[40px] !w-[350px]" /> : <Menu
           mode="horizontal"
           items={menuItems}
           className="!hidden md:!flex gap-4 justify-start ml-2 !bg-primary/10 rounded-md"
@@ -103,6 +114,16 @@ export const Navbar = () => {
           <div className="mt-4">
             <NavbarProfileDropdown />
           </div>
+        </Drawer>
+
+
+        {/* Drawer for mobile filter  */}
+        <Drawer
+          placement="left"
+          onClose={closeFilteringDrawer}
+          open={isFilteringDrawerVisible}
+        >
+          <FilteringSection isMobile={isFilteringDrawerVisible} />
         </Drawer>
       </div>
     </Header>
