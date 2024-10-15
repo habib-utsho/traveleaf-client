@@ -22,6 +22,24 @@ export const createPost = async (payload: FormData) => {
   }
 };
 
+export const updatePost = async (payload: {formData:FormData, _id:string}) => {
+  try {
+    const response = await axiosInstance.patch(`/post/${payload?._id}`, payload?.formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    revalidateTag("post");
+    return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (e: any) {
+    throw new Error(
+      e.response?.data?.message || e.message || "Failed to update post!"
+    );
+  }
+};
+
 export const getAllPost = async (query: TFilterQuery[] | undefined) => {
   const fetchOption = {
     next: {

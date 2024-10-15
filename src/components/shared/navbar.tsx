@@ -80,7 +80,7 @@ export const Navbar = () => {
         </div>
 
         {/* Large Screen Menu */}
-        {isLoadingUser ? <Skeleton.Button className="!h-[40px] !w-[350px]" /> : <Menu
+        {isLoadingUser ? <Skeleton.Button className="!h-[40px] !w-[350px] !hidden md:!block" /> : <Menu
           mode="horizontal"
           items={menuItems}
           className="!hidden md:!flex gap-4 justify-start ml-2 !bg-primary/10 rounded-md"

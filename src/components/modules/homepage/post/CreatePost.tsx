@@ -2,10 +2,9 @@
 import { Avatar } from "antd";
 import React from "react";
 import CreatePostModal from "./CreatePostModal";
-import { TCategory } from "@/types/category";
 import { useUserData } from "@/hooks/user.hook";
 
-const CreatePost = ({ categories }: { categories: TCategory[] }) => {
+const CreatePost = () => {
   const { user } = useUserData();
 
   return (
@@ -19,7 +18,7 @@ const CreatePost = ({ categories }: { categories: TCategory[] }) => {
           }
           className="cursor-pointer"
         />
-        <CreatePostModal categories={categories} />
+        <CreatePostModal />
       </div>
     </div>
   );

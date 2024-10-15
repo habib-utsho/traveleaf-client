@@ -15,7 +15,7 @@ const EditProfile = ({ traveler, className }: { traveler: TTraveler, className?:
 
     if (isPending || !canEdit || user?.data?.user?.role === 'admin') return null
     return (
-            <Link href={`/dashboard/traveler/profile`} className={` !text-primary h-8 w-8 bg-gray-500 rounded-full inline-flex items-center justify-center ${className}`}>
+            <Link href={`/dashboard/traveler/profile`} className={` !text-primary h-8 w-8 bg-white shadow border-2 border-primary rounded-full inline-flex items-center justify-center ${className}`}>
                     <EditOutlined className='!text-xl'/>
             </Link>
     );

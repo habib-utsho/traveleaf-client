@@ -15,6 +15,7 @@ import CalendarOutlined from "@ant-design/icons/CalendarOutlined";
 import ClockCircleOutlined from "@ant-design/icons/ClockCircleOutlined";
 import PushpinOutlined from "@ant-design/icons/PushpinOutlined";
 import { Divider } from "antd";
+import PostMenu from "@/components/modules/homepage/post/PostMenu";
 
 const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Fetch the post using the slug from the URL parameters
@@ -23,26 +24,29 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Format the post date using moment
   const formattedDate = moment(post?.createdAt).format("MMMM DD, YYYY");
 
+
+
+
   return (
     <div className="py-8 bg-gray-100 min-h-screen">
       <Container>
         <div className="max-w-4xl mx-auto space-y-4">
-          <div className="bg-white p-4 rounded-t-xl">
+          <div className="bg-white p-4 rounded-xl">
             {/* Title */}
             <h2 className="font-semibold text-2xl md:text-3xl">{post.title}</h2>
 
             {/* Author & Engagement Details */}
             <div className="flex items-center justify-between mb-8 text-gray-600 mt-6">
               <div className="flex flex-col gap-[4px]">
-              <ViewProfileAvatar post={post} />
-              <div className="flex gap-1 items-center text-sm text-gray-500">
-                <CalendarOutlined />
-                {formattedDate}
-              </div>
+                <ViewProfileAvatar post={post} />
+                <div className="flex gap-1 items-center text-sm text-gray-500">
+                  <CalendarOutlined />
+                  {formattedDate}
+                </div>
               </div>
               <div className="flex items-start md:items-end justify-center flex-col flex-wrap gap-1">
-
-                {post.isPremium && <span className="text-sm text-gray-500"><TrophyOutlined className="!text-primary-500"/> Premium content</span>}
+                <PostMenu post={post} />
+                {post.isPremium && <span className="text-sm text-gray-500"><TrophyOutlined className="!text-primary-500" /> Premium content</span>}
                 <PostAction post={post} />
               </div>
             </div>

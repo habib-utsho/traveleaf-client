@@ -4,6 +4,7 @@ import {
   downvotePost,
   getAllPost,
   getSinglePost,
+  updatePost,
   upvotePost,
 } from "@/services/post";
 import { TFilterQuery } from "@/types";
@@ -30,6 +31,29 @@ export const useCreatePost = () => {
     },
     onError(error) {
       message.error(error?.message || "Failed to create post!");
+    },
+  });
+};
+export const useUpdatePost = () => {
+
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["post"],
+    mutationFn: async (payload: {formData:FormData, _id:string}) => await updatePost(payload),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "post updated successfully!");
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+
+        // router.push("/post");
+      } else {
+        message.error(data?.message || "Failed to update post!");
+      }
+    },
+    onError(error) {
+      message.error(error?.message || "Failed to update post!");
     },
   });
 };

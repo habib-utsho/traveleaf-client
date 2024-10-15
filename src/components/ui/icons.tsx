@@ -477,3 +477,24 @@ export const TwoBarMenuIcon: React.FC<IconSvgProps> = (props) => (
 
   </svg>
 );
+
+export const EllipsisHorizontalIcon: React.FC<IconSvgProps> = (props) => (
+  
+  <svg
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    width="1em"
+    {...props}  >
+
+
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+
+  </svg>
+
+);

@@ -29,14 +29,17 @@ const ViewProfileAvatar = ({ post }: { post: TPost }) => {
                     className={`flex items-center gap-2 flex-wrap text-primary ${post?.authorType === "Admin" ? "" : "cursor-pointer"
                         }`}
                 >
+                    <div className='h-[40px] w-[40px]'>
+
                     <Image
                         src={post.author?.profileImg}
                         alt={post.author?.name}
-                        className="rounded-full"
+                        className="rounded-full h-full w-full"
                         width={30}
                         height={30}
-                    />
-                    <div className="flex gap-[2px] flex-col p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200">
+                        />
+                        </div>
+                    <div className="flex gap-[2px] flex-col p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition duration-200">
                         <span className="font-semibold text-primary flex items-center gap-1">
                             {post.author?.name}           {post?.author?.user?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center  text-primary text-xl">
                                 <VerifiedBadgeIcon />
