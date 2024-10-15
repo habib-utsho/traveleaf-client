@@ -10,16 +10,22 @@ type TProps = {
   category?: string | null;
   params?: { [key: string]: string };
   searchParams?: { [key: string]: string };
-}
-const PostSection = async ({ pagination, category, params, searchParams }: TProps) => {
-  const posts = await getAllPost([
+};
+
+const PostSection = async ({ searchParams }: TProps) => {
+  // Use the appropriate sorting value based on the sort parameter
+  const sortValue = searchParams?.sort === 'votes' ? 'votes' : '-votes'; // Handle both cases
+
+  // Prepare the filters based on search params
+  const filters = [
     { name: "isDeleted", value: false },
     ...(searchParams?.category ? [{ name: "category", value: searchParams.category }] : []),
+    ...(searchParams?.search ? [{ name: "searchTerm", value: searchParams.search }] : []),
+    { name: "sort", value: sortValue }, // Always include sort
+  ];
 
-  ]);
-
-
-
+  // Fetch posts based on filters
+  const posts = await getAllPost(filters);
 
   return (
     <div className="w-full md:w-3/6 mx-auto">

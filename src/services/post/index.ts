@@ -53,6 +53,9 @@ export const getAllPost = async (query: TFilterQuery[] | undefined) => {
       params.append(element.name, element.value);
     });
   }
+
+
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/post?${params.toString()}`,
     fetchOption
