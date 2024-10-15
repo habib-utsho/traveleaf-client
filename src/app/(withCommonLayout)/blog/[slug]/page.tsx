@@ -25,8 +25,6 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   const formattedDate = moment(post?.createdAt).format("MMMM DD, YYYY");
 
 
-
-
   return (
     <div className="py-8 bg-gray-100 min-h-screen">
       <Container>
@@ -37,7 +35,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
 
             {/* Author & Engagement Details */}
             <div className="flex items-center justify-between mb-8 text-gray-600 mt-6">
-              <div className="flex flex-col gap-[4px]">
+              <div className="flex flex-col gap-[4px]"> 
                 <ViewProfileAvatar post={post} />
                 <div className="flex gap-1 items-center text-sm text-gray-500">
                   <CalendarOutlined />

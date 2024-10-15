@@ -95,7 +95,7 @@ const CategoryManagement = () => {
   }, [isLoadingDeleteCategory]);
 
   return (
-    <div className="p-6 h-[5005px]">
+    <div className="p-6">
       <div className="flex gap-4 justify-between mb-8">
         <h2 className="font-bold text-xl md:text-2xl text-black">
           Category Management

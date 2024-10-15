@@ -19,6 +19,41 @@ html{
   }
 }
 
+/* Scrollbar */
+/* Define scrollbar styles using CSS variables */
+:root {
+  --sb-track-color: #B3D7F8;
+  --sb-thumb-color: #00abe4;
+  --sb-size: 7px;
+}
+
+/* Apply scrollbar width to all scrollable elements */
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size); /* For horizontal scrollbars */
+}
+
+/* Apply track color to all scrollable elements */
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+/* Apply thumb color and styles to all scrollable elements */
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+/* Fallback for browsers that don't support the ::-webkit-scrollbar pseudo-element */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-width: thin; /* Reduces scrollbar width in browsers that support it */
+  }
+}
+
+
 body {
   color: var(--foreground);
   background: var(--background);

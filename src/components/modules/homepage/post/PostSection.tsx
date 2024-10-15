@@ -8,10 +8,18 @@ import CreatePost from "./CreatePost";
 type TProps = {
   pagination?: { limit: number; page: number };
   category?: string | null;
+  params?: { [key: string]: string };
+  searchParams?: { [key: string]: string };
 }
-const PostSection = async ({ pagination, category }: TProps) => {
-  console.log(pagination, category, 'post section ')
-  const posts = await getAllPost([{ name: "isDeleted", value: false }]);
+const PostSection = async ({ pagination, category, params, searchParams }: TProps) => {
+  const posts = await getAllPost([
+    { name: "isDeleted", value: false },
+    ...(searchParams?.category ? [{ name: "category", value: searchParams.category }] : []),
+
+  ]);
+
+
+
 
   return (
     <div className="w-full md:w-3/6 mx-auto">
