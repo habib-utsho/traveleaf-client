@@ -19,7 +19,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUser = async () => {
     const user = await getCurrentUser();
-    setUser(user);
+    setUser(user as TDecodedUser);
     setIsLoading(false);
   };
   useEffect(() => {

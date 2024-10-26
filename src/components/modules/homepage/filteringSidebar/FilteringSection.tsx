@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useGetAllCategory } from "@/hooks/category.hook";
 import useDebounce from "@/hooks/useDebounce";
 import { TCategory } from "@/types/category";
@@ -16,24 +16,28 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const sort = searchParams.get("sort");
   const search = searchParams.get("search");
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState(search || ""); 
+  const [searchTerm, setSearchTerm] = useState(search || "");
   const debounceSearchTerm = useDebounce(searchTerm, 500);
 
-  const { data: categories, isPending: isLoadingCategories } = useGetAllCategory();
+  const { data: categories, isPending: isLoadingCategories } =
+    useGetAllCategory();
 
   // Function to update the URL query parameters
-  const updateQueryParams = React.useCallback((key: string, value: string | null) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries())); // Get current query params
-    if (value) {
-      current.set(key, value); // Add new param
-    } else {
-      current.delete(key); // Remove param if value is null
-    }
-    const newQuery = current.toString();
-    const newUrl = newQuery ? `?${newQuery}` : "/";
+  const updateQueryParams = React.useCallback(
+    (key: string, value: string | null) => {
+      const current = new URLSearchParams(Array.from(searchParams.entries())); // Get current query params
+      if (value) {
+        current.set(key, value); // Add new param
+      } else {
+        current.delete(key); // Remove param if value is null
+      }
+      const newQuery = current.toString();
+      const newUrl = newQuery ? `?${newQuery}` : "/";
 
-    router.push(newUrl); // Update the URL with new params
-  }, [router, searchParams]);
+      router.push(newUrl); // Update the URL with new params
+    },
+    [router, searchParams]
+  );
 
   // Handle sort change
   const handleSortChange = (value: string) => {
@@ -57,7 +61,9 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   return (
     <div
       className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 ${
-        isMobile ? "block" : "hidden md:block w-[200px] h-screen sticky space-y-4"
+        isMobile
+          ? "block"
+          : "hidden md:block w-[200px] h-screen sticky space-y-4"
       }`}
     >
       <Search
@@ -99,7 +105,9 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
             categories?.data?.map((cat: TCategory) => (
               <li key={cat._id}>
                 <Link
-                  href={`/?category=${cat._id}&sort=${sort || ""}&search=${search || ""}`} // Preserve other params
+                  href={`/?category=${cat._id}&sort=${sort || ""}&search=${
+                    search || ""
+                  }`} // Preserve other params
                   className={`${
                     category === cat._id ? "bg-primary-100" : "bg-white"
                   } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 block`}

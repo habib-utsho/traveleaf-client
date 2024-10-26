@@ -48,29 +48,65 @@ const changePassword = async (payload: TPasswordUpdate) => {
   }
 };
 
+// const getCurrentUser = async () => {
+//   const accessToken = cookies().get("TLaccessToken")?.value;
+//   let decodedToken = null;
+//   if (accessToken) {
+//     decodedToken = await jwtDecode(accessToken);
+//     return {
+//       ...decodedToken,
+//     };
+//   }
+//   return decodedToken;
+// };
+
 const getCurrentUser = async () => {
   const accessToken = cookies().get("TLaccessToken")?.value;
-  let decodedToken = null;
-  if (accessToken) {
-    decodedToken = await jwtDecode(accessToken);
+
+  if (!accessToken) {
+    return null; // No access token found, user is not authenticated
+  }
+
+  try {
+    const decodedToken = jwtDecode(accessToken);
+    // Check if the token is expired
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+    if (decodedToken.exp! < currentTime) {
+      cookies().delete("TLaccessToken"); // Remove the expired token
+      cookies().delete("TLrefreshToken"); // Remove the expired token
+      return null; // Token is expired, return null
+    }
+
+    // Return the user information if the token is valid
     return {
       ...decodedToken,
     };
+  } catch (e) {
+    console.error(e, "e"); // Log any errors that occur during decoding
+    return null; // In case of error, return null
   }
-  return decodedToken;
 };
 
 const getMe = async () => {
   try {
-    const token = cookies().get("TLaccessToken")?.value
+    const token = cookies().get("TLaccessToken")?.value;
 
-    if(!token){
+    if (!token) {
       return {
         success: false,
         message: "Token not found",
-        data: null
-      }
+        data: null,
+      };
     }
+    const validateToken = jwtDecode(token);
+    if (!validateToken) {
+      return {
+        success: false,
+        message: "Token not valid",
+        data: null,
+      };
+    }
+
     const response = await axiosInstance.get(`/user/me`);
     if (!response.data) {
       throw new Error("User not found");

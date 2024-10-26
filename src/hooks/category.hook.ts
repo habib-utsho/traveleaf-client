@@ -34,11 +34,30 @@ export const useCreateCategory = () => {
 export const useGetAllCategory = (query: TFilterQuery[] = []) => {
   return useQuery({
     queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
-    queryFn: async () => {
-      return await getAllCategory(query);
-    },
+    queryFn: async () => await getAllCategory(query),
   });
 };
+// export const useGetAllCategory = (query: TFilterQuery[] = []) => {
+//   return useQuery({
+//     queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
+//     queryFn: async () => {
+//       const params = new URLSearchParams();
+
+//       query.forEach(({ name, value }) => {
+//         params.append(name, value);
+//       });
+//       const response = await fetch(
+//         `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`
+//       );
+
+//       if (!response.ok) {
+//         throw new Error("Failed to fetch categories");
+//       }
+
+//       return await response.json();
+//     },
+//   });
+// };
 
 export const useUpdateCategory = () => {
   const queryClient = useQueryClient();
