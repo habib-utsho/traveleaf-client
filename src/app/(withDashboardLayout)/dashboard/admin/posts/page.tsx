@@ -16,7 +16,7 @@ const Post = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TFilterQuery[]>([]);
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
-
+ 
   const { data: posts, isPending: isLoadingPosts } = useGetAllPost([
     { name: "limit", value: pagination.limit },
     { name: "page", value: pagination.page },
