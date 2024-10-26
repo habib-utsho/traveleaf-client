@@ -1,5 +1,5 @@
 "use client";
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, InputNumber, Select, Radio } from "antd";
 import React from "react";
 
 type MyInpProps = {
@@ -18,10 +18,10 @@ type MyInpProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules?: any[];
   disabled?: boolean;
-  placeholder: string;
+  placeholder?: string;
   defaultValue?: string;
   value?: string;
-  options?: { label: string; value: string }[];
+  options?: { label: string; value: string | boolean }[];
   size?: "small" | "middle" | "large";
   prefix?: React.ReactNode;
   mode?: "multiple" | "tags" | undefined;
@@ -44,6 +44,7 @@ const MyInp: React.FC<MyInpProps> = ({
   prefix,
   mode,
   rows,
+  
 }) => {
   return (
     <Form.Item name={name} label={label} rules={rules} className="flex-1">
@@ -104,6 +105,14 @@ const MyInp: React.FC<MyInpProps> = ({
           placeholder={placeholder}
           disabled={disabled}
         />
+      ) : type === "radio" ? (
+        <Radio.Group defaultValue={defaultValue} value={value} disabled={disabled}>
+          {options?.map(option => (
+            <Radio key={option.label} value={option.value}>
+              {option.label}
+            </Radio>
+          ))}
+        </Radio.Group>
       ) : (
         <Input
           defaultValue={defaultValue}

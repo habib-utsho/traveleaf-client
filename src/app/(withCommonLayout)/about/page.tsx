@@ -10,7 +10,35 @@ import React from "react";
 import { MdOutlineDirectionsBoat } from "react-icons/md";
 import cardBg1 from "@/assets/images/about/6345959.jpg";
 import cardBg2 from "@/assets/images/about/6346166.jpg";
+import Image from "next/image";
 
+
+const teamMembers = [
+  {
+    name: "Ahashan Habib Utsho",
+    position: "Founder & CEO",
+    description: "Passionate traveler and entrepreneur with a love for exploration.",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQF0XUMaevRy2A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689594587619?e=1734566400&v=beta&t=k3g6afyEASsVQHWrTOdsMrWUtNX-6bl4XzRzx_bjBn8", // Update with actual image paths
+  },
+  {
+    name: "Bob Smith",
+    position: "Travel Advisor",
+    description: "Expert in travel itineraries and customer experience.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&s",
+  },
+  {
+    name: "Charlie Brown",
+    position: "Marketing Specialist",
+    description: "Creative marketer with a knack for storytelling.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Dana White",
+    position: "Operations Manager",
+    description: "Ensures smooth operations and logistics for all travels.",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtJ7kfkEwGL8gKqJiIFN_BPJZSobTmbnZ56DsrqbDSJKnbQ2JEIgnw4MZ2VK27781BHYg&usqp=CAU",
+  },
+];
 const AboutUsPage = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] py-4 md:py-6">
@@ -86,6 +114,31 @@ const AboutUsPage = () => {
                 gems and coastal beauty along the way.
               </p>
             </div>
+          </div>
+        </div>
+
+
+        {/* Team section */}
+        <div className="my-12">
+          <h2 className="font-semibold text-xl md:text-2xl text-center mb-6">Meet Our Team_</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="border rounded p-6 text-center space-y-4">
+                <div className="!w-24 !h-24 overflow-hidden rounded-full mx-auto">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    height={100}
+                    width={100}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <h3 className="text-xl font-bold">{member.name}</h3>
+                <p className="text-md text-gray-600">{member.position}</p>
+                <p className="text-sm text-paragraph">{member.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 

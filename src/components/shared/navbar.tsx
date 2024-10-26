@@ -1,5 +1,5 @@
 "use client";
-import { Layout, Menu, Button, Drawer } from "antd";
+import { Layout, Menu, Button, Drawer, Skeleton } from "antd";
 import MenuOutlined from "@ant-design/icons/MenuOutlined";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
@@ -7,11 +7,15 @@ import NavbarProfileDropdown from "./NavbarProfileDropdown";
 import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/config/site";
+import { useGetMe } from "@/hooks/user.hook";
+import FilteringSection from "../modules/homepage/filteringSidebar/FilteringSection";
 
 const { Header } = Layout;
 
 export const Navbar = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [isFilteringDrawerVisible, setIsFilteringDrawerVisible] = useState(false);
+  const { data: user, isPending: isLoadingUser } = useGetMe()
 
   // Map navigation items from siteConfig
   const menuItems = siteConfig.navItems.map((item) => ({
@@ -19,17 +23,30 @@ export const Navbar = () => {
     label: <Link href={item.href}>{item.label}</Link>,
   }));
 
+  if (user?.data?._id) { // Assuming `user` is null when not signed in
+    menuItems.push({
+      key: `/profile/${user?.data?._id}`, // or the route for the profile
+      label: <Link href={`/profile/${user?.data?._id}`}>My Profile</Link>,
+    });
+  }
+
   // Mobile menu items for Drawer
   const drawerMenuItems = (
     <Menu
       items={siteConfig.navMenuItems.map((item, index) => ({
         key: `${item}-${index}`,
-        label: <Link href={item.href}>{item.label}</Link>,
-        danger: index === siteConfig.navMenuItems.length - 1,
+        label: <Link href={item.href}>{item.label}</Link>
       }))}
     />
   );
 
+  if (user?.data?._id) {
+
+    drawerMenuItems.props.items.push({
+      key: '/profile',
+      label: <Link href="/profile">My Profile</Link>,
+    });
+  }
   // Handle Drawer visibility
   const showDrawer = () => {
     setIsDrawerVisible(true);
@@ -37,6 +54,14 @@ export const Navbar = () => {
 
   const closeDrawer = () => {
     setIsDrawerVisible(false);
+  };
+  const showFilteringDrawer = () => {
+
+    setIsFilteringDrawerVisible(true);
+  };
+
+  const closeFilteringDrawer = () => {
+    setIsFilteringDrawerVisible(false);
   };
 
   return (
@@ -46,7 +71,8 @@ export const Navbar = () => {
     >
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <div className="logo">
+        <div className="logo flex items-center gap-1">
+          <MenuOutlined onClick={showFilteringDrawer} className="inline-block md:!hidden " />
           <Link href="/" className="flex justify-start items-center gap-2">
             <Image src={logo} height={40} width={40} alt="logo" />
             <p className="font-bold text-inherit">TraveLeaf</p>
@@ -54,12 +80,12 @@ export const Navbar = () => {
         </div>
 
         {/* Large Screen Menu */}
-        <Menu
+        {isLoadingUser ? <Skeleton.Button className="!h-[40px] !w-[350px] !hidden md:!block" /> : <Menu
           mode="horizontal"
           items={menuItems}
           className="!hidden md:!flex gap-4 justify-start ml-2 !bg-primary/10 rounded-md"
           theme="light"
-        />
+        />}
 
         {/* Right Side Content for Large Screens */}
         <div className="navbar-right-content hidden md:flex items-center gap-4">
@@ -78,7 +104,7 @@ export const Navbar = () => {
           title={
             <Link href="/" className="flex items-center gap-2">
               <Image src={logo} height={30} width={30} alt="logo" />
-              <p className="font-bold text-inherit">DocEye</p>
+              <p className="font-bold text-inherit">TraveLeaf</p>
             </Link>
           }
           placement="right"
@@ -89,6 +115,16 @@ export const Navbar = () => {
           <div className="mt-4">
             <NavbarProfileDropdown />
           </div>
+        </Drawer>
+
+
+        {/* Drawer for mobile filter  */}
+        <Drawer
+          placement="left"
+          onClose={closeFilteringDrawer}
+          open={isFilteringDrawerVisible}
+        >
+          <FilteringSection isMobile={isFilteringDrawerVisible} />
         </Drawer>
       </div>
     </Header>

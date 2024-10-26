@@ -24,8 +24,9 @@ const Footer = () => {
     { link: "blogs", text: "Blogs" },
     { link: "contact-us", text: "FAQ" },
     { link: "terms", text: "Terms of use" },
-    { link: "doctor-portal", text: "Doctor Portal" },
-    { link: "patient-portal", text: "Patient Portal" },
+    { link: "popular", text: "Popular" },
+    { link: "adventure", text: "Adventure" },
+    { link: "familty", text: "Familty Tour" },
   ];
 
   return (
@@ -40,7 +41,7 @@ const Footer = () => {
           >
             <Image height={40} width={40} src={logo} alt="DocEye"></Image>{" "}
             <span className="flex">
-              Doc<span className="text-secondary">Eye</span>
+              Trave<span className="text-secondary">Leaf</span>
             </span>
           </Link>
           <p className="flex items-center gap-3">

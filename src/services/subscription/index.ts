@@ -1,11 +1,11 @@
 "use server";
 import axiosInstance from "@/lib/axiosInstance";
 import { TFilterQuery } from "@/types";
-import { TSubscription } from "@/types/subscription";
+import { TCreateSubscription } from "@/types/subscription";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export const createSubscription = async (payload: TSubscription) => {
+export const createSubscription = async (payload: TCreateSubscription) => {
   try {
     const response = await axiosInstance.post(`/subscription`, payload);
     revalidateTag("subscription");

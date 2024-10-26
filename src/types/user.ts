@@ -85,6 +85,7 @@ export type TDecodedUser = {
   profileImg: string;
   name: string;
   phone: string;
+  status: 'traveler' | 'admin'
 };
 
 export type TSignin = {
@@ -111,6 +112,7 @@ export type TTraveler = {
   following: TTraveler[];
   district: string;
   dateOfBirth: string;
+  status: "basic" | "premium";
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

@@ -1,17 +1,21 @@
 "use client";
 import { Avatar, Button, Dropdown, Menu, Skeleton } from "antd";
-import { HeartFilled } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/services/authService";
 import { protectedRoutes } from "@/constant";
-import { siteConfig } from "@/config/site";
-import { useUserData } from "@/hooks/user.hook";
+import { useGetMe, useUserData } from "@/hooks/user.hook";
+import { VerifiedBadgeIcon } from "../ui/icons";
 
 const NavbarProfileDropdown = () => {
   const { isLoading, user, setUser } = useUserData();
+  const { data:meData, isPending:isLoadingMeData } = useGetMe();
   const router = useRouter();
   const pathname = usePathname();
+
+
+
 
   const handleSignOut = async () => {
     signOut();
@@ -44,13 +48,15 @@ const NavbarProfileDropdown = () => {
     </Menu>
   );
 
+
   return (
     <>
-      {isLoading ? (
+      {isLoading || isLoadingMeData ? (
         <Skeleton.Avatar active size="large" className="relative top-3" />
       ) : user?.email ? (
         <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
-          <Avatar
+         <div className="relative">
+         <Avatar
             size="large"
             src={
               user?.profileImg ||
@@ -58,12 +64,16 @@ const NavbarProfileDropdown = () => {
             }
             className="cursor-pointer"
           />
+          {meData?.data?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center text-primary text-xl absolute top-0 right-0">
+            <VerifiedBadgeIcon /> 
+          </span>}
+         </div>
         </Dropdown>
       ) : (
         <Button
           type="primary"
-          href={siteConfig.links.sponsor}
-          icon={<HeartFilled />}
+          href={'/signin'}
+          icon={<UserOutlined />}
         >
           Sign In
         </Button>

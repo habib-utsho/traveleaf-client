@@ -1,8 +1,11 @@
 import {
   createPost,
   deletePost,
+  downvotePost,
   getAllPost,
   getSinglePost,
+  updatePost,
+  upvotePost,
 } from "@/services/post";
 import { TFilterQuery } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,6 +31,29 @@ export const useCreatePost = () => {
     },
     onError(error) {
       message.error(error?.message || "Failed to create post!");
+    },
+  });
+};
+export const useUpdatePost = () => {
+
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["post"],
+    mutationFn: async (payload: {formData:FormData, _id:string}) => await updatePost(payload),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "post updated successfully!");
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+
+        // router.push("/post");
+      } else {
+        message.error(data?.message || "Failed to update post!");
+      }
+    },
+    onError(error) {
+      message.error(error?.message || "Failed to update post!");
     },
   });
 };
@@ -69,6 +95,52 @@ export const useDeletePost = () => {
     },
     onError(error) {
       message.error(error?.message || "Failed to delete post!");
+    },
+  });
+};
+
+export const useUpvotePost = () => {
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["post"],
+    mutationFn: async (id: string) => await upvotePost(id),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "Upvoted successfully!");
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+
+        // router.push("/post");
+      } else {
+        message.error(data?.message || "Failed to upvoted!");
+      }
+    },
+    onError(error) {
+      message.error(error?.message || "Failed to upvoted!");
+    },
+  });
+};
+
+export const useDownvotedPost = () => {
+  // const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ["post"],
+    mutationFn: async (id: string) => await downvotePost(id),
+    async onSuccess(data) {
+      if (data?.success) {
+        message.success(data?.message || "Downvoted successfully!");
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+
+        // router.push("/post");
+      } else {
+        message.error(data?.message || "Failed to downvoted!");
+      }
+    },
+    onError(error) {
+      message.error(error?.message || "Failed to downvoted!");
     },
   });
 };

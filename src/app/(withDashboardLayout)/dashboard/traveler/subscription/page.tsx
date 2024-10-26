@@ -7,6 +7,7 @@ import { useGetAllSubscription } from "@/hooks/subscription.hook";
 import { TPackage } from "@/types/package";
 import moment from "moment";
 import { TSubscription } from "@/types/subscription";
+import { useGetMe } from "@/hooks/user.hook";
 
 const { Search } = Input;
 
@@ -15,11 +16,14 @@ const Subscription = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TFilterQuery[]>([]);
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  const {data:meData, isPending:isLoadingGetMe} = useGetMe()
+
 
   const { data: subscriptions, isPending: isLoadingSubscriptions } =
     useGetAllSubscription([
       { name: "limit", value: pagination.limit },
       { name: "page", value: pagination.page },
+    {name: "user", value: meData?.data?._id },
       ...(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []),
       ...params,
     ]);
@@ -63,6 +67,12 @@ const Subscription = () => {
       render: (endDate: string) => moment(new Date(endDate)).format("LL"),
     },
     {
+      title: "Expiration Status",
+      render: (record: TSubscription) => {
+        return  moment(new Date(record.endDate)).isAfter(moment()) ? "Running" : "Expired";
+      }
+    },
+    {
       title: "Status",
       dataIndex: "isActive",
       render: (isActive: boolean) => (isActive ? "Active" : "Inactive"),
@@ -85,7 +95,7 @@ const Subscription = () => {
         />
       </div>
 
-      {isLoadingSubscriptions ? (
+      {isLoadingSubscriptions || isLoadingGetMe ? (
         <>
           <Skeleton active />
           <Skeleton active />

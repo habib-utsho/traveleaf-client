@@ -18,22 +18,22 @@ const DynamicPostSection = dynamic(
   { ssr: false }
 );
 
-const page = async () => {
+const Homepage = ({searchParams}: {searchParams?: { [key: string]: string }}) => {
   return (
     <div className="flex gap-2 justify-between">
       <ErrorBoundary fallback={<FilteringErr />}>
         <Suspense fallback={<FilteringLoading />}>
-          <DynamicFilteringSection />
+          <DynamicFilteringSection isMobile={false} />
         </Suspense>
       </ErrorBoundary>
 
       <ErrorBoundary fallback={<PostErrorCard />}>
         <Suspense fallback={<PostLoadingCard />}>
-          <DynamicPostSection />
+          <DynamicPostSection searchParams={searchParams}/>
         </Suspense>
       </ErrorBoundary>
     </div>
   );
 };
 
-export default page;
+export default Homepage;

@@ -8,18 +8,21 @@ import Image from "next/image";
 import { useDeletePost, useGetAllPost } from "@/hooks/post.hook";
 import { TAdmin, TTraveler } from "@/types/user";
 import { TCategory } from "@/types/category";
+import { useGetMe } from "@/hooks/user.hook";
 
 const { Search } = Input;
 
-const Post = () => {
+const MyPost = () => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [params, setParams] = useState<TFilterQuery[]>([]);
   const [searchTerm, setSearchTerm] = useState<string | null>(null);
- 
+  const {data:meData, isPending:isLoadingGetMe} = useGetMe()
+
   const { data: posts, isPending: isLoadingPosts } = useGetAllPost([
     { name: "limit", value: pagination.limit },
     { name: "page", value: pagination.page },
+    {name: "author", value: meData?.data?._id },
     ...(searchTerm ? [{ name: "searchTerm", value: searchTerm }] : []),
     ...params,
   ]);
@@ -29,6 +32,7 @@ const Post = () => {
   const [isLoadingDeleteId, setIsLoadingDeleteId] = useState<string | null>(
     null
   );
+
 
   const columns = [
     {
@@ -117,20 +121,20 @@ const Post = () => {
   }, [isLoadingDeletePost]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 ">
       <div className="flex flex-wrap gap-4 justify-between mb-4">
         <h2 className="font-bold text-xl md:text-2xl text-black">Posts</h2>
         <Search
           placeholder="Search post"
           onSearch={(value) => setSearchTerm(value)}
-          size="large"
+          size="middle"
           allowClear
           enterButton
-          className="w-full max-w-full md:max-w-[280px] lg:max-w-[420px] "
+          className="w-full max-w-full md:max-w-[280px] lg:max-w-[380px] "
         />
       </div>
 
-      {isLoadingPosts ? (
+      {isLoadingPosts || isLoadingGetMe ? (
         <>
           <Skeleton active />
           <Skeleton active />
@@ -164,4 +168,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default MyPost;

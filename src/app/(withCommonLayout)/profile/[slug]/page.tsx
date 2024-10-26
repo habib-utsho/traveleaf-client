@@ -15,6 +15,7 @@ import { TResponse } from "@/types";
 import PostCard from "@/components/modules/homepage/post/PostCard";
 import FollowUnfollow from "./_components/FollowUnfollow";
 import FollowersFollowingModal from "./_components/FollowersFollowingModal";
+import EditProfile from "./_components/EditProfile";
 
 const TravelerDetailsPage = async ({
   params,
@@ -25,12 +26,11 @@ const TravelerDetailsPage = async ({
   const travelerRes = await getTravelerById(params?.slug);
   const postRes = await getAllPost([{ name: "author", value: params?.slug }]);
 
-
   const traveler = travelerRes as TResponse<TTraveler>;
   const posts = postRes as TResponse<TPost[]>;
 
   return (
-    <div className="py-8 bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen">
       <div
         className="h-[350px] w-full mb-16 shadow-lg relative"
         style={{
@@ -40,18 +40,24 @@ const TravelerDetailsPage = async ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        {traveler?.data?.profileImg && (
-          <Image
-            src={traveler.data?.profileImg}
-            alt={traveler.data?.name}
-            width={100}
-            height={100}
-            className="rounded-full absolute -bottom-12 left-[500px] border-4 border-primary"
-          />
-        )}
+
       </div>
       <Container>
-        <div className="max-w-4xl mx-auto space-y-4">
+
+        <div className="max-w-4xl mx-auto space-y-4 relative">
+          {traveler?.data?.profileImg && (
+            <div className="absolute -top-[140px] left-0 h-[120px] w-[120px]">
+
+                <Image
+                  src={traveler.data?.profileImg}
+                  alt={traveler.data?.name}
+                  width={100}
+                  height={100}
+                  className="rounded-full h-full w-full  border-4 border-primary"
+                />
+                {traveler?.data && <EditProfile traveler={traveler?.data} className="absolute bottom-0 right-0 text-xl" />}
+            </div>
+          )}
           <div className="space-y-1">
             <div className="flex justify-between gap-4 flex-wrap">
               {/* Traveler Name */}
@@ -60,6 +66,7 @@ const TravelerDetailsPage = async ({
                 {traveler?.data?.user?.status === "premium" && (
                   <VerifiedBadgeIcon className="text-primary" />
                 )}
+
               </h2>
               <p className="flex gap-1 items-center">
                 <ClockCircleOutlined />

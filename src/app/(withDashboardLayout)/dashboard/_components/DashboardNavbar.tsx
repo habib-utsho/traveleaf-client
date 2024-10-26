@@ -40,11 +40,10 @@ const DashboardNavbar = () => {
   );
 
   return (
-    <div className="bg-primary py-2 px-4 flex justify-between items-center shadow-lg sticky top-0 left-0 z-50">
+    <div className="bg-primary/50 py-2 px-4 flex justify-between items-center shadow-lg sticky top-0 left-0 z-50">
       {/* Logo */}
       <div className="flex items-center gap-2">
         {/* <Image src="/path/to/logo.png" alt="Logo" className="h-8 w-8" /> */}
-        <h2 className="text-lg font-semibold text-white">{user?.email}</h2>
       </div>
 
       {/* User Information */}
