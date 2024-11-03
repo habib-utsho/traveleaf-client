@@ -63,9 +63,12 @@ export const deleteCommnet = async (id: string) => {
     );
   }
 };
-export const updateComment = async (payload:Partial<TComment>) => {
+export const updateComment = async (payload: Partial<TComment>) => {
   try {
-    const response = await axiosInstance.patch(`/comment/${payload._id}`, payload);
+    const response = await axiosInstance.patch(
+      `/comment/${payload._id}`,
+      payload
+    );
     revalidateTag("comment");
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -10,12 +10,9 @@ import { VerifiedBadgeIcon } from "../ui/icons";
 
 const NavbarProfileDropdown = () => {
   const { isLoading, user, setUser } = useUserData();
-  const { data:meData, isPending:isLoadingMeData } = useGetMe();
+  const { data: meData, isPending: isLoadingMeData } = useGetMe();
   const router = useRouter();
   const pathname = usePathname();
-
-
-
 
   const handleSignOut = async () => {
     signOut();
@@ -48,33 +45,30 @@ const NavbarProfileDropdown = () => {
     </Menu>
   );
 
-
   return (
     <>
       {isLoading || isLoadingMeData ? (
         <Skeleton.Avatar active size="large" className="relative top-3" />
       ) : user?.email ? (
-        <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
-         <div className="relative">
-         <Avatar
-            size="large"
-            src={
-              user?.profileImg ||
-              "https://i.pravatar.cc/150?u=a04258a2462d826712d"
-            }
-            className="cursor-pointer"
-          />
-          {meData?.data?.status === 'premium' && <span className="h-5 w-5 rounded-full flex items-center justify-center text-primary text-xl absolute top-0 right-0">
-            <VerifiedBadgeIcon /> 
-          </span>}
-         </div>
+        <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]} className="inline-block">
+          <div className="relative">
+            <Avatar
+              size="large"
+              src={
+                user?.profileImg ||
+                "https://i.pravatar.cc/150?u=a04258a2462d826712d"
+              }
+              className="cursor-pointer"
+            />
+            {meData?.data?.status === "premium" && (
+              <span className="h-5 w-5 rounded-full flex items-center justify-center text-primary text-xl absolute -top-2 md:top-0 right-0">
+                <VerifiedBadgeIcon />
+              </span>
+            )}
+          </div>
         </Dropdown>
       ) : (
-        <Button
-          type="primary"
-          href={'/signin'}
-          icon={<UserOutlined />}
-        >
+        <Button type="primary" href={"/signin"} icon={<UserOutlined />}>
           Sign In
         </Button>
       )}

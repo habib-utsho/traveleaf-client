@@ -22,13 +22,20 @@ export const createPost = async (payload: FormData) => {
   }
 };
 
-export const updatePost = async (payload: {formData:FormData, _id:string}) => {
+export const updatePost = async (payload: {
+  formData: FormData;
+  _id: string;
+}) => {
   try {
-    const response = await axiosInstance.patch(`/post/${payload?._id}`, payload?.formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axiosInstance.patch(
+      `/post/${payload?._id}`,
+      payload?.formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     revalidateTag("post");
     return response.data;
@@ -53,8 +60,6 @@ export const getAllPost = async (query: TFilterQuery[] | undefined) => {
       params.append(element.name, element.value);
     });
   }
-
-
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/post?${params.toString()}`,
@@ -90,7 +95,8 @@ export const deletePost = async (id: string) => {
 export const upvotePost = async (id: string) => {
   try {
     const response = await axiosInstance.patch(`/post/upvote/${id}`);
-    revalidateTag("post");
+    // revalidateTag("post");
+    console.log("heyyyy");
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
@@ -102,7 +108,7 @@ export const upvotePost = async (id: string) => {
 export const downvotePost = async (id: string) => {
   try {
     const response = await axiosInstance.patch(`/post/downvote/${id}`);
-    revalidateTag("post");
+    // revalidateTag("post");
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {

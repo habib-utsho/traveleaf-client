@@ -101,7 +101,7 @@ export const useDeletePost = () => {
 
 export const useUpvotePost = () => {
   // const router = useRouter();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ["post"],
@@ -109,7 +109,7 @@ export const useUpvotePost = () => {
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "Upvoted successfully!");
-        queryClient.invalidateQueries({ queryKey: ["post"] });
+        // queryClient.invalidateQueries({ queryKey: ["post"] });
 
         // router.push("/post");
       } else {
@@ -124,7 +124,7 @@ export const useUpvotePost = () => {
 
 export const useDownvotedPost = () => {
   // const router = useRouter();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ["post"],
@@ -132,7 +132,7 @@ export const useDownvotedPost = () => {
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "Downvoted successfully!");
-        queryClient.invalidateQueries({ queryKey: ["post"] });
+        // queryClient.invalidateQueries({ queryKey: ["post"] });
 
         // router.push("/post");
       } else {

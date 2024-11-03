@@ -1,9 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  TDecodedUser,
-  TSignin,
-  TPasswordUpdate,
-} from "../types/user";
+import { TDecodedUser, TSignin, TPasswordUpdate } from "../types/user";
 import {
   changePassword,
   getCurrentUser,
@@ -20,7 +16,7 @@ export const useUserSignin = ({ redirect }: { redirect: string | null }) => {
   const router = useRouter();
   const { setUser } = useUserData();
   return useMutation({
-    mutationKey: ["signinUser"],
+    mutationKey: ["traveler"],
     mutationFn: async (payload: TSignin) => await signinUser(payload),
     async onSuccess(data) {
       if (data?.success) {
@@ -43,7 +39,7 @@ export const useUserRegister = () => {
   return useMutation({
     mutationKey: ["traveler"],
     mutationFn: async (payload: FormData) => await registerTraveler(payload),
-    onSuccess(data) {
+    async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "User registered successfully!");
         router.push("/signin");
