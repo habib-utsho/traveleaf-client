@@ -19,8 +19,18 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const [searchTerm, setSearchTerm] = useState(search || "");
   const debounceSearchTerm = useDebounce(searchTerm, 500);
 
-  const { data: categories, isPending: isLoadingCategories } =
-    useGetAllCategory();
+  const {
+    data: categories,
+    isPending: isLoadingCategories,
+    isLoading,
+    isError,
+    error,
+  } = useGetAllCategory([{ name: "limit", value: 1000000 }]);
+
+  console.log(
+    { categories, isLoadingCategories, isLoading, isError, error },
+    "isLoadingCategories, isLoading, isError, error"
+  );
 
   // Function to update the URL query parameters
   const updateQueryParams = React.useCallback(
@@ -57,6 +67,8 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const handleRemoveCategory = () => {
     updateQueryParams("category", null); // Removes category, keeps other params intact
   };
+
+  console.log(isLoadingCategories, "isLoadingCategories");
 
   return (
     <div

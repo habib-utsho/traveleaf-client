@@ -15,14 +15,14 @@ import { TResponse } from '@/types';
 
 const Comments = ({ post }: { post: TPost }) => {
     const [pagination, setPagination] = useState({ limit: 10, page: 1 });
-    const { data: commentsres, isPending: isLoadingComments } = useGetAllComment([{ name: 'post', value: post._id }]);
+    const { data: commentsRes, isPending: isLoadingComments } = useGetAllComment([{ name: 'post', value: post._id }]);
     const router = useRouter();
     const { mutate: createCommentMutate, isPending: isLoadingCreateComment } = useCreateComment();
     const { mutate: deleteCommentMutate, isPending: isLoadingDeleteComment } = useDeleteComment();
     const { mutate: updateCommentMutate, isPending: isLoadingUpdateComment } = useUpdateComment();
     const { data: userRes, isLoading: isLoadingUser } = useGetMe();
     const user = userRes as TResponse<TTraveler>;
-    const comments = commentsres as TResponse<TComment[]>;
+    const myComments = commentsRes as TResponse<TComment[]>;
 
     const [form] = Form.useForm();
     const [editForm] = Form.useForm();
@@ -120,11 +120,11 @@ const Comments = ({ post }: { post: TPost }) => {
 
             {isLoadingComments || isLoadingUser ? (
                 <Skeleton active paragraph={{ rows: 2 }} className='!h-[120px] !w-full' />
-            ) : (comments?.meta?.total ?? 0) > 0 && post.authorType === "Traveler" && (
+            ) : (myComments?.meta?.total ?? 0) > 0 && post?.authorType === "Traveler" && (
                 <>
                     <List
                         itemLayout="horizontal"
-                        dataSource={comments?.data}
+                        dataSource={myComments?.data}
                         renderItem={(comment: TComment) => (
                             <List.Item key={comment._id} className='bg-white rounded-md shadow my-2 hover:shadow-lg transition-shadow duration-200'>
                                 <div className='flex items-start gap-3 p-4 w-full'>
@@ -163,9 +163,9 @@ const Comments = ({ post }: { post: TPost }) => {
                     />
                     <div className='flex justify-end mt-4'>
                         <Pagination
-                            current={comments.meta?.page}
+                            current={myComments.meta?.page}
                             pageSize={pagination.limit}
-                            total={comments.meta?.total}
+                            total={myComments.meta?.total}
                             onChange={(page) => setPagination({ ...pagination, page })}
                             showSizeChanger={false}
                         />

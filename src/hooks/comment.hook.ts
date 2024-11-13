@@ -1,6 +1,6 @@
 import {
   createCommnet,
-  deleteCommnet,
+  deleteComment,
   getAllComment,
   getSingleComment,
   updateComment,
@@ -58,7 +58,7 @@ export const useDeleteComment = () => {
 
   return useMutation({
     mutationKey: ["comment"],
-    mutationFn: async (id: string) => await deleteCommnet(id),
+    mutationFn: async (id: string) => await deleteComment(id),
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "comment deleted successfully!");

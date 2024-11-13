@@ -25,6 +25,7 @@ export const getAllComment = async (query: TFilterQuery[] | undefined) => {
       tags: ["comment"],
     },
   };
+
   const params = new URLSearchParams();
 
   if (query) {
@@ -32,12 +33,16 @@ export const getAllComment = async (query: TFilterQuery[] | undefined) => {
       params.append(element.name, element.value);
     });
   }
+
+  // console.log(query, "query from comment service");
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/comment?${params.toString()}`,
     fetchOption
   );
   return response.json();
 };
+
 export const getSingleComment = async (id: string) => {
   const fetchOption = {
     next: {
@@ -51,7 +56,7 @@ export const getSingleComment = async (id: string) => {
   return response.json();
 };
 
-export const deleteCommnet = async (id: string) => {
+export const deleteComment = async (id: string) => {
   try {
     const response = await axiosInstance.delete(`/comment/${id}`);
     revalidateTag("comment");

@@ -136,7 +136,7 @@ const PostAction = ({ post }: { post: TPost }) => {
     </Menu>
   );
 
-  console.log({ isLoadingComments, isLoadingUser });
+  // console.log({ isLoadingComments, isLoadingUser });
   if (isLoadingComments || isLoadingUser)
     return <Skeleton.Button active className="!h-[30px] !w-[180px]" />;
 

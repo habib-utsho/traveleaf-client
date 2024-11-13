@@ -34,9 +34,20 @@ export const useCreateCategory = () => {
 export const useGetAllCategory = (query: TFilterQuery[] = []) => {
   return useQuery({
     queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
-    queryFn: async () => await getAllCategory(query),
+    queryFn: async () => {
+      // try {
+      //   console.log("hello inside category hook");
+      const categories = await getAllCategory(query);
+      console.log(categories, "await getAllCategory(query)");
+      return categories;
+      // } catch (error) {
+      //   console.error("Error fetching categories:", error);
+      //   throw error;
+      // }
+    },
   });
 };
+
 // export const useGetAllCategory = (query: TFilterQuery[] = []) => {
 //   return useQuery({
 //     queryKey: ["category", ...query.map(({ name, value }) => [name, value])],

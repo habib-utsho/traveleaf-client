@@ -26,7 +26,7 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
     const { mutate: mutateSubscription, isPending: isLoadingCreateSubscription } = useCreateSubscription();
 
     const { data: postsRes, isLoading: isLoadingPosts } = useGetAllPost([{ name: 'author', value: user?.data?._id }, { name: 'limit', value: 2000 }]);
-    const hasUpvotedPosts = postsRes?.data?.some((post: TPost) => post.upvotedBy.length > 0);
+    const hasUpvotedPosts = postsRes?.data?.some((post: TPost) => post.upvotedBy?.length > 0);
 
 
 

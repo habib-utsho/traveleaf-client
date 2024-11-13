@@ -7,7 +7,6 @@ import { revalidateTag } from "next/cache";
 
 export const getAllCategory = async (query: TFilterQuery[] = []) => {
   const params = new URLSearchParams();
-
   query.forEach(({ name, value }) => {
     params.append(name, value);
   });
@@ -16,10 +15,14 @@ export const getAllCategory = async (query: TFilterQuery[] = []) => {
       tags: ["category"],
     },
   };
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`,
     fetchOption
   );
+
+  if (!response.ok) throw new Error("Failed to fetch categories");
+
   return response.json();
 };
 
