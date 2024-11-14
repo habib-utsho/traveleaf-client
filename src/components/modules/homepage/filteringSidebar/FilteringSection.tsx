@@ -68,8 +68,6 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
     updateQueryParams("category", null); // Removes category, keeps other params intact
   };
 
-  console.log(isLoadingCategories, "isLoadingCategories");
-
   return (
     <div
       className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 ${

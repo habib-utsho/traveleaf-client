@@ -10,7 +10,7 @@ const HealthPlansPage = () => {
     <div className="min-h-[calc(100vh-64px)] py-4 md:py-6">
       <Container>
         <h2 className="text-3xl md:text-4xl xl:text-6xl mb-6 md:mb-8 text-center">
-          Package
+          Pricing_
         </h2>
         <ErrorBoundary fallback={<PackageErrorCard />}>
           <Suspense fallback={<PackageLoadingCard />}>

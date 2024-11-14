@@ -18,7 +18,11 @@ const DynamicPostSection = dynamic(
   { ssr: false }
 );
 
-const Homepage = ({searchParams}: {searchParams?: { [key: string]: string }}) => {
+const Homepage = ({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string };
+}) => {
   return (
     <div className="flex gap-2 justify-between">
       <ErrorBoundary fallback={<FilteringErr />}>
@@ -29,7 +33,7 @@ const Homepage = ({searchParams}: {searchParams?: { [key: string]: string }}) =>
 
       <ErrorBoundary fallback={<PostErrorCard />}>
         <Suspense fallback={<PostLoadingCard />}>
-          <DynamicPostSection searchParams={searchParams}/>
+          <DynamicPostSection searchParams={searchParams} />
         </Suspense>
       </ErrorBoundary>
     </div>

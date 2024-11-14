@@ -1,8 +1,22 @@
 import MyInp from "@/components/ui/Form/MyInp";
-import { useUpdatePackage } from "@/hooks/package.hook";
+import { useCreatePackage, useUpdatePackage } from "@/hooks/package.hook";
 import { TPackage } from "@/types/package";
-import { Button, Form, Modal } from "antd";
-import React, { useEffect } from "react";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Form, Input, List, message, Modal } from "antd";
+import React, { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+// Option for editor
+const toolbarOptions = [
+  [{ header: [1, 2, false] }],
+  ["bold", "italic", "underline"],
+  ["blockquote", "code-block"],
+  [{ list: "ordered" }, { list: "bullet" }],
+  [{ color: [] }, { background: [] }], // Dropdown for color
+  ["link", "image"],
+  ["clean"], // Remove formatting button
+];
 
 type TProps = {
   open: boolean;
@@ -20,12 +34,16 @@ const PackageModal = ({
   setEditingPackage,
 }: TProps) => {
   const [form] = Form.useForm();
+  const [benefits, setBenefits] = useState<string[]>([]);
+  const [newBenefit, setNewBenefit] = useState<string>("");
+
+  const [description, setDescription] = useState("");
 
   const {
     mutate: createPackage,
     isPending: isLoadingCreatePackage,
     isSuccess: isSuccessCreatePackage,
-  } = useUpdatePackage();
+  } = useCreatePackage();
 
   const {
     mutate: updatePackage,
@@ -36,23 +54,48 @@ const PackageModal = ({
   useEffect(() => {
     if (editingPackage) {
       form.setFieldsValue({
-        name: editingPackage.name, // Populate the form with the package name if editing
-        price: editingPackage.price,
-        durationInMonths: editingPackage.durationInMonths,
-        description: editingPackage.description,
+        ...editingPackage,
+        benefits: editingPackage.benefits || [],
       });
+      setBenefits(editingPackage.benefits || []);
+      setDescription(editingPackage.description || "");
     }
   }, [form, editingPackage]);
 
   const handleCreatePackage = (values: TPackage) => {
-    createPackage(values);
+    if (benefits?.length === 0) {
+      message.error("Please add at least one benefit!");
+      return;
+    }
+    if (!description) {
+      message.error("Description is required!");
+      return;
+    }
+
+    createPackage({ ...values, benefits, description });
   };
 
   const handleUpdatePackage = async (values: TPackage) => {
     if (!editingPackage?._id) {
       return;
     }
-    updatePackage({ ...values, _id: editingPackage._id });
+    if (benefits?.length === 0) {
+      message.error("Please add at least one benefit!");
+      return;
+    }
+
+    if (!description) {
+      message.error("Description is required!");
+      return;
+    }
+
+    const updatedValues = {
+      ...values,
+      benefits,
+      description,
+      _id: editingPackage._id,
+    };
+    updatePackage({ ...updatedValues });
   };
 
   useEffect(() => {
@@ -64,6 +107,7 @@ const PackageModal = ({
       form.resetFields();
       setModalVisible(false);
       setEditingPackage(null);
+      setBenefits([]);
     }
   }, [
     createPackage,
@@ -77,6 +121,17 @@ const PackageModal = ({
     isSuccessUpdatePackage,
   ]);
 
+  const addBenefit = () => {
+    if (newBenefit && !benefits.includes(newBenefit)) {
+      setBenefits([...benefits, newBenefit]);
+      setNewBenefit("");
+    }
+  };
+
+  const removeBenefit = (benefit: string) => {
+    setBenefits(benefits.filter((b) => b !== benefit));
+  };
+
   return (
     <Modal
       open={open}
@@ -85,6 +140,7 @@ const PackageModal = ({
         setModalVisible(false);
       }}
       className="p-4 rounded"
+      width={800}
       footer={null}
     >
       <h2 className="font-bold text-xl mb-4">
@@ -99,10 +155,18 @@ const PackageModal = ({
         {/* Package Name */}
         <MyInp
           name="name"
-          rules={[{ required: true, message: "Please input package name!" }]}
           label="Package Name"
           placeholder="Enter package name"
-          type="text"
+          type="select"
+          rules={[{ required: true, message: "Please select a package name!" }]}
+          options={[
+            "Basic",
+            "Standard",
+            "Premium",
+            "Explorer",
+            "Backpacker",
+            "Adventurer",
+          ].map((name) => ({ label: name, value: name }))}
           size="large"
         />
 
@@ -128,16 +192,66 @@ const PackageModal = ({
           size="large"
         />
 
-        {/* Package Description */}
+        {/* Short bio */}
         <MyInp
-          name="description"
+          name="shortBio"
           rules={[
-            { required: true, message: "Please input package description!" },
+            { required: true, message: "Short bio is required!" },
+            { max: 75, message: "Short bio must be less than 75 characters" },
           ]}
-          label="Description"
-          placeholder="Enter package description"
-          type="textarea"
+          label="Short bio"
+          placeholder="Enter a short bio within 75 characters"
+          type="text"
           size="large"
+        />
+
+        {/* Benefits List */}
+        <Form.Item label="Benefits">
+          <Input
+            placeholder="Enter a benefit and press 'Add'"
+            value={newBenefit}
+            onChange={(e) => setNewBenefit(e.target.value)}
+            onPressEnter={addBenefit}
+            style={{ marginBottom: "8px" }}
+          />
+          <Button
+            onClick={addBenefit}
+            type="primary"
+            disabled={!newBenefit}
+            icon={<PlusOutlined />}
+          />
+          <List
+            dataSource={benefits}
+            renderItem={(benefit) => (
+              <List.Item
+                className="bg-primary-50 !px-2 rounded-md !my-2"
+                actions={[
+                  <Button
+                    key={benefit}
+                    type="link"
+                    onClick={() => removeBenefit(benefit)}
+                    danger
+                    icon={<DeleteOutlined />}
+                  />,
+                ]}
+              >
+                {benefit}
+              </List.Item>
+            )}
+            style={{ marginTop: "16px" }}
+          />
+        </Form.Item>
+
+        {/* Package Description */}
+
+        <ReactQuill
+          theme="snow"
+          value={description}
+          onChange={setDescription}
+          placeholder="Write details about package description"
+          modules={{
+            toolbar: toolbarOptions,
+          }}
         />
 
         {/* Submit button */}
@@ -148,6 +262,7 @@ const PackageModal = ({
             htmlType="submit"
             block
             size="large"
+            className="mt-2"
           >
             {editingPackage ? "Update Package" : "Insert Package"}
           </Button>

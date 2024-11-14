@@ -23,6 +23,8 @@ export const getAllCategory = async (query: TFilterQuery[] = []) => {
 
   if (!response.ok) throw new Error("Failed to fetch categories");
 
+  // console.log(response.json(), "response.json()");
+
   return response.json();
 };
 

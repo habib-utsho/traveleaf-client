@@ -17,7 +17,9 @@ export const useCreatePackage = () => {
 
   return useMutation({
     mutationKey: ["package"],
-    mutationFn: async (payload: TPackage) => await createPackage(payload),
+    mutationFn: async (payload: TPackage) => {
+      return await createPackage(payload);
+    },
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "package created successfully!");
@@ -41,7 +43,9 @@ export const useUpdatePackage = () => {
 
   return useMutation({
     mutationKey: ["package"],
-    mutationFn: async (payload: TPackage) => await updatePackage(payload),
+    mutationFn: async (payload: TPackage) => {
+      return await updatePackage(payload);
+    },
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "package updated successfully!");

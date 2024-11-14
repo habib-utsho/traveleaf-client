@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 import { useDeletePackage, useGetAllPackage } from "@/hooks/package.hook";
 import { TFilterQuery } from "@/types";
 import { TPackage } from "@/types/package";
-import PackageModal from "./_components/PackageModal";
+import dynamic from "next/dynamic";
+
+const PackageModal = dynamic(() => import("./_components/PackageModal"), {
+  ssr: false,
+});
 
 const PackageManagement = () => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
@@ -48,10 +52,21 @@ const PackageManagement = () => {
       dataIndex: "durationInMonths",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      ellipsis: true, // This will show "..." for long descriptions
+      title: "Short Bio",
+      dataIndex: "shortBio",
+      ellipsis: true,
     },
+    {
+      title: "Benefits",
+      dataIndex: "benefits",
+      render: (benefits: string[]) =>
+        benefits?.map((benefit, ind) => (
+          <p className="text-primary-500" key={ind}>
+            - {benefit}
+          </p>
+        )),
+    },
+
     {
       title: "Actions",
       render: (_: TPackage, record: TPackage) => {
@@ -106,7 +121,7 @@ const PackageManagement = () => {
           Package Management
         </h2>
 
-        {packages?.meta?.total < 3 ? (
+        {packages?.meta?.total < 6 ? (
           <Button type="primary" onClick={() => setModalVisible(true)}>
             Add Package
           </Button>

@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -22,7 +21,7 @@ html{
 /* Scrollbar */
 /* Define scrollbar styles using CSS variables */
 :root {
-  --sb-track-color: #B3D7F8;
+  --sb-track-color: #b3d7f8;
   --sb-thumb-color: #00abe4;
   --sb-size: 7px;
 }
@@ -52,7 +51,6 @@ html{
     scrollbar-width: thin; /* Reduces scrollbar width in browsers that support it */
   }
 }
-
 
 body {
   color: var(--foreground);
@@ -100,35 +98,33 @@ body {
   overflow-y: auto; /* Allow scrolling if content exceeds the height */
 }
 
-
-
 /* My container */
 .my-article strong {
   font-weight: 600;
 }
 .my-article h1 strong,
 .my-article h1 {
-  @apply font-bold text-[18px] md:text-[26px];
+  @apply font-semibold text-[18px] md:text-[22px];
 }
 .my-article h2 strong,
 .my-article h2 {
-  @apply font-bold text-[17px] md:text-[23px];
+  @apply font-semibold text-[17px] md:text-[20px];
 }
 .my-article h3 strong,
 .my-article h3 {
-  @apply font-bold text-[16px] md:text-[22px];
+  @apply font-semibold text-[16px] md:text-[18px];
 }
 .my-article h4 strong,
 .my-article h4 {
-  @apply font-bold text-[16px] md:text-[21px];
+  @apply font-semibold text-[16px] md:text-[17px];
 }
 .my-article h5 strong,
 .my-article h5 {
-  @apply font-bold text-[16px] md:text-[20px];
+  @apply font-semibold text-[16px];
 }
 .my-article h6 strong,
 .my-article h6 {
-  @apply font-bold text-[16px] md:text-[19px];
+  @apply font-semibold text-[15px];
 }
 
 .my-article p {
@@ -136,24 +132,24 @@ body {
 }
 
 .my-article ul {
-  @apply list-disc space-y-[15px] md:space-y-[17px] pl-6 text-slate-700;
+  @apply list-disc space-y-[1px] md:space-y-[2px] pl-6 text-slate-700;
 }
 .my-article ol {
-  @apply list-decimal space-y-[15px] md:space-y-[17px] pl-6 text-slate-700;
+  @apply list-decimal space-y-[1px] md:space-y-[2px] pl-6 text-slate-700;
 }
 .my-article ul li {
-  @apply marker:text-primary marker:text-xl;
+  @apply marker:text-primary;
 }
 .my-article ol li {
-  @apply marker:text-primary marker:text-xl;
+  @apply marker:text-primary;
 }
 
 .my-article img {
   @apply m-3 rounded-md md:rounded-lg;
 }
 /* .my-article a{
-    @apply link-hover link-primary
-} */
+      @apply link-hover link-primary
+  } */
 
 .my-article ins,
 u {
@@ -169,6 +165,7 @@ u {
   background-color: #f7b733;
   color: black;
 }
+
 /* Initially hide print content */
 @media screen {
   #printContent {

@@ -37,6 +37,7 @@ export const useGetAllCategory = (query: TFilterQuery[] = []) => {
     queryFn: async () => {
       // try {
       //   console.log("hello inside category hook");
+      console.log(query, "query");
       const categories = await getAllCategory(query);
       console.log(categories, "await getAllCategory(query)");
       return categories;
