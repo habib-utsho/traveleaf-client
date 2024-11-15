@@ -3,9 +3,7 @@ import { getSinglePost } from "@/services/post";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-import {
-  TrophyOutlined,
-} from "@ant-design/icons";
+import { TrophyOutlined } from "@ant-design/icons";
 import PostAction from "@/components/modules/homepage/post/PostAction";
 import { TPost } from "@/types/post";
 import { TResponse } from "@/types";
@@ -19,11 +17,12 @@ import PostMenu from "@/components/modules/homepage/post/PostMenu";
 
 const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   // Fetch the post using the slug from the URL parameters
-  const { data: post } = await getSinglePost(params?.slug) as TResponse<TPost>;
+  const { data: post } = (await getSinglePost(
+    params?.slug
+  )) as TResponse<TPost>;
 
   // Format the post date using moment
   const formattedDate = moment(post?.createdAt).format("MMMM DD, YYYY");
-
 
   return (
     <div className="py-8 bg-gray-100 min-h-screen">
@@ -35,7 +34,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
 
             {/* Author & Engagement Details */}
             <div className="flex items-center justify-between mb-8 text-gray-600 mt-6">
-              <div className="flex flex-col gap-[4px]"> 
+              <div className="flex flex-col gap-[4px]">
                 <ViewProfileAvatar post={post} />
                 <div className="flex gap-1 items-center text-sm text-gray-500">
                   <CalendarOutlined />
@@ -44,7 +43,12 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
               </div>
               <div className="flex items-start md:items-end justify-center flex-col flex-wrap gap-1">
                 <PostMenu post={post} />
-                {post.isPremium && <span className="text-sm text-gray-500"><TrophyOutlined className="!text-primary-500" /> Premium content</span>}
+                {post.isPremium && (
+                  <span className="text-sm text-gray-500">
+                    <TrophyOutlined className="!text-primary-500" /> Premium
+                    content
+                  </span>
+                )}
                 <PostAction post={post} />
               </div>
             </div>
@@ -87,18 +91,17 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
           {/* Footer Section */}
           <div className="mt-10 flex items-center justify-between text-gray-600">
             <div>
-              {post.upvotedBy?.length} upvotes | {post?.downvotedBy?.length} downvotes
+              {post.upvotedBy?.length} upvotes | {post?.downvotedBy?.length}{" "}
+              downvotes
             </div>
           </div>
 
           <Divider />
 
-
           {/* Comments */}
-          {post?._id && post.authorType === 'Traveler' && <Comments post={post} />}
-
-
-
+          {post?._id && post.authorType === "Traveler" && (
+            <Comments post={post} />
+          )}
         </div>
       </Container>
     </div>
