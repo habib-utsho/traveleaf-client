@@ -136,6 +136,16 @@ const PostAction = ({ post }: { post: TPost }) => {
     </Menu>
   );
 
+  console.log({
+    isLoadingComments,
+    isLoadingUser,
+    isLoadingDownvote,
+    isLoadingUpvote,
+    post,
+    user,
+    comments,
+  });
+
   // console.log({ isLoadingComments, isLoadingUser });
   if (isLoadingComments || isLoadingUser)
     return <Skeleton.Button active className="!h-[30px] !w-[180px]" />;
@@ -146,7 +156,7 @@ const PostAction = ({ post }: { post: TPost }) => {
         <div className="inline-flex items-center gap-2 bg-gray-100 text-md font-bold rounded-3xl px-2 py-[3px] text-gray-600 cursor-default">
           <span
             className={`cursor-pointer ${
-              isLoadingUpvote && "pointer-events-none"
+              isLoadingUpvote && "pointer-events-none opacity-70"
             } ${
               post.upvotedBy.find(
                 (upvoteUser) => upvoteUser?._id === user?.data?._id
@@ -161,7 +171,7 @@ const PostAction = ({ post }: { post: TPost }) => {
           <span>{post.votes}</span>
           <span
             className={`cursor-pointer ${
-              isLoadingDownvote && "pointer-events-none"
+              isLoadingDownvote && "pointer-events-none opacity-70"
             } ${
               post.downvotedBy.find(
                 (downvotedUser) => downvotedUser?._id === user?.data?._id

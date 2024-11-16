@@ -1,9 +1,8 @@
 import { getAllPost } from "@/services/post";
-import { TPost } from "@/types/post";
 import { Empty } from "antd";
 import React from "react";
-import PostCard from "./PostCard";
 import CreatePost from "./CreatePost";
+import InfinitePost from "./InfinitePost";
 
 type TProps = {
   pagination?: { limit: number; page: number };
@@ -14,13 +13,17 @@ type TProps = {
 
 const PostSection = async ({ searchParams }: TProps) => {
   // Use the appropriate sorting value based on the sort parameter
-  const sortValue = searchParams?.sort === 'votes' ? 'votes' : '-votes'; // Handle both cases
+  const sortValue = searchParams?.sort === "votes" ? "votes" : "-votes"; // Handle both cases
 
   // Prepare the filters based on search params
   const filters = [
     { name: "isDeleted", value: false },
-    ...(searchParams?.category ? [{ name: "category", value: searchParams.category }] : []),
-    ...(searchParams?.search ? [{ name: "searchTerm", value: searchParams.search }] : []),
+    ...(searchParams?.category
+      ? [{ name: "category", value: searchParams.category }]
+      : []),
+    ...(searchParams?.search
+      ? [{ name: "searchTerm", value: searchParams.search }]
+      : []),
     { name: "sort", value: sortValue }, // Always include sort
   ];
 
@@ -36,11 +39,7 @@ const PostSection = async ({ searchParams }: TProps) => {
           {posts?.data?.length === 0 ? (
             <Empty description="No post found" />
           ) : (
-            <div className="space-y-8 gap-5">
-              {posts.data?.map((post: TPost) => {
-                return <PostCard key={post?._id} post={post} />;
-              })}
-            </div>
+            <InfinitePost filters={filters} initialPostsRes={posts} />
           )}
         </div>
       </div>
