@@ -136,15 +136,15 @@ const PostAction = ({ post }: { post: TPost }) => {
     </Menu>
   );
 
-  console.log({
-    isLoadingComments,
-    isLoadingUser,
-    isLoadingDownvote,
-    isLoadingUpvote,
-    post,
-    user,
-    comments,
-  });
+  // console.log({
+  //   isLoadingComments,
+  //   isLoadingUser,
+  //   isLoadingDownvote,
+  //   isLoadingUpvote,
+  //   post,
+  //   user,
+  //   comments,
+  // });
 
   // console.log({ isLoadingComments, isLoadingUser });
   if (isLoadingComments || isLoadingUser)

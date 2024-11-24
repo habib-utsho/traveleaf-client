@@ -10,20 +10,12 @@ export const getAllCategory = async (query: TFilterQuery[] = []) => {
   query.forEach(({ name, value }) => {
     params.append(name, value);
   });
-  const fetchOption = {
-    next: {
-      tags: ["category"],
-    },
-  };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`,
-    fetchOption
+    `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`
   );
 
   if (!response.ok) throw new Error("Failed to fetch categories");
-
-  // console.log(response.json(), "response.json()");
 
   return response.json();
 };

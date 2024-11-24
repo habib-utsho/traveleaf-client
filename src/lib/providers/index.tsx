@@ -5,12 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
 import UserContextProvider from "@/context/user.provider";
 
-const queryClient = new QueryClient();
-
 interface ProvidersProps {
   children: React.ReactNode;
 }
 export function Providers({ children }: ProvidersProps) {
+  const [queryClient] = React.useState(() => new QueryClient());
   return (
     <UserContextProvider>
       <ConfigProvider
