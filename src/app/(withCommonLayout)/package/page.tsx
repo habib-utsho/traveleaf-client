@@ -5,7 +5,7 @@ import PackageLoadingCard from "./_components/PackageLoadingCard";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import PackageErrorCard from "./_components/PackageErrorCard";
 
-const HealthPlansPage = () => {
+const PackagePage = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] py-4 md:py-6">
       <Container>
@@ -22,4 +22,4 @@ const HealthPlansPage = () => {
   );
 };
 
-export default HealthPlansPage;
+export default PackagePage;
