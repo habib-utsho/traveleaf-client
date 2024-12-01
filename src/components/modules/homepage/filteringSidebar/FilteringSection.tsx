@@ -84,10 +84,10 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <div
-      className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 h-screen overflow-y-auto pr-[3px] ${
+      className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 overflow-y-auto pr-[3px] ${
         isMobile
           ? "block"
-          : "hidden md:block w-[200px] h-screen sticky space-y-4"
+          : "hidden md:block w-[210px] h-screen sticky space-y-4"
       }`}
     >
       <Search
@@ -125,7 +125,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         })}
       </ul>
 
-      <Divider className="!mt-6" />
+      <Divider className="!mt-4" />
 
       {/* Categories */}
       <div className="space-y-2 rounded">
@@ -180,7 +180,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         </ul>
       </div>
 
-      <Divider className="!my-6" />
+      <Divider className="!mt-4" />
 
       {/* Resources */}
       <div className="space-y-2 rounded">
@@ -228,7 +228,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         </ul>
       </div>
 
-      <Divider className="!my-6" />
+      <Divider className="!mt-4" />
 
       {/* Policy */}
       <div className="space-y-2 rounded">
