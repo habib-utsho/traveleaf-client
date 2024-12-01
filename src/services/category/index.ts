@@ -11,8 +11,15 @@ export const getAllCategory = async (query: TFilterQuery[] = []) => {
     params.append(name, value);
   });
 
+  const fetchOption = {
+    next: {
+      tags: ["category"],
+    },
+  };
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`,
+    fetchOption
   );
 
   if (!response.ok) throw new Error("Failed to fetch categories");

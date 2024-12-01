@@ -33,6 +33,8 @@ const Comments = ({ post }: { post: TPost }) => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
   const { data: commentsRes, isPending: isLoadingComments } = useGetAllComment([
     { name: "post", value: post._id },
+    { name: "limit", value: pagination.limit },
+    { name: "page", value: pagination.page },
   ]);
   const router = useRouter();
   const { mutate: createCommentMutate, isPending: isLoadingCreateComment } =

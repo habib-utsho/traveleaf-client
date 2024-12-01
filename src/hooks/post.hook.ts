@@ -108,7 +108,7 @@ export const useUpvotePost = () => {
     mutationFn: async (id: string) => await upvotePost(id),
     async onSuccess(data) {
       if (data?.success) {
-        message.success(data?.message || "Upvoted successfully!");
+        // message.success(data?.message || "Upvoted successfully!");
         queryClient.invalidateQueries({ queryKey: ["post"] });
 
         // router.push("/post");
@@ -131,7 +131,7 @@ export const useDownvotedPost = () => {
     mutationFn: async (id: string) => await downvotePost(id),
     async onSuccess(data) {
       if (data?.success) {
-        message.success(data?.message || "Downvoted successfully!");
+        // message.success(data?.message || "Downvoted successfully!");
         queryClient.invalidateQueries({ queryKey: ["post"] });
 
         // router.push("/post");

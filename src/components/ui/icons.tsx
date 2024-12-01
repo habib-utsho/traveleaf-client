@@ -450,7 +450,6 @@ export const DownloadIcon: React.FC<IconSvgProps> = (props) => (
     width="1em"
     {...props}
   >
-
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -472,14 +471,15 @@ export const TwoBarMenuIcon: React.FC<IconSvgProps> = (props) => (
     width="1em"
     {...props}
   >
-
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
-
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3.75 9h16.5m-16.5 6.75h16.5"
+    />
   </svg>
 );
 
 export const EllipsisHorizontalIcon: React.FC<IconSvgProps> = (props) => (
-  
   <svg
     aria-hidden="true"
     fill="none"
@@ -490,11 +490,29 @@ export const EllipsisHorizontalIcon: React.FC<IconSvgProps> = (props) => (
     strokeWidth={1.5}
     stroke="currentColor"
     width="1em"
-    {...props}  >
-
-
-  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+    />
   </svg>
+);
 
+export const AngleBottomIcon: React.FC<IconSvgProps> = (props) => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    focusable="false"
+    height="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    width="1em"
+    {...props}
+  >
+    <path d="M10 13.125a.624.624 0 0 1-.442-.183l-5-5 .884-.884L10 11.616l4.558-4.558.884.884-5 5a.624.624 0 0 1-.442.183Z"></path>
+  </svg>
 );

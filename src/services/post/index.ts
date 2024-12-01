@@ -51,6 +51,7 @@ export const getAllPost = async (query: TFilterQuery[] | undefined) => {
   const fetchOption = {
     next: {
       tags: ["post"],
+      revalidate: 60,
     },
   };
   const params = new URLSearchParams();
@@ -71,6 +72,7 @@ export const getSinglePost = async (id: string) => {
   const fetchOption = {
     next: {
       tags: ["post"],
+      revalidate: 60,
     },
   };
   const response = await fetch(

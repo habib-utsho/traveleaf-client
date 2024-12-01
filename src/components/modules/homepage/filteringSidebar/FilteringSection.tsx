@@ -1,14 +1,23 @@
 "use client";
+import { AngleBottomIcon } from "@/components/ui/icons";
 import { useGetAllCategory } from "@/hooks/category.hook";
 import useDebounce from "@/hooks/useDebounce";
 import { TCategory } from "@/types/category";
-import { Empty, Input, Select, Skeleton } from "antd";
+import {
+  ContactsOutlined,
+  EditOutlined,
+  HomeOutlined,
+  LockOutlined,
+  TrophyOutlined,
+  UpCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Divider, Empty, Input, Skeleton } from "antd";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const { Search } = Input;
-const { Option } = Select;
 
 const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const searchParams = useSearchParams();
@@ -18,19 +27,24 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState(search || "");
   const debounceSearchTerm = useDebounce(searchTerm, 500);
+  const pathname = usePathname();
 
   const {
     data: categories,
     isPending: isLoadingCategories,
-    isLoading,
-    isError,
-    error,
+    // isLoading,
+    // isError,
+    // error,
   } = useGetAllCategory([{ name: "limit", value: 1000000 }]);
 
-  console.log(
-    { categories, isLoadingCategories, isLoading, isError, error },
-    "isLoadingCategories, isLoading, isError, error"
-  );
+  const [isCategoryVisible, setIsCategoryVisible] = useState(true);
+  const [isResourcesVisible, setIsResourcesVisible] = useState(true);
+  const [isPolicyVisible, setIsPolicyVisible] = useState(true);
+
+  // console.log(
+  //   { categories, isLoadingCategories, isLoading, isError, error },
+  //   "isLoadingCategories, isLoading, isError, error"
+  // );
 
   // Function to update the URL query parameters
   const updateQueryParams = React.useCallback(
@@ -50,9 +64,9 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   );
 
   // Handle sort change
-  const handleSortChange = (value: string) => {
-    updateQueryParams("sort", value);
-  };
+  // const handleSortChange = (value: string) => {
+  //   updateQueryParams("sort", value);
+  // };
 
   // Effect to handle the debounced search term change
   useEffect(() => {
@@ -70,7 +84,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <div
-      className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 ${
+      className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 h-screen overflow-y-auto pr-[3px] ${
         isMobile
           ? "block"
           : "hidden md:block w-[200px] h-screen sticky space-y-4"
@@ -84,29 +98,65 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         className="mb-4"
       />
 
-      <Select
-        defaultValue={sort || "-votes"}
-        className="w-full"
-        onChange={handleSortChange}
-      >
-        <Option value="-votes">Sort by Highest Upvotes</Option>
-        <Option value="votes">Sort by Lowest Upvotes</Option>
-      </Select>
+      {/* Home and popular */}
+      <ul className="flex flex-col space-y-1">
+        {[
+          { title: "Home", value: "", icon: <HomeOutlined /> },
+          { title: "Popular", value: "-votes", icon: <UpCircleOutlined /> },
+        ].map((elem, ind) => {
+          return (
+            <li key={ind}>
+              <Link
+                href={`/?category=${category || ""}&sort=${
+                  elem.value || ""
+                }&search=${search || ""}`}
+                className={`${
+                  !elem.value && !sort
+                    ? "bg-primary-100"
+                    : sort === elem.value
+                    ? "bg-primary-100"
+                    : "bg-white"
+                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+              >
+                <span>{elem.icon}</span> {elem.title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
 
-      <div className="space-y-2 border rounded p-1">
-        <h2 className="font-semibold text-md">Category</h2>
+      <Divider className="!mt-6" />
+
+      {/* Categories */}
+      <div className="space-y-2 rounded">
+        <div
+          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          onClick={() => setIsCategoryVisible(!isCategoryVisible)}
+        >
+          <h2 className="text-gray-700">Category</h2>
+          <AngleBottomIcon
+            className={`transition-all duration-500 ${
+              isCategoryVisible ? "rotate-0" : "rotate-180"
+            } `}
+          />
+        </div>
 
         {/* "All" link removes category param but retains others */}
-        <p
-          onClick={handleRemoveCategory}
-          className={`${
-            !category ? "bg-primary-100" : "bg-white"
-          } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 block`}
-        >
-          All
-        </p>
 
-        <ul className="flex flex-col space-y-1 h-[280px] overflow-y-auto">
+        <ul
+          className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
+            isCategoryVisible ? "opacity-100 h-[285px]" : "opacity-0 h-[0]"
+          }`}
+        >
+          <p
+            onClick={handleRemoveCategory}
+            className={`${
+              !category ? "bg-primary-100" : "bg-white"
+            } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 block`}
+          >
+            All
+          </p>
+
           {isLoadingCategories ? (
             <Skeleton.Button className="!h-full !w-full" active />
           ) : categories?.meta?.total === 0 ? (
@@ -127,6 +177,106 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
               </li>
             ))
           )}
+        </ul>
+      </div>
+
+      <Divider className="!my-6" />
+
+      {/* Resources */}
+      <div className="space-y-2 rounded">
+        <div
+          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          onClick={() => setIsResourcesVisible(!isResourcesVisible)}
+        >
+          <h2 className="text-gray-700">Resources</h2>
+          <AngleBottomIcon
+            className={`transition-all duration-500 ${
+              isResourcesVisible ? "rotate-0" : "rotate-180"
+            } `}
+          />
+        </div>
+
+        <ul
+          className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
+            isResourcesVisible ? "opacity-100 h-[93px]" : "opacity-0 h-[0]"
+          }`}
+        >
+          {[
+            {
+              title: "About Traveleaf",
+              href: "/about",
+              icon: <HomeOutlined />,
+            },
+            { title: "Package", href: "/package", icon: <TrophyOutlined /> },
+            {
+              title: "Contact Us",
+              href: "/contact",
+              icon: <ContactsOutlined />,
+            },
+          ].map((elem, ind) => (
+            <li key={ind}>
+              <Link
+                href={elem.href}
+                className={`${
+                  elem.href === pathname ? "bg-primary-100" : "bg-white"
+                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+              >
+                <span>{elem.icon}</span> {elem.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <Divider className="!my-6" />
+
+      {/* Policy */}
+      <div className="space-y-2 rounded">
+        <div
+          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          onClick={() => setIsPolicyVisible(!isPolicyVisible)}
+        >
+          <h2 className="text-gray-700">Policy</h2>
+          <AngleBottomIcon
+            className={`transition-all duration-500 ${
+              isPolicyVisible ? "rotate-0" : "rotate-180"
+            } `}
+          />
+        </div>
+
+        <ul
+          className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
+            isPolicyVisible ? "opacity-100 h-[93px]" : "opacity-0 h-[0]"
+          }`}
+        >
+          {[
+            {
+              title: "Privacy Policy",
+              href: "/privacy-policy",
+              icon: <LockOutlined />,
+            },
+            {
+              title: "User Agreement",
+              href: "/user-agreement",
+              icon: <UserOutlined />,
+            },
+            {
+              title: "Content Policy",
+              href: "/content-policy",
+              icon: <EditOutlined />,
+            },
+          ].map((elem, ind) => (
+            <li key={ind}>
+              <Link
+                href={elem.href}
+                className={`${
+                  elem.href === pathname ? "bg-primary-100" : "bg-white"
+                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+              >
+                <span>{elem.icon}</span> {elem.title}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

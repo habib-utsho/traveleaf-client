@@ -4,7 +4,6 @@ import { message } from "antd";
 import {
   createCategory,
   deleteCategory,
-  getAllCategory,
   updateCategory,
 } from "@/services/category";
 import { TCategory } from "@/types/category";
@@ -31,45 +30,51 @@ export const useCreateCategory = () => {
     },
   });
 };
-export const useGetAllCategory = (query: TFilterQuery[] = []) => {
-  return useQuery({
-    queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
-    queryFn: async () => {
-      // try {
-      //   console.log("hello inside category hook");
-      console.log(query, "query");
-      const categories = await getAllCategory(query);
-      console.log(categories, "await getAllCategory(query)");
-      return categories;
-      // } catch (error) {
-      //   console.error("Error fetching categories:", error);
-      //   throw error;
-      // }
-    },
-  });
-};
-
 // export const useGetAllCategory = (query: TFilterQuery[] = []) => {
 //   return useQuery({
 //     queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
 //     queryFn: async () => {
-//       const params = new URLSearchParams();
-
-//       query.forEach(({ name, value }) => {
-//         params.append(name, value);
-//       });
-//       const response = await fetch(
-//         `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`
-//       );
-
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch categories");
-//       }
-
-//       return await response.json();
+//       // try {
+//       //   console.log("hello inside category hook");
+//       console.log(query, "query");
+//       const categories = await getAllCategory(query);
+//       console.log(categories, "await getAllCategory(query)");
+//       return categories;
+//       // } catch (error) {
+//       //   console.error("Error fetching categories:", error);
+//       //   throw error;
+//       // }
 //     },
 //   });
 // };
+
+export const useGetAllCategory = (query: TFilterQuery[] = []) => {
+  return useQuery({
+    queryKey: ["category", ...query.map(({ name, value }) => [name, value])],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+
+      query.forEach(({ name, value }) => {
+        params.append(name, value);
+      });
+      const fetchOption = {
+        next: {
+          tags: ["category"],
+        },
+      };
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/category?${params.toString()}`,
+        fetchOption
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+
+      return await response.json();
+    },
+  });
+};
 
 export const useUpdateCategory = () => {
   const queryClient = useQueryClient();

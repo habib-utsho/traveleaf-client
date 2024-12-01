@@ -1,7 +1,6 @@
 import {
   createCommnet,
   deleteComment,
-  getAllComment,
   getSingleComment,
   updateComment,
 } from "@/services/commnets";
@@ -38,7 +37,35 @@ export const useGetAllComment = (query: TFilterQuery[] = []) => {
   return useQuery({
     queryKey: ["comment", ...query.map(({ name, value }) => [name, value])],
     queryFn: async () => {
-      return await getAllComment(query);
+      try {
+        const fetchOption = {
+          next: {
+            tags: ["comment"],
+            revalidate: 60,
+          },
+        };
+
+        const params = new URLSearchParams();
+
+        if (query) {
+          query.forEach((element: TFilterQuery) => {
+            params.append(element.name, element.value);
+          });
+        }
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/comment?${params.toString()}`,
+          fetchOption
+        );
+        return response.json();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        throw new Error(
+          e?.response?.data?.message ||
+            e?.message ||
+            "Failed to get all comments!"
+        );
+      }
     },
   });
 };

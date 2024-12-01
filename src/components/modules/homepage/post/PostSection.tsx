@@ -13,7 +13,6 @@ type TProps = {
 
 const PostSection = async ({ searchParams }: TProps) => {
   // Use the appropriate sorting value based on the sort parameter
-  const sortValue = searchParams?.sort === "votes" ? "votes" : "-votes"; // Handle both cases
 
   // Prepare the filters based on search params
   const filters = [
@@ -24,7 +23,9 @@ const PostSection = async ({ searchParams }: TProps) => {
     ...(searchParams?.search
       ? [{ name: "searchTerm", value: searchParams.search }]
       : []),
-    { name: "sort", value: sortValue }, // Always include sort
+    ...(searchParams?.sort
+      ? [{ name: "sort", value: searchParams?.sort }]
+      : []), // Always include sort
   ];
 
   // Fetch posts based on filters

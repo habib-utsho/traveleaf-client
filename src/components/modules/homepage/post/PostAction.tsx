@@ -150,20 +150,29 @@ const PostAction = ({ post }: { post: TPost }) => {
   if (isLoadingComments || isLoadingUser)
     return <Skeleton.Button active className="!h-[30px] !w-[180px]" />;
 
+  const isAlreadyUpvote = post.upvotedBy.find(
+    (upvoteUser) => upvoteUser?._id === user?.data?._id
+  );
+  const isAlreadyDownvote = post.downvotedBy.find(
+    (downvotedUser) => downvotedUser?._id === user?.data?._id
+  );
+
   return (
     <div className="flex gap-4 flex-wrap">
       {(post.authorType === "Traveler" || !isLoadingUser) && (
-        <div className="inline-flex items-center gap-2 bg-gray-100 text-md font-bold rounded-3xl px-2 py-[3px] text-gray-600 cursor-default">
+        <div
+          className={`inline-flex items-center gap-2 ${
+            isAlreadyUpvote
+              ? "bg-primary-100"
+              : isAlreadyDownvote
+              ? "bg-danger/20"
+              : "bg-gray-100"
+          }  text-md font-bold rounded-3xl px-2 py-[3px] text-gray-600 cursor-default`}
+        >
           <span
             className={`cursor-pointer ${
               isLoadingUpvote && "pointer-events-none opacity-70"
-            } ${
-              post.upvotedBy.find(
-                (upvoteUser) => upvoteUser?._id === user?.data?._id
-              )
-                ? "text-primary"
-                : "text-gray-600"
-            }`}
+            } ${isAlreadyUpvote ? "text-primary" : "text-gray-600"}`}
             onClick={() => handleUpvote(post._id)}
           >
             <ArrowUpOutlined className="text-lg" />
@@ -172,13 +181,7 @@ const PostAction = ({ post }: { post: TPost }) => {
           <span
             className={`cursor-pointer ${
               isLoadingDownvote && "pointer-events-none opacity-70"
-            } ${
-              post.downvotedBy.find(
-                (downvotedUser) => downvotedUser?._id === user?.data?._id
-              )
-                ? "text-primary"
-                : "text-gray-600"
-            }`}
+            } ${isAlreadyDownvote ? "text-danger" : "text-gray-600"}`}
             onClick={() => handleDownvote(post._id)}
           >
             <ArrowDownOutlined className="text-lg" />

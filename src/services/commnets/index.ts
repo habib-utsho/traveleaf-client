@@ -23,6 +23,7 @@ export const getAllComment = async (query: TFilterQuery[] | undefined) => {
   const fetchOption = {
     next: {
       tags: ["comment"],
+      revalidate: 60,
     },
   };
 
@@ -47,6 +48,7 @@ export const getSingleComment = async (id: string) => {
   const fetchOption = {
     next: {
       tags: ["comment"],
+      revalidate: 60,
     },
   };
   const response = await fetch(

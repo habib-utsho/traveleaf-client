@@ -36,6 +36,10 @@ const InfinitePost = ({ initialPostsRes, filters }: TInfinitePostProps) => {
     }
   }, [inView, loadMorePosts]);
 
+  useEffect(() => {
+    setPosts(initialPostsRes?.data);
+  }, [initialPostsRes]);
+
   return (
     <div>
       <div className="space-y-8 gap-5">
@@ -51,7 +55,7 @@ const InfinitePost = ({ initialPostsRes, filters }: TInfinitePostProps) => {
         {posts?.length !== initialPostsRes?.meta?.total && (
           <div ref={ref} className="text-center">
             {" "}
-            <Spin size="large" />
+            <Spin />
           </div>
         )}
       </div>
