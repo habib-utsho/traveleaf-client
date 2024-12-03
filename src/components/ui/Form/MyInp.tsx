@@ -26,6 +26,8 @@ type MyInpProps = {
   prefix?: React.ReactNode;
   mode?: "multiple" | "tags" | undefined;
   rows?: number;
+  className?: string;
+  inpClassName?: string;
 };
 
 // className="my-inp"
@@ -44,13 +46,20 @@ const MyInp: React.FC<MyInpProps> = ({
   prefix,
   mode,
   rows,
-  
+  className,
+  inpClassName,
 }) => {
   return (
-    <Form.Item name={name} label={label} rules={rules} className="flex-1">
+    <Form.Item
+      name={name}
+      label={label}
+      rules={rules}
+      className={`flex-1 ${className}`}
+    >
       {type === "text" ? (
         <Input
           defaultValue={defaultValue}
+          className={inpClassName}
           prefix={prefix}
           value={value}
           size={size}
@@ -60,6 +69,7 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : type === "textarea" ? (
         <Input.TextArea
           defaultValue={defaultValue}
+          className={inpClassName}
           value={value}
           size={size}
           placeholder={placeholder}
@@ -69,16 +79,17 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : type === "number" ? (
         <InputNumber
           defaultValue={defaultValue}
+          className={`!w-full ${inpClassName}`}
           prefix={prefix}
           value={value}
           size={size}
           placeholder={placeholder}
           disabled={disabled}
-          className="!w-full"
         />
       ) : type === "password" ? (
         <Input.Password
           defaultValue={defaultValue}
+          className={inpClassName}
           prefix={prefix}
           value={value}
           size={size}
@@ -88,6 +99,7 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : type === "select" ? (
         <Select
           defaultValue={defaultValue}
+          className={inpClassName}
           value={value}
           size={size}
           placeholder={placeholder}
@@ -98,6 +110,7 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : type === "date" ? (
         <Input
           defaultValue={defaultValue}
+          className={inpClassName}
           prefix={prefix}
           value={value}
           type="date"
@@ -106,8 +119,12 @@ const MyInp: React.FC<MyInpProps> = ({
           disabled={disabled}
         />
       ) : type === "radio" ? (
-        <Radio.Group defaultValue={defaultValue} value={value} disabled={disabled}>
-          {options?.map(option => (
+        <Radio.Group
+          defaultValue={defaultValue}
+          value={value}
+          disabled={disabled}
+        >
+          {options?.map((option) => (
             <Radio key={option.label} value={option.value}>
               {option.label}
             </Radio>
@@ -116,6 +133,7 @@ const MyInp: React.FC<MyInpProps> = ({
       ) : (
         <Input
           defaultValue={defaultValue}
+          className={inpClassName}
           prefix={prefix}
           value={value}
           size={size}

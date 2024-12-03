@@ -55,67 +55,67 @@ const AboutUsPage = () => {
           </h2>
           <MyMotion y={50}>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <CompassOutlined className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Adventure Awaits</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Discover thrilling adventures at every corner of the world,
                   from hiking mountains to diving into oceans.
                 </p>
               </div>
 
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <GlobalOutlined className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Explore the World</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Travel to the most exotic destinations and immerse yourself in
                   different cultures and experiences.
                 </p>
               </div>
 
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <CameraOutlined className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Capture Moments</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Create lasting memories with each snapshot, capturing the
                   beauty and essence of your journey.
                 </p>
               </div>
 
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <RocketOutlined className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Fly High</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Experience the convenience and comfort of modern air travel,
                   making your journey smooth and unforgettable.
                 </p>
               </div>
 
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <CarOutlined className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Road Trips</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Hit the road and explore new landscapes with the freedom of
                   road trips, creating stories along the way.
                 </p>
               </div>
 
-              <div className="border rounded p-6 space-y-4">
+              <div className="border border-slate-800 rounded p-6 space-y-4">
                 <div className="flex items-center space-x-4">
                   <MdOutlineDirectionsBoat className="text-5xl text-primary-1" />
                   <h3 className="text-2xl font-bold">Sail the Seas</h3>
                 </div>
-                <p className="text-xl text-paragraph">
+                <p className="text-slate-300">
                   Set sail on a grand voyage across the seas, discovering hidden
                   gems and coastal beauty along the way.
                 </p>
@@ -186,8 +186,8 @@ const AboutUsPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
-              <MyMotion x={index % 2 === 0 ? 60 : -60} key={index}>
-                <div className="border rounded p-6 text-center space-y-4">
+              <MyMotion x={index % 2 === 0 ? 60 : -60} key={index} className="h-full">
+                <div className="border border-slate-800 rounded p-6 text-center space-y-4 h-full">
                   <div className="!w-24 !h-24 overflow-hidden rounded-full mx-auto">
                     <Image
                       src={member.image}
@@ -199,8 +199,8 @@ const AboutUsPage = () => {
                   </div>
 
                   <h3 className="text-xl font-bold">{member.name}</h3>
-                  <p className="text-md text-gray-600">{member.position}</p>
-                  <p className="text-sm text-paragraph">{member.description}</p>
+                  <p className="text-md text-gray-300">{member.position}</p>
+                  <p className="text-slate-300">{member.description}</p>
                 </div>
               </MyMotion>
             ))}

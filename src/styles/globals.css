@@ -128,14 +128,14 @@ body {
 }
 
 .my-article p {
-  @apply text-slate-700 text-base;
+  @apply text-slate-300 text-base;
 }
 
 .my-article ul {
-  @apply list-disc space-y-[1px] md:space-y-[2px] pl-6 text-slate-700;
+  @apply list-disc space-y-[1px] md:space-y-[2px] pl-6 text-slate-300;
 }
 .my-article ol {
-  @apply list-decimal space-y-[1px] md:space-y-[2px] pl-6 text-slate-700;
+  @apply list-decimal space-y-[1px] md:space-y-[2px] pl-6 text-slate-300;
 }
 .my-article ul li {
   @apply marker:text-primary;

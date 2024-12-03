@@ -5,7 +5,8 @@ import { TPost } from "@/types/post";
 import { TFilterQuery, TResponse } from "@/types";
 import { getAllPost } from "@/services/post";
 import { useInView } from "react-intersection-observer";
-import { Spin } from "antd";
+import logo from "@/assets/images/logo.png";
+import Image from "next/image";
 
 interface TInfinitePostProps {
   initialPostsRes: TResponse<TPost[]>;
@@ -53,9 +54,13 @@ const InfinitePost = ({ initialPostsRes, filters }: TInfinitePostProps) => {
           </h2>
         )}
         {posts?.length !== initialPostsRes?.meta?.total && (
-          <div ref={ref} className="text-center">
+          <div
+            ref={ref}
+            className="text-center flex items-center justify-center gap-2 animate-pulse"
+          >
             {" "}
-            <Spin />
+            <Image src={logo} height={40} width={40} alt="logo" />
+            <h2>Loading..</h2>
           </div>
         )}
       </div>

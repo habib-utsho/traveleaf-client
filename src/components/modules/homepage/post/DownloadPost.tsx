@@ -31,7 +31,7 @@ const DownloadPost = ({ post }: { post: TPost }) => {
         className="flex items-center cursor-pointer text-gray-700 text-xl"
         onClick={() => handlePrint()}
       >
-        <DownloadIcon />
+        <DownloadIcon fill="white"  />
       </span>
       {/* Printable content */}
       <div ref={printContentRef}>

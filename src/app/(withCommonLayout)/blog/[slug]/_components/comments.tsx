@@ -127,7 +127,8 @@ const Comments = ({ post }: { post: TPost }) => {
         className={`${
           (!user?.data || user?.data?.user?.role != "traveler") &&
           "blur pointer-events-none"
-        }`}
+        } bg-white !p-2 rounded-md`}
+
         form={form}
         onFinish={handleCreateComment}
         layout="vertical"
@@ -138,6 +139,9 @@ const Comments = ({ post }: { post: TPost }) => {
           label="Add your comment"
           placeholder="Add a comment..."
           rows={4}
+          // className="bg-slate-800"
+          inpClassName="!bg-slate-800 placeholder:!text-slate-300 !text-white"
+          rules={[{ required: true, message: "Empty comment not allowed!" }]}
         />
         <div className="text-right">
           <Button

@@ -70,6 +70,7 @@ export const ShareIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
   height,
+  fill,
   ...props
 }) => {
   return (
@@ -77,6 +78,7 @@ export const ShareIcon: React.FC<IconSvgProps> = ({
       height={size || height}
       viewBox="0 0 24 24"
       width={size || width}
+      fill={fill || "currentColor"}
       {...props}
     >
       <path d="m18.8 8.286-6.466-7.064a.759.759 0 0 0-1.295.537v3.277C5.623 5.365 1 9.918 1 15.082v2.907h1.274C2.516 15 5.81 12.62 9.834 12.62h1.205v3.226a.757.757 0 0 0 1.315.515l6.422-7.021A.756.756 0 0 0 19 8.8a.736.736 0 0 0-.2-.514Zm-6.508 6.3V12a.625.625 0 0 0-.625-.625H9.834A9.436 9.436 0 0 0 2.26 14.7c.228-4.536 4.525-8.435 9.4-8.435a.626.626 0 0 0 .625-.625V3.023L17.576 8.8l-5.284 5.786Zm5.586-6.107a.176.176 0 0 0-.023.024.171.171 0 0 1 .02-.028l.003.004Zm-.011.642a.53.53 0 0 0-.003-.004l.003.004Z"></path>
@@ -437,17 +439,23 @@ export const LocationIcon: React.FC<IconSvgProps> = (props) => (
     />
   </svg>
 );
-export const DownloadIcon: React.FC<IconSvgProps> = (props) => (
+export const DownloadIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  fill,
+  ...props
+}) => (
   <svg
     aria-hidden="true"
     fill="none"
     focusable="false"
-    height="1em"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     strokeWidth={1.5}
-    stroke="currentColor"
-    width="1em"
+    stroke={fill || "currentColor"}
+    width={size || width}
+    height={size || height}
     {...props}
   >
     <path

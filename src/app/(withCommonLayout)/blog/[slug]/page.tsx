@@ -25,18 +25,19 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
   const formattedDate = moment(post?.createdAt).format("MMMM DD, YYYY");
 
   return (
-    <div className="py-8 bg-gray-100 min-h-screen">
+    <div className="py-8 min-h-screen">
       <Container>
         <div className="max-w-4xl mx-auto space-y-4">
-          <div className="bg-white p-4 rounded-xl">
+          <div className="bg-slate-900 p-4 rounded-xl">
             {/* Title */}
             <h2 className="font-semibold text-2xl md:text-3xl">{post.title}</h2>
 
             {/* Author & Engagement Details */}
-            <div className="flex items-center justify-between mb-8 text-gray-600 mt-6">
-              <div className="flex flex-col gap-[4px]">
+            <div className="flex items-center justify-between mb-8 text-gray-300 mt-6">
+
+              <div className="flex flex-col gap-[8px]">
                 <ViewProfileAvatar post={post} />
-                <div className="flex gap-1 items-center text-sm text-gray-500">
+                <div className="flex gap-1 items-center text-sm text-gray-300">
                   <CalendarOutlined />
                   {formattedDate}
                 </div>
@@ -44,7 +45,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
               <div className="flex items-start md:items-end justify-center flex-col flex-wrap gap-1">
                 <PostMenu post={post} />
                 {post.isPremium && (
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-300">
                     <TrophyOutlined className="!text-primary-500" /> Premium
                     content
                   </span>
@@ -66,9 +67,9 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
               </div>
             )}
 
-            <div className="flex items-center gap-3 justify-between text-gray-600">
+            <div className="flex items-center gap-3 justify-between text-gray-300">
               {/* Post Category */}
-              <p className="flex gap-1 items-center text-gray-600">
+              <p className="flex gap-1 items-center text-gray-300">
                 <PushpinOutlined /> {post?.category?.name}
               </p>
 
@@ -89,7 +90,7 @@ const BlogDetailsPage = async ({ params }: { params: { slug: string } }) => {
           <Divider />
 
           {/* Footer Section */}
-          <div className="mt-10 flex items-center justify-between text-gray-600">
+          <div className="mt-10 flex items-center justify-between text-gray-300">
             <div>
               {post.upvotedBy?.length} upvotes | {post?.downvotedBy?.length}{" "}
               downvotes

@@ -17,7 +17,6 @@ import PostMenu from "./PostMenu";
 const PostCard = ({ post }: { post: TPost }) => {
   const { data: user, isPending: isLoadingGetMe } = useGetMe();
 
-
   return (
     <div className="">
       {/* Message for non-premium users */}
@@ -36,7 +35,7 @@ const PostCard = ({ post }: { post: TPost }) => {
       <Card
         loading={isLoadingGetMe}
         key={post?._id}
-        className={`shadow dark:shadow-white ${
+        className={`!bg-transparent !border !border-slate-800 ${
           post.isPremium && "!border-2 !border-primary"
         } ${
           post.isPremium &&
@@ -53,7 +52,7 @@ const PostCard = ({ post }: { post: TPost }) => {
 
               <div className="flex justify-center items-start md:items-end flex-col gap-2">
                 <PostMenu post={post} />
-                <p className="flex flex-wrap gap-1 items-center text-xs text-gray-500">
+                <p className="flex flex-wrap gap-1 items-center text-xs text-gray-300">
                   <ClockCircleOutlined />
                   {moment(new Date(post.createdAt)).fromNow()}
                 </p>
@@ -80,7 +79,7 @@ const PostCard = ({ post }: { post: TPost }) => {
             </Link>
           }
           description={
-            <p>
+            <p className="text-gray-300">
               <PushpinOutlined />
               {post.category?.name}
             </p>

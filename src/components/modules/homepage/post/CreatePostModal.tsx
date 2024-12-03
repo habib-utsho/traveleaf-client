@@ -13,14 +13,23 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 // const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
-const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost | null, setEditingPost?: React.Dispatch<TPost | null> }) => {
+const CreatePostModal = ({
+  editingPost,
+  setEditingPost,
+}: {
+  editingPost?: TPost | null;
+  setEditingPost?: React.Dispatch<TPost | null>;
+}) => {
   // const { isLoading, user } = useUserData();
-  const { data: categoriesRes, isPending: isLoadingCategory } = useGetAllCategory()
-  const categories = categoriesRes?.data as TCategory[]
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(setEditingPost ? true : false);
+  const { data: categoriesRes, isPending: isLoadingCategory } =
+    useGetAllCategory();
+  const categories = categoriesRes?.data as TCategory[];
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(
+    setEditingPost ? true : false
+  );
   const router = useRouter();
   const [form] = Form.useForm();
-  const { data: user, isPending: isLoading } = useGetMe()
+  const { data: user, isPending: isLoading } = useGetMe();
   const [postContent, setPostContent] = useState("");
   const {
     mutate: createPostMutate,
@@ -49,9 +58,8 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
       formData.append("file", fileList[0].originFileObj);
     }
 
-
     if (editingPost) {
-      updatePostMutate({formData, _id:editingPost?._id});
+      updatePostMutate({ formData, _id: editingPost?._id });
     } else {
       createPostMutate(formData);
     }
@@ -64,15 +72,20 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
       setIsModalOpen(false);
       setPostContent("");
       if (setEditingPost) {
-        setEditingPost(null)
+        setEditingPost(null);
       }
     }
     if (isPendingCreatePost || isPendingUpdatePost) {
       message.loading("Please wait...");
     }
-  }, [form, isSuccess, isSuccessUpdatePost, isPendingCreatePost, isPendingUpdatePost, setEditingPost]);
-
-
+  }, [
+    form,
+    isSuccess,
+    isSuccessUpdatePost,
+    isPendingCreatePost,
+    isPendingUpdatePost,
+    setEditingPost,
+  ]);
 
   // Editing post
   useEffect(() => {
@@ -80,12 +93,14 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
       form.setFieldsValue({
         ...editingPost,
         category: editingPost.category._id,
-      })
-      setPostContent(editingPost.content)
-      setFileList([{ uid: '-1', name: 'Image', status: 'done', url: editingPost.banner }])
-      setIsModalOpen(true)
+      });
+      setPostContent(editingPost.content);
+      setFileList([
+        { uid: "-1", name: "Image", status: "done", url: editingPost.banner },
+      ]);
+      setIsModalOpen(true);
     }
-  }, [editingPost, form])
+  }, [editingPost, form]);
 
   // Option for editor
   const toolbarOptions = [
@@ -98,21 +113,27 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
     ["clean"], // Remove formatting button
   ];
 
-
   const onCancel = () => {
     setIsModalOpen(false);
     if (setEditingPost) {
-      setEditingPost(null)
+      setEditingPost(null);
     }
-  }
+  };
 
   return (
     <div className="flex-1">
-      {!setEditingPost && <Input
-        onClick={() => (user?.data?._id ? setIsModalOpen(true) : router.push("/signin"))}
-        placeholder={`What's on your mind${user?.data?.name ? `, ${user?.data?.name}` : ""} ?`}
-        size="large"
-      />}
+      {!setEditingPost && (
+        <Input
+          onClick={() =>
+            user?.data?._id ? setIsModalOpen(true) : router.push("/signin")
+          }
+          placeholder={`What's on your mind${
+            user?.data?.name ? `, ${user?.data?.name}` : ""
+          } ?`}
+          size="large"
+          className="!bg-slate-800 placeholder:!text-slate-400 !text-slate-50 !border-none"
+        />
+      )}
       <Modal
         title={
           <div className="text-center text-2xl font-semibold">
@@ -184,7 +205,18 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
             rules={[{ required: true, message: "Please select a category!" }]}
           />
 
-          {user?.data?.status === 'premium' && <MyInp name={'isPremium'} label="Is premium?" type="radio" defaultValue="false" options={[{ label: "True", value: true }, { label: "False", value: false }]} />}
+          {user?.data?.status === "premium" && (
+            <MyInp
+              name={"isPremium"}
+              label="Is premium?"
+              type="radio"
+              defaultValue="false"
+              options={[
+                { label: "True", value: true },
+                { label: "False", value: false },
+              ]}
+            />
+          )}
 
           <ReactQuill
             theme="snow"
@@ -196,10 +228,6 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
             }}
           />
 
-
-
-
-
           <div className="text-right">
             <Button
               htmlType="submit"
@@ -208,7 +236,7 @@ const CreatePostModal = ({ editingPost, setEditingPost }: { editingPost?: TPost 
               className="w-3/6 md:w-2/6 mt-4"
               loading={isPendingCreatePost || isPendingUpdatePost}
             >
-              {editingPost ? "Update post" :  "Post"}
+              {editingPost ? "Update post" : "Post"}
             </Button>
           </div>
         </Form>

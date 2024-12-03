@@ -15,6 +15,7 @@ import {
 import { Dropdown, Menu, message, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { PiArrowDownFill, PiArrowUpFill } from "react-icons/pi";
 import {
   FacebookIcon,
   FacebookMessengerIcon,
@@ -163,28 +164,36 @@ const PostAction = ({ post }: { post: TPost }) => {
         <div
           className={`inline-flex items-center gap-2 ${
             isAlreadyUpvote
-              ? "bg-primary-100"
+              ? "bg-primary"
               : isAlreadyDownvote
-              ? "bg-danger/20"
-              : "bg-gray-100"
-          }  text-md font-bold rounded-3xl px-2 py-[3px] text-gray-600 cursor-default`}
+              ? "bg-danger/30"
+              : "bg-gray-800"
+          }  text-md font-bold rounded-3xl px-2 py-[3px] text-white cursor-default`}
         >
           <span
             className={`cursor-pointer ${
               isLoadingUpvote && "pointer-events-none opacity-70"
-            } ${isAlreadyUpvote ? "text-primary" : "text-gray-600"}`}
+            } ${isAlreadyUpvote ? "text-white" : "text-gray-200"}`}
             onClick={() => handleUpvote(post._id)}
           >
-            <ArrowUpOutlined className="text-lg" />
+            {isAlreadyUpvote ? (
+              <PiArrowUpFill className="!text-lg" />
+            ) : (
+              <ArrowUpOutlined className="!text-lg" />
+            )}
           </span>
           <span>{post.votes}</span>
           <span
             className={`cursor-pointer ${
               isLoadingDownvote && "pointer-events-none opacity-70"
-            } ${isAlreadyDownvote ? "text-danger" : "text-gray-600"}`}
+            } ${isAlreadyDownvote ? "text-white" : "text-gray-200"}`}
             onClick={() => handleDownvote(post._id)}
           >
-            <ArrowDownOutlined className="text-lg" />
+            {isAlreadyDownvote ? (
+              <PiArrowDownFill className="!text-lg" />
+            ) : (
+              <ArrowDownOutlined className="!text-lg" />
+            )}
           </span>
         </div>
       )}
@@ -194,13 +203,14 @@ const PostAction = ({ post }: { post: TPost }) => {
           className="flex items-center gap-1 cursor-pointer"
           onClick={() => router.push(`/blog/${post._id}#comments`)}
         >
-          <CommentOutlined className="text-lg" /> {comments?.data?.length || 0}
+          <CommentOutlined className="text-lg !text-white" />{" "}
+          {comments?.data?.length || 0}
         </span>
       )}
 
       <Dropdown overlay={shareMenu} trigger={["click"]} className="">
-        <span className="flex items-center cursor-pointer !text-sm mt-1">
-          <ShareIcon />
+        <span className="flex items-center cursor-pointer !text-sm mt-1 ">
+          <ShareIcon fill="white" />
         </span>
       </Dropdown>
     </div>

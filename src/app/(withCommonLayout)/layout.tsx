@@ -2,14 +2,22 @@ import Footer from "@/components/shared/Footer";
 import { Navbar } from "@/components/shared/navbar";
 import React from "react";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-white text-black">{children}</main>
+      <main
+        className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white"
+        style={{
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {children}
+      </main>
       <Footer />
     </>
   );
 };
 
-export default layout;
+export default Layout;

@@ -1,7 +1,6 @@
 "use client";
 import { AngleBottomIcon } from "@/components/ui/icons";
 import { useGetAllCategory } from "@/hooks/category.hook";
-import useDebounce from "@/hooks/useDebounce";
 import { TCategory } from "@/types/category";
 import {
   ContactsOutlined,
@@ -12,12 +11,10 @@ import {
   UpCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Divider, Empty, Input, Skeleton } from "antd";
+import { Divider, Empty, Skeleton } from "antd";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-
-const { Search } = Input;
+import React, { useState } from "react";
 
 const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const searchParams = useSearchParams();
@@ -25,8 +22,8 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   const sort = searchParams.get("sort");
   const search = searchParams.get("search");
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState(search || "");
-  const debounceSearchTerm = useDebounce(searchTerm, 500);
+  // const [searchTerm, setSearchTerm] = useState(search || "");
+  // const debounceSearchTerm = useDebounce(searchTerm, 500);
   const pathname = usePathname();
 
   const {
@@ -69,13 +66,13 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
   // };
 
   // Effect to handle the debounced search term change
-  useEffect(() => {
-    if (debounceSearchTerm) {
-      updateQueryParams("search", debounceSearchTerm); // Update search param in URL
-    } else {
-      updateQueryParams("search", null); // Remove search param if the search term is empty
-    }
-  }, [debounceSearchTerm, updateQueryParams]);
+  // useEffect(() => {
+  //   if (debounceSearchTerm) {
+  //     updateQueryParams("search", debounceSearchTerm); // Update search param in URL
+  //   } else {
+  //     updateQueryParams("search", null); // Remove search param if the search term is empty
+  //   }
+  // }, [debounceSearchTerm, updateQueryParams]);
 
   // Handle removing the category parameter (for "All")
   const handleRemoveCategory = () => {
@@ -84,20 +81,12 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <div
-      className={`left-0 top-[65px] bg-white border-r border-primary px-2 pt-4 overflow-y-auto pr-[3px] ${
+      className={`left-0 top-[65px] bg-slate-900 border-r border-primary px-2 pt-4 overflow-y-auto pr-[3px] ${
         isMobile
           ? "block"
           : "hidden md:block w-[210px] h-screen sticky space-y-4"
       }`}
     >
-      <Search
-        placeholder="Search post"
-        value={searchTerm}
-        allowClear
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4"
-      />
-
       {/* Home and popular */}
       <ul className="flex flex-col space-y-1">
         {[
@@ -112,11 +101,11 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
                 }&search=${search || ""}`}
                 className={`${
                   !elem.value && !sort
-                    ? "bg-primary-100"
+                    ? "bg-slate-700"
                     : sort === elem.value
-                    ? "bg-primary-100"
-                    : "bg-white"
-                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+                    ? "bg-slate-700"
+                    : "bg-transparent"
+                } py-2 px-2 rounded text-sm cursor-pointer hover:bg-slate-800 flex items-center gap-[6px]`}
               >
                 <span>{elem.icon}</span> {elem.title}
               </Link>
@@ -130,12 +119,12 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
       {/* Categories */}
       <div className="space-y-2 rounded">
         <div
-          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          className="flex gap-1 justify-between items-center hover:bg-slate-800 transition-all duration-500 py-2 cursor-pointer px-[2px] rounded"
           onClick={() => setIsCategoryVisible(!isCategoryVisible)}
         >
-          <h2 className="text-gray-700">Category</h2>
+          <h2 className="text-gray-300">Category</h2>
           <AngleBottomIcon
-            className={`transition-all duration-500 ${
+            className={`transition-all duration-500 text-gray-300 ${
               isCategoryVisible ? "rotate-0" : "rotate-180"
             } `}
           />
@@ -145,14 +134,14 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
         <ul
           className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
-            isCategoryVisible ? "opacity-100 h-[285px]" : "opacity-0 h-[0]"
+            isCategoryVisible ? "opacity-100 h-[357px]" : "opacity-0 h-[0]"
           }`}
         >
           <p
             onClick={handleRemoveCategory}
             className={`${
-              !category ? "bg-primary-100" : "bg-white"
-            } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 block`}
+              !category ? "bg-slate-700" : "bg-transparent"
+            } py-2 px-2 rounded text-sm cursor-pointer hover:bg-slate-800 block`}
           >
             All
           </p>
@@ -169,8 +158,8 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
                     search || ""
                   }`} // Preserve other params
                   className={`${
-                    category === cat._id ? "bg-primary-100" : "bg-white"
-                  } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 block`}
+                    category === cat._id ? "bg-slate-700" : "bg-transparent"
+                  } py-2 px-2 rounded text-sm cursor-pointer hover:bg-slate-800 block`}
                 >
                   {cat.name}
                 </Link>
@@ -185,12 +174,12 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
       {/* Resources */}
       <div className="space-y-2 rounded">
         <div
-          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          className="flex gap-1 justify-between items-center hover:bg-slate-800 transition-all duration-500 py-2 cursor-pointer px-[2px] rounded"
           onClick={() => setIsResourcesVisible(!isResourcesVisible)}
         >
-          <h2 className="text-gray-700">Resources</h2>
+          <h2 className="text-gray-300">Resources</h2>
           <AngleBottomIcon
-            className={`transition-all duration-500 ${
+            className={`transition-all duration-500 text-gray-300 ${
               isResourcesVisible ? "rotate-0" : "rotate-180"
             } `}
           />
@@ -198,7 +187,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
         <ul
           className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
-            isResourcesVisible ? "opacity-100 h-[93px]" : "opacity-0 h-[0]"
+            isResourcesVisible ? "opacity-100 h-[116px]" : "opacity-0 h-[0]"
           }`}
         >
           {[
@@ -218,8 +207,8 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
               <Link
                 href={elem.href}
                 className={`${
-                  elem.href === pathname ? "bg-primary-100" : "bg-white"
-                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+                  elem.href === pathname ? "bg-slate-700" : "bg-transparent"
+                } py-2 px-2 rounded text-sm cursor-pointer hover:bg-slate-800 flex items-center gap-[6px]`}
               >
                 <span>{elem.icon}</span> {elem.title}
               </Link>
@@ -233,12 +222,12 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
       {/* Policy */}
       <div className="space-y-2 rounded">
         <div
-          className="flex gap-1 justify-between items-center hover:bg-slate-100 transition-all duration-500 py-1 cursor-pointer px-[2px] rounded"
+          className="flex gap-1 justify-between items-center  hover:bg-slate-800 transition-all duration-500 py-2 cursor-pointer px-[2px] rounded"
           onClick={() => setIsPolicyVisible(!isPolicyVisible)}
         >
-          <h2 className="text-gray-700">Policy</h2>
+          <h2 className="text-gray-300">Policy</h2>
           <AngleBottomIcon
-            className={`transition-all duration-500 ${
+            className={`transition-all duration-500 text-gray-300 ${
               isPolicyVisible ? "rotate-0" : "rotate-180"
             } `}
           />
@@ -246,7 +235,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
         <ul
           className={` flex flex-col space-y-1  overflow-y-auto transition-all duration-500 pr-1 ${
-            isPolicyVisible ? "opacity-100 h-[93px]" : "opacity-0 h-[0]"
+            isPolicyVisible ? "opacity-100 h-[116px]" : "opacity-0 h-[0]"
           }`}
         >
           {[
@@ -270,8 +259,8 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
               <Link
                 href={elem.href}
                 className={`${
-                  elem.href === pathname ? "bg-primary-100" : "bg-white"
-                } py-1 px-2 rounded text-sm cursor-pointer hover:bg-primary-100 flex items-center gap-[6px]`}
+                  elem.href === pathname ? "bg-slate-700" : "bg-transparent"
+                } py-2 px-2 rounded text-sm cursor-pointer hover:bg-slate-800 flex items-center gap-[6px]`}
               >
                 <span>{elem.icon}</span> {elem.title}
               </Link>
