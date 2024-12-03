@@ -1,6 +1,6 @@
 "use client";
 import { useGetAdminStats } from "@/hooks/stats.hook";
-import { Tabs, Row, Col, Card, Skeleton, Typography } from "antd";
+import { Tabs, Card, Skeleton, Typography } from "antd";
 import {
   UserOutlined,
   AppstoreOutlined,
@@ -36,53 +36,47 @@ const AdminHomePage = () => {
       ) : (
         <Tabs defaultActiveKey="1" className="space-y-4">
           <TabPane tab="Overview" key="1">
-            <Row gutter={[16, 16]}>
-              <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  title="Total Users"
-                  bordered={false}
-                  extra={<UserOutlined />}
-                >
-                  <div className="text-2xl font-bold">{totalUsers}</div>
-                </Card>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  title="Total Posts"
-                  bordered={false}
-                  extra={<FileOutlined />}
-                >
-                  <div className="text-2xl font-bold">{totalPost}</div>
-                </Card>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  title="Total Packages"
-                  bordered={false}
-                  extra={<AppstoreOutlined />}
-                >
-                  <div className="text-2xl font-bold">{totalPackage}</div>
-                </Card>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  title="Total Categories"
-                  bordered={false}
-                  extra={<TagsOutlined />}
-                >
-                  <div className="text-2xl font-bold">{totalCategory}</div>
-                </Card>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                <Card
-                  title="Total Subscriptions"
-                  bordered={false}
-                  extra={<FolderOutlined />}
-                >
-                  <div className="text-2xl font-bold">{totalSubscription}</div>
-                </Card>
-              </Col>
-            </Row>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <Card
+                title="Total Users"
+                bordered={false}
+                extra={<UserOutlined />}
+              >
+                <div className="text-2xl font-bold">{totalUsers}</div>
+              </Card>
+
+              <Card
+                title="Total Posts"
+                bordered={false}
+                extra={<FileOutlined />}
+              >
+                <div className="text-2xl font-bold">{totalPost}</div>
+              </Card>
+
+              <Card
+                title="Total Packages"
+                bordered={false}
+                extra={<AppstoreOutlined />}
+              >
+                <div className="text-2xl font-bold">{totalPackage}</div>
+              </Card>
+
+              <Card
+                title="Total Categories"
+                bordered={false}
+                extra={<TagsOutlined />}
+              >
+                <div className="text-2xl font-bold">{totalCategory}</div>
+              </Card>
+
+              <Card
+                title="Total Subscriptions"
+                bordered={false}
+                extra={<FolderOutlined />}
+              >
+                <div className="text-2xl font-bold">{totalSubscription}</div>
+              </Card>
+            </div>
           </TabPane>
           <TabPane tab="Analytics" key="2" disabled>
             {/* You can add Analytics content here */}

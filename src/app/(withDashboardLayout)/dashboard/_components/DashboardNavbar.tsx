@@ -40,7 +40,7 @@ const DashboardNavbar = () => {
   );
 
   return (
-    <div className="bg-white py-2 px-4 flex justify-between items-center shadow-lg sticky top-0 left-0 z-50">
+    <div className="bg-white py-2 flex justify-between items-center shadow sticky top-0 left-0 z-50">
       {/* Logo */}
       <div className="flex items-center gap-2">
         {/* <Image src="/path/to/logo.png" alt="Logo" className="h-8 w-8" /> */}
@@ -49,7 +49,7 @@ const DashboardNavbar = () => {
       {/* User Information */}
       <div className="flex items-center gap-4">
         {isLoading ? (
-          <Skeleton.Avatar active size="small" />
+          <Skeleton.Avatar active size="large" className="pr-[95px]" />
         ) : user ? (
           <Dropdown overlay={menu} trigger={["click"]}>
             <div className="flex items-center gap-2 cursor-pointer">

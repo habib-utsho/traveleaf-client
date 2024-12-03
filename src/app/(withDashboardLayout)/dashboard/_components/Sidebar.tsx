@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Skeleton } from "antd";
 import React, { useState } from "react";
 import {
   MailFilled,
@@ -16,7 +16,6 @@ import logo from "@/assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import SidebarLoading from "./SidebarLoading";
 
 const { Sider } = Layout;
 
@@ -115,9 +114,9 @@ const Sidebar: React.FC = () => {
         ]
       : [];
 
-  if (isLoading) {
-    return <SidebarLoading />;
-  }
+  // if (isLoading) {
+  //   return <SidebarLoading />;
+  // }
 
   return (
     <Sider
@@ -138,7 +137,12 @@ const Sidebar: React.FC = () => {
         />
       </div>
 
-      {!collapsed && (
+      {!collapsed && isLoading ? (
+        <Skeleton.Button
+          active={true}
+          className="bg-slate-800 !h-[30px] !w-full !mb-4"
+        />
+      ) : (
         <div className="mb-6 mx-3 text-gray-500">
           <h2>
             <MailFilled /> {user?.email}
@@ -146,29 +150,47 @@ const Sidebar: React.FC = () => {
         </div>
       )}
 
-      <Menu theme="dark" mode="inline" selectedKeys={[pathname]}>
-        {sidebarItems.map(({ key, label, icon, children }) =>
-          children ? (
-            <Menu.SubMenu
-              key={key}
-              icon={collapsed ? icon : icon}
-              title={collapsed ? icon : label}
-            >
-              {children.map((child) => (
-                <Menu.Item key={child.key} icon={child.icon}>
-                  <Link href={child.key}>
-                    {collapsed ? child.icon : child.label}
-                  </Link>
-                </Menu.Item>
-              ))}
-            </Menu.SubMenu>
-          ) : (
-            <Menu.Item key={key} icon={icon}>
-              <Link href={key}>{collapsed ? icon : label}</Link>
-            </Menu.Item>
-          )
-        )}
-      </Menu>
+      {isLoading ? (
+        <ul className="rounded">
+          {[1, 2, 3, 4, 5].map((elem) => {
+            return (
+              <li
+                key={elem}
+                className="bg-slate-800  transition-all duration-500 text-black  border-y border-slate-700 text-sm "
+              >
+                <Skeleton.Button
+                  active
+                  className={"block py-2 !w-full rounded-md"}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <Menu theme="dark" mode="inline" selectedKeys={[pathname]}>
+          {sidebarItems.map(({ key, label, icon, children }) =>
+            children ? (
+              <Menu.SubMenu
+                key={key}
+                icon={collapsed ? icon : icon}
+                title={collapsed ? icon : label}
+              >
+                {children.map((child) => (
+                  <Menu.Item key={child.key} icon={child.icon}>
+                    <Link href={child.key}>
+                      {collapsed ? child.icon : child.label}
+                    </Link>
+                  </Menu.Item>
+                ))}
+              </Menu.SubMenu>
+            ) : (
+              <Menu.Item key={key} icon={icon}>
+                <Link href={key}>{collapsed ? icon : label}</Link>
+              </Menu.Item>
+            )
+          )}
+        </Menu>
+      )}
     </Sider>
   );
 };
