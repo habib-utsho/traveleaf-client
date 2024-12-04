@@ -40,7 +40,7 @@ const DashboardNavbar = () => {
   );
 
   return (
-    <div className="bg-white py-2 flex justify-between items-center shadow sticky top-0 left-0 z-50">
+    <div className="bg-whit py-2 flex justify-between items-center shadow sticky top-0 left-0 z-50 px-4">
       {/* Logo */}
       <div className="flex items-center gap-2">
         {/* <Image src="/path/to/logo.png" alt="Logo" className="h-8 w-8" /> */}
@@ -53,6 +53,10 @@ const DashboardNavbar = () => {
         ) : user ? (
           <Dropdown overlay={menu} trigger={["click"]}>
             <div className="flex items-center gap-2 cursor-pointer">
+              <span className="text-gray-700 font-semibold text-[14px]">
+                {user.name}
+              </span>
+
               <Avatar
                 size="large"
                 src={
@@ -61,7 +65,6 @@ const DashboardNavbar = () => {
                 }
                 className="cursor-pointer"
               />
-              <span className="text-white">{user.name}</span>
             </div>
           </Dropdown>
         ) : (

@@ -127,8 +127,7 @@ const Comments = ({ post }: { post: TPost }) => {
         className={`${
           (!user?.data || user?.data?.user?.role != "traveler") &&
           "blur pointer-events-none"
-        } bg-white !p-2 rounded-md`}
-
+        } bg-slate-900 !py-2 !px-4 rounded-md`}
         form={form}
         onFinish={handleCreateComment}
         layout="vertical"
@@ -136,11 +135,12 @@ const Comments = ({ post }: { post: TPost }) => {
         <MyInp
           type="textarea"
           name={"comment"}
-          label="Add your comment"
+          // label="Add your comment"
+          label={<span className="text-white">Add your comment</span>}
           placeholder="Add a comment..."
           rows={4}
           // className="bg-slate-800"
-          inpClassName="!bg-slate-800 placeholder:!text-slate-300 !text-white"
+          inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
           rules={[{ required: true, message: "Empty comment not allowed!" }]}
         />
         <div className="text-right">
@@ -171,7 +171,7 @@ const Comments = ({ post }: { post: TPost }) => {
               renderItem={(comment: TComment) => (
                 <List.Item
                   key={comment._id}
-                  className="bg-white rounded-md shadow my-2 hover:shadow-lg transition-shadow duration-200"
+                  className="bg-slate-900 rounded-md shadow my-2 hover:shadow-lg transition-shadow duration-200"
                 >
                   <div className="flex items-start gap-3 p-4 w-full">
                     <Avatar
@@ -189,7 +189,7 @@ const Comments = ({ post }: { post: TPost }) => {
                     <div className="flex-grow">
                       <div className="flex justify-between items-center">
                         <p
-                          className="font-semibold text-gray-800 cursor-pointer"
+                          className="font-semibold text-white cursor-pointer"
                           onClick={() =>
                             router.push(`/profile/${comment.user?._id}`)
                           }
@@ -198,7 +198,7 @@ const Comments = ({ post }: { post: TPost }) => {
                         </p>
                         <div className="flex items-center gap-1">
                           {comment.createdAt && (
-                            <span className="text-gray-500 text-sm">
+                            <span className="text-gray-300 text-sm">
                               <ClockCircleOutlined />{" "}
                               {moment(new Date(comment.createdAt)).fromNow()}
                             </span>
@@ -208,20 +208,20 @@ const Comments = ({ post }: { post: TPost }) => {
                               overlay={menu(comment)}
                               trigger={["click"]}
                             >
-                              <span className="rotate-90 text-lg cursor-pointer">
+                              <span className="rotate-90 text-lg cursor-pointer text-white">
                                 <TwoBarMenuIcon />
                               </span>
                             </Dropdown>
                           )}
                         </div>
                       </div>
-                      <p className="text-gray-600">{comment.comment}</p>
+                      <p className="text-gray-400">{comment.comment}</p>
                     </div>
                   </div>
                 </List.Item>
               )}
             />
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-end mt-4 dark-pagination">
               <Pagination
                 current={myComments.meta?.page}
                 pageSize={pagination.limit}

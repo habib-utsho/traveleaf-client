@@ -172,3 +172,23 @@ u {
     display: none;
   }
 }
+
+/* Dark pagination  */
+.dark-pagination .ant-pagination-item {
+  background-color: #1d2434 !important ;
+  color: white !important;
+}
+.dark-pagination .ant-pagination-item-active {
+  background-color: #00abe4 !important ;
+  color: white !important;
+}
+.dark-pagination .ant-pagination-item a {
+  color: white !important;
+}
+
+.dark-pagination .ant-pagination-item-ellipsis {
+  color: #00abe4 !important;
+}
+.dark-pagination .anticon {
+  color: white !important;
+}

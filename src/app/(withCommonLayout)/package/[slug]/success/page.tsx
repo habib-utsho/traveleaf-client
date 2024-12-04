@@ -7,7 +7,6 @@ const SuccessPage = () => {
   const searchParams = useSearchParams();
   const subscriptionId = searchParams.get("subscriptionId"); // Get the subscriptionId from the search params
 
-  console.log(subscriptionId, 'subsrit');
 
   return (
     <div className="flex items-center justify-center min-h-[80vh] bg-slate-50">

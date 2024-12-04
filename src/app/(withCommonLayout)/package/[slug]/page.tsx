@@ -55,17 +55,25 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
     return <Loading />;
   }
 
+  const isDisabled =
+    user?.data?.status === "premium" ||
+    !hasUpvotedPosts ||
+    !user?.data ||
+    !packageData?.data ||
+    baseUser?.role === "admin";
+
   return (
     <div className="py-8">
       <Container>
         <Card
+          className="!bg-slate-800"
           title={
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-xl">
-                {packageData.data?.name}{" "}
+            <div className="flex items-center gap-2 ">
+              <span className="font-semibold text-xl text-white">
+                {packageData.data?.name} -
               </span>
-              -
-              <p className="text-md text-black">
+
+              <p className="text-md text-gray-300">
                 <span className="font-semibold text-xl">
                   {packageData.data?.price} {packageData.data?.currencyType}
                 </span>
@@ -75,7 +83,9 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
           }
           bordered={false}
         >
-          <Title level={5}>Package Details</Title>
+          <Title level={5} className="!text-gray-300">
+            Package Details
+          </Title>
           <p
             className="my-article"
             dangerouslySetInnerHTML={{ __html: packageData.data?.description }}
@@ -88,16 +98,10 @@ const PackageDetailsPage = ({ params }: { params: { slug: string } }) => {
               isLoadingUser ||
               isLoadingBaseUser
             }
-            className="mt-4"
+            className={`mt-4 !text-gray-300  ${isDisabled ? 'opacity-40' : 'opacity-100'}`}
             type="primary"
             onClick={handleCreateSubscription}
-            disabled={
-              user?.data?.status === "premium" ||
-              !hasUpvotedPosts ||
-              !user?.data ||
-              !packageData?.data ||
-              baseUser?.role === "admin"
-            }
+            disabled={isDisabled}
           >
             {!user?.data
               ? "Sign In needed!"

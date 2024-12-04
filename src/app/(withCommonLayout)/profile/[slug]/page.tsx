@@ -30,7 +30,7 @@ const TravelerDetailsPage = async ({
   const posts = postRes as TResponse<TPost[]>;
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="min-h-screen pb-8">
       <div
         className="h-[350px] w-full mb-16 shadow-lg relative"
         style={{
@@ -39,23 +39,24 @@ const TravelerDetailsPage = async ({
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-      >
-
-      </div>
+      ></div>
       <Container>
-
         <div className="max-w-4xl mx-auto space-y-4 relative">
           {traveler?.data?.profileImg && (
             <div className="absolute -top-[140px] left-0 h-[120px] w-[120px]">
-
-                <Image
-                  src={traveler.data?.profileImg}
-                  alt={traveler.data?.name}
-                  width={100}
-                  height={100}
-                  className="rounded-full h-full w-full  border-4 border-primary"
+              <Image
+                src={traveler.data?.profileImg}
+                alt={traveler.data?.name}
+                width={100}
+                height={100}
+                className="rounded-full h-full w-full  border-4 border-primary"
+              />
+              {traveler?.data && (
+                <EditProfile
+                  traveler={traveler?.data}
+                  className="absolute bottom-0 right-0 text-xl"
                 />
-                {traveler?.data && <EditProfile traveler={traveler?.data} className="absolute bottom-0 right-0 text-xl" />}
+              )}
             </div>
           )}
           <div className="space-y-1">
@@ -66,7 +67,6 @@ const TravelerDetailsPage = async ({
                 {traveler?.data?.user?.status === "premium" && (
                   <VerifiedBadgeIcon className="text-primary" />
                 )}
-
               </h2>
               <p className="flex gap-1 items-center">
                 <ClockCircleOutlined />
@@ -86,8 +86,8 @@ const TravelerDetailsPage = async ({
               <ContactInfoModal travelerAdmin={traveler?.data} />
             </div>
             {/* BIo */}
-            <p className="text-gray-500">{traveler?.data?.bio}</p>
-            <p className="text-gray-500">
+            <p className="text-gray-300">{traveler?.data?.bio}</p>
+            <p className="text-gray-300">
               Total posts: {traveler?.data?.postsCount}
             </p>
 

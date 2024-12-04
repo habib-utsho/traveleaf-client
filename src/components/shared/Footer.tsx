@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import logo from "@/assets/images/logo.png";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import {
   MailFilled,
   PhoneFilled,
 } from "@ant-design/icons";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const footerLink = [
@@ -28,6 +30,9 @@ const Footer = () => {
     { link: "adventure", text: "Adventure" },
     { link: "familty", text: "Familty Tour" },
   ];
+  const pathname = usePathname();
+
+  if (pathname === "/") return null;
 
   return (
     <div className="bg-primary/20 pt-6">

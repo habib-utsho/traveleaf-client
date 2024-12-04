@@ -1,10 +1,10 @@
 "use client";
 import { Form, Input, InputNumber, Select, Radio } from "antd";
-import React from "react";
+import React, { ReactNode } from "react";
 
 type MyInpProps = {
   name: string | string[];
-  label: string;
+  label: string | ReactNode;
   type:
     | "text"
     | "number"

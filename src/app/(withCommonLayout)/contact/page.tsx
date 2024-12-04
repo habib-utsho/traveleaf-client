@@ -21,10 +21,10 @@ const ContactUs = () => {
   return (
     <div className="pt-8 pb-3">
       <MyMotion y={70}>
-        <div className="max-w-5xl mx-4 lg:mx-auto p-6 bg-white border rounded-md ">
+        <div className="max-w-5xl mx-4 lg:mx-auto p-6 border border-slate-800 bg-slate-800 rounded-md ">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800">Contact Us</h2>
-            <p className="text-gray-600 mt-2">
+            <h2 className="text-3xl font-bold text-white">Contact Us</h2>
+            <p className="text-gray-300 mt-2">
               We{"'"}d love to hear from you!
             </p>
           </div>
@@ -32,7 +32,7 @@ const ContactUs = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 justify-between">
             <div className="space-y-2">
               <h2 className="text-primary font-semibold">Get in Touch</h2>
-              <p className="text-gray-700">
+              <p className="text-gray-300">
                 Please fill out the quick form and we{"'"}ll be in touch with
                 lighting speed.
               </p>
@@ -40,14 +40,15 @@ const ContactUs = () => {
                 form={form}
                 layout="vertical"
                 onFinish={onFinish}
-                className=""
+                className="bg-slate-900 !py-2 !px-4 rounded-md"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 items-center justify-between gap-4 flex-wrap">
                   {/* Name Input */}
                   <MyInp
+                    inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
                     name="name"
                     type="text"
-                    label="Name"
+                    label={<span className="text-white">Name</span>}
                     placeholder="Enter your name"
                     rules={[
                       { required: true, message: "Please enter your name" },
@@ -57,8 +58,9 @@ const ContactUs = () => {
 
                   {/* Email Input */}
                   <MyInp
+                    inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
                     name="email"
-                    label="Email"
+                    label={<span className="text-white">Email</span>}
                     placeholder="Enter your email"
                     type="email"
                     rules={[
@@ -72,9 +74,10 @@ const ContactUs = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 items-center justify-between gap-4 flex-wrap">
                   {/* Subject Input */}
                   <MyInp
+                    inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
                     name="subject"
-                    label="Subject"
                     placeholder="Enter the subject"
+                    label={<span className="text-white">Subject</span>}
                     rules={[
                       { required: true, message: "Please enter a subject" },
                     ]}
@@ -83,8 +86,9 @@ const ContactUs = () => {
                   />
                   {/* Phone */}
                   <MyInp
+                    inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
                     name="phone"
-                    label="Phone"
+                    label={<span className="text-white">Phone</span>}
                     placeholder="Enter your contact no"
                     rules={[
                       { required: true, message: "Please enter your phone" },
@@ -96,8 +100,9 @@ const ContactUs = () => {
 
                 {/* Message Input */}
                 <MyInp
+                  inpClassName="!border-none !bg-slate-800 placeholder:!text-slate-300 !text-white"
                   name="message"
-                  label="Message"
+                  label={<span className="text-white">Message</span>}
                   placeholder="Enter your message"
                   rules={[
                     { required: true, message: "Please enter your message" },
@@ -120,7 +125,7 @@ const ContactUs = () => {
             <div className="space-y-6">
               <div className="space-y-[2px]">
                 <h2 className="text-primary font-semibold">Need any help?</h2>
-                <p className="text-xl font-semibold text-gray-800">
+                <p className="text-xl font-semibold text-white">
                   Get in Touch With Us
                 </p>
               </div>
@@ -132,44 +137,44 @@ const ContactUs = () => {
               </p>
 
               <div className="space-y-2">
-                <div className="text-gray-600 mt-2 flex gap-4 items-center ">
+                <div className="text-gray-300 mt-2 flex gap-4 items-center ">
                   <span className="h-16 w-16 text-xl bg-primary flex items-center justify-center !text-white rounded">
                     <PhoneOutlined />
                   </span>
 
                   <div>
                     <h2 className="font-semibold">Have any question?</h2>
-                    <p>+880170678-5160</p>
+                    <p className="text-[14px]">+880170678-5160</p>
                   </div>
                 </div>
-                <div className="text-gray-600 mt-2 flex gap-4 items-center ">
+                <div className="text-gray-300 mt-2 flex gap-4 items-center ">
                   <span className="h-16 w-16 text-xl bg-primary flex items-center justify-center !text-white rounded">
                     <MailOutlined />
                   </span>
 
                   <div>
                     <h2 className="font-semibold">Write email</h2>
-                    <p>utsho926@gmail.com</p>
+                    <p className="text-[14px]">utsho926@gmail.com</p>
                   </div>
                 </div>
-                <div className="text-gray-600 mt-2 flex gap-4 items-center ">
+                <div className="text-gray-300 mt-2 flex gap-4 items-center ">
                   <span className="h-16 w-16 text-xl bg-primary flex items-center justify-center !text-white rounded">
                     <LocationIcon />
                   </span>
 
                   <div>
                     <h2 className="font-semibold">Visit anytime</h2>
-                    <p>North Badda, Dhaka</p>
+                    <p className="text-[14px]">North Badda, Dhaka</p>
                   </div>
                 </div>
-                <div className="text-gray-600 mt-2 flex gap-4 items-center">
+                <div className="text-gray-300 mt-2 flex gap-4 items-center">
                   <span className="h-16 w-16 text-xl bg-primary flex items-center justify-center !text-white rounded">
                     <ClockCircleOutlined />
                   </span>
 
                   <div>
                     <h2 className="font-semibold">Working Hours</h2>
-                    <p>Sat-Thu: 9 AM - 6 PM</p>
+                    <p className="text-[14px]">Sat-Thu: 9 AM - 6 PM</p>
                   </div>
                 </div>
               </div>

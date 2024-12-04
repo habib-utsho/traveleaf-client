@@ -5,30 +5,38 @@ import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 import NavbarProfileDropdown from "./NavbarProfileDropdown";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { siteConfig } from "@/config/site";
 import { useGetMe } from "@/hooks/user.hook";
 import FilteringSection from "../modules/homepage/filteringSidebar/FilteringSection";
 import { SearchIcon } from "../ui/icons";
-import { PlusOutlined } from "@ant-design/icons";
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import useDebounce from "@/hooks/useDebounce";
 import { useGetAllPost } from "@/hooks/post.hook";
 import { TPost } from "@/types/post";
+import dynamic from "next/dynamic";
+
+const CreatePostModal = dynamic(
+  () => import("../modules/homepage/post/CreatePostModal"),
+  { ssr: false }
+);
 
 const { Header } = Layout;
 
-export const Navbar = () => {
-  const router = useRouter();
+export const Navbar = ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
+}) => {
   const [pagination] = useState({ limit: 10, page: 1 });
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isFilteringDrawerVisible, setIsFilteringDrawerVisible] =
     useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: user, isPending: isLoadingUser } = useGetMe();
 
-  const searchParams = useSearchParams();
-  const search = searchParams.get("search");
-  const [searchTerm, setSearchTerm] = useState(search || "");
+  // const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams?.search || "");
   const debounceSearchTerm = useDebounce(searchTerm, 500);
 
   const { data: posts, isLoading: isLoadingPosts } = useGetAllPost([
@@ -86,21 +94,21 @@ export const Navbar = () => {
   };
 
   // Function to update the URL query parameters
-  const updateQueryParams = React.useCallback(
-    (key: string, value: string | null) => {
-      const current = new URLSearchParams(Array.from(searchParams.entries())); // Get current query params
-      if (value) {
-        current.set(key, value); // Add new param
-      } else {
-        current.delete(key); // Remove param if value is null
-      }
-      const newQuery = current.toString();
-      const newUrl = newQuery ? `?${newQuery}` : "/";
+  // const updateQueryParams = React.useCallback(
+  //   (key: string, value: string | null) => {
+  //     const current = new URLSearchParams(Array.from(searchParams.entries())); // Get current query params
+  //     if (value) {
+  //       current.set(key, value); // Add new param
+  //     } else {
+  //       current.delete(key); // Remove param if value is null
+  //     }
+  //     const newQuery = current.toString();
+  //     const newUrl = newQuery ? `?${newQuery}` : "/";
 
-      router.push(newUrl); // Update the URL with new params
-    },
-    [router, searchParams]
-  );
+  //     router.push(newUrl); // Update the URL with new params
+  //   },
+  //   [router, searchParams]
+  // );
 
   // Effect to handle the debounced search term change
   // useEffect(() => {
@@ -145,13 +153,13 @@ export const Navbar = () => {
 
         <div className="relative">
           <Input
-            className="!rounded-lg !bg-slate-800 placeholder:!text-slate-400 !text-white !border-none focus:!border-primary transition-all duration-300 !w-[220px] sm:!w-[300px] md:!w-[350px] lg:!w-[450px] !pl-7"
+            className="!rounded-full !bg-slate-800 placeholder:!text-slate-400 !text-white !border-none focus:!border-primary transition-all duration-300 !w-[220px] sm:!w-[300px] md:!w-[350px] lg:!w-[450px] !pl-8"
             size="large"
             placeholder="Search Traveleaf"
             // prefix={<SearchIcon className="text-gray-300 text-lg" />}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <span className="absolute left-1 top-1/2 -translate-y-[10px]">
+          <span className="absolute left-2 top-1/2 -translate-y-[10px]">
             <SearchIcon className="text-gray-300 text-lg" />
           </span>
 
@@ -196,10 +204,7 @@ export const Navbar = () => {
 
         {/* Right Side Content for Large Screens */}
         <div className="navbar-right-content flex gap-2 md:gap-4 items-center">
-          <div className="flex items-center gap-1 text-gray-100 font-semibold cursor-pointer">
-            <PlusOutlined className="!text-xl" />
-            <span className="hidden md:inline-block">Create</span>
-          </div>
+          <CreatePostModal fromNavbar={true} />
           <div className="hidden md:flex items-center gap-4">
             <NavbarProfileDropdown />
           </div>

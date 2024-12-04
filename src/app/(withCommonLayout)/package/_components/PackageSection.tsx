@@ -45,7 +45,7 @@ const PackageSection = async () => {
                   )}`}
                 >
                   <div className="space-y-2">
-                    <h2 className="text-lg font-bold">{packageI.name}</h2>
+                    <h2 className="text-lg font-bold text-gray-700">{packageI.name}</h2>
 
                     <p className="text-md text-black">
                       <span className="font-semibold text-2xl md:text-3xl">
@@ -54,13 +54,13 @@ const PackageSection = async () => {
                       /{packageI.durationInMonths} month(s)
                     </p>
                     <Tooltip title={packageI.shortBio} className="h-[30px]">
-                      <p className="line-clamp-3">{packageI.shortBio}</p>
+                      <p className="line-clamp-3 text-gray-700">{packageI.shortBio}</p>
                     </Tooltip>
                     <div className="space-y-[8px] min-h-[175px]">
                       {packageI.benefits.map((benefit, ind) => (
                         <p
                           key={ind}
-                          className="text-[12px] text-gray-500 flex items-center !gap-[6px]"
+                          className="text-[12px] text-gray-700 flex items-center !gap-[6px]"
                         >
                           <CheckCircleOutlined className="!text-primary-500 !text-lg " />{" "}
                           {benefit}

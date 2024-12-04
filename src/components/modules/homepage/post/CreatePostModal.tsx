@@ -5,20 +5,33 @@ import { useCreatePost, useUpdatePost } from "@/hooks/post.hook";
 import { useGetMe } from "@/hooks/user.hook";
 import { TCategory } from "@/types/category";
 import { TPost } from "@/types/post";
-import { UploadOutlined } from "@ant-design/icons";
+import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Upload, UploadFile } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+// Option for editor
+const toolbarOptions = [
+  [{ header: [1, 2, false] }],
+  ["bold", "italic", "underline"],
+  ["blockquote", "code-block"],
+  [{ list: "ordered" }, { list: "bullet" }],
+  [{ color: [] }, { background: [] }], // Dropdown for color
+  ["link", "image"],
+  ["clean"], // Remove formatting button
+];
+
 // const CreatePostModal = ({ categories }: { categories: TCategory[] }) => {
 const CreatePostModal = ({
   editingPost,
   setEditingPost,
+  fromNavbar,
 }: {
   editingPost?: TPost | null;
   setEditingPost?: React.Dispatch<TPost | null>;
+  fromNavbar?: boolean;
 }) => {
   // const { isLoading, user } = useUserData();
   const { data: categoriesRes, isPending: isLoadingCategory } =
@@ -102,17 +115,6 @@ const CreatePostModal = ({
     }
   }, [editingPost, form]);
 
-  // Option for editor
-  const toolbarOptions = [
-    [{ header: [1, 2, false] }],
-    ["bold", "italic", "underline"],
-    ["blockquote", "code-block"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ color: [] }, { background: [] }], // Dropdown for color
-    ["link", "image"],
-    ["clean"], // Remove formatting button
-  ];
-
   const onCancel = () => {
     setIsModalOpen(false);
     if (setEditingPost) {
@@ -122,7 +124,17 @@ const CreatePostModal = ({
 
   return (
     <div className="flex-1">
-      {!setEditingPost && (
+      {!setEditingPost && fromNavbar ? (
+        <div
+          className="flex items-center gap-1 text-gray-100 font-semibold cursor-pointer"
+          onClick={() =>
+            user?.data?._id ? setIsModalOpen(true) : router.push("/signin")
+          }
+        >
+          <PlusOutlined className="!text-xl" />
+          <span className="hidden md:inline-block">Create</span>
+        </div>
+      ) : (
         <Input
           onClick={() =>
             user?.data?._id ? setIsModalOpen(true) : router.push("/signin")
@@ -134,6 +146,7 @@ const CreatePostModal = ({
           className="!bg-slate-800 placeholder:!text-slate-400 !text-slate-50 !border-none"
         />
       )}
+
       <Modal
         title={
           <div className="text-center text-2xl font-semibold">
