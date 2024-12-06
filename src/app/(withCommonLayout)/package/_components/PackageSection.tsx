@@ -88,7 +88,7 @@ const PackageSection = async () => {
                     </Tooltip>
                   </div>
                   <div className=" space-y-2 border-t md:border-l border-slate-700 p-8 flex flex-wrap lg:flex-nowrap gap-6  items-center justify-between flex-1">
-                    <div className="min-h-[175px] w-[400px] flex items-start justify-center flex-col gap-2">
+                    <div className="min-h-[175px] w-[300px] sm:w-[350px] md:w-[400px] flex items-start justify-center flex-col gap-2">
                       {packageI.benefits.map((benefit, ind) => (
                         <p
                           key={ind}
@@ -103,7 +103,7 @@ const PackageSection = async () => {
                     </div>
 
                     <p className="text-md text-white">
-                      <span className="font-semibold text-2xl md:text-3xl">
+                      <span className="font-semibold text-xl sm:text-2xl md:text-3xl">
                         {packageI.price} {packageI.currencyType}
                       </span>
                       /{packageI.durationInMonths} month(s)
