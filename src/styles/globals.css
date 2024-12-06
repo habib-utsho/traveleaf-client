@@ -192,3 +192,10 @@ u {
 .dark-pagination .anticon {
   color: white !important;
 }
+
+
+
+/* Navbar filtering drawer */
+.navbar-filtering-drawer .ant-drawer-header-title .ant-drawer-close{
+  color: white;
+}

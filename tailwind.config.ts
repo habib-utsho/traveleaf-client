@@ -26,7 +26,7 @@ const config: Config = {
           DEFAULT: "#333333", // Dark gray for paragraphs
         },
         secondary: {
-          DEFAULT: "#A4D65E", // Soft red for secondary actions
+          DEFAULT: "#df2a19", // Soft red for secondary actions
           // DEFAULT: "#ffd700", // Soft red for secondary actions
           // DEFAULT: "#D1C4E9", // Soft red for secondary actions
         },

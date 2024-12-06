@@ -22,7 +22,7 @@ Create a .env file in the root directory and provide the following variables:
 - Frontend Framework: Next.js
 - UI Library: Ant Design
 - State Management: Redux
-- HTTP Client: RTK Query
+- HTTP Client: Tanstack Query
 - Date Handling: Moment JS
 
 ## Features

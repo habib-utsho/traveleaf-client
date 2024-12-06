@@ -81,12 +81,14 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <div
+      // top-[65px]
       className={`left-0 top-[65px] bg-slate-900 border-r border-primary px-2 pt-4 overflow-y-auto pr-[3px] ${
         isMobile
-          ? "block"
-          : "hidden md:block w-[210px] h-screen sticky space-y-4"
+          ? "block "
+          : "hidden md:block w-[210px] h-[92vh] sticky space-y-4"
       }`}
     >
+   
       {/* Home and popular */}
       <ul className="flex flex-col space-y-1">
         {[
@@ -114,7 +116,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         })}
       </ul>
 
-      <Divider className="!mt-4" />
+      <Divider className="!mt-4 border border-slate-700" />
 
       {/* Categories */}
       <div className="space-y-2 rounded">
@@ -169,7 +171,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         </ul>
       </div>
 
-      <Divider className="!mt-4" />
+      <Divider className="!mt-4 border border-slate-700" />
 
       {/* Resources */}
       <div className="space-y-2 rounded">
@@ -217,7 +219,7 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
         </ul>
       </div>
 
-      <Divider className="!mt-4" />
+      <Divider className="!mt-4 border border-slate-700" />
 
       {/* Policy */}
       <div className="space-y-2 rounded">

@@ -123,7 +123,7 @@ const Sidebar: React.FC = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={setCollapsed}
-      className="!h-screen !sticky !top-0 !overflow-y-auto"
+      className="!h-screen !sticky !top-0  !overflow-y-auto"
     >
       <div className="demo-logo-vertical" />
       <div className="text-center p-4">

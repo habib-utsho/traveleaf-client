@@ -24,7 +24,10 @@ const TravelerDetailsPage = async ({
 }) => {
   // Fetch the traveler data using the ID (slug from URL parameters)
   const travelerRes = await getTravelerById(params?.slug);
-  const postRes = await getAllPost([{ name: "author", value: params?.slug }]);
+  const postRes = await getAllPost([
+    { name: "author", value: params?.slug },
+    { name: "isDeleted", value: false },
+  ]);
 
   const traveler = travelerRes as TResponse<TTraveler>;
   const posts = postRes as TResponse<TPost[]>;
@@ -110,6 +113,7 @@ const TravelerDetailsPage = async ({
           <Divider className="!my-14" />
 
           {/* Posts */}
+          {/* TODO: here need infinite scrolling */}
           <div className="">
             {posts?.meta?.total === 0 ? (
               <Empty description="No post found" />

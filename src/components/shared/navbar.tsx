@@ -42,6 +42,7 @@ export const Navbar = ({
   const { data: posts, isLoading: isLoadingPosts } = useGetAllPost([
     { name: "limit", value: pagination.limit },
     { name: "page", value: pagination.page },
+    { name: "isDeleted", value: false },
     ...(debounceSearchTerm
       ? [{ name: "searchTerm", value: debounceSearchTerm }]
       : []),
@@ -122,7 +123,7 @@ export const Navbar = ({
   return (
     <Header
       style={{ position: "sticky", top: 0, zIndex: 1, width: "100%" }}
-      className="!text-white  border-b border-slate-700 items-center flex justify-between gap-2 !px-4 sm:!px-6 md:!px-8 "
+      className="!text-white  border-b border-slate-700 items-center flex justify-between gap-2 !px-4 sm:!px-6 md:!px-8"
     >
       <div className="w-full flex justify-between items-center gap-2">
         {/* Logo */}
@@ -239,6 +240,7 @@ export const Navbar = ({
           placement="left"
           onClose={closeFilteringDrawer}
           open={isFilteringDrawerVisible}
+          className="!bg-slate-900 navbar-filtering-drawer"
         >
           <FilteringSection isMobile={isFilteringDrawerVisible} />
         </Drawer>

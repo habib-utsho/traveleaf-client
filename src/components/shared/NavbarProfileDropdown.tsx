@@ -4,6 +4,7 @@ import {
   AppstoreOutlined,
   EditOutlined,
   LockOutlined,
+  LogoutOutlined,
   TrophyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -12,7 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/services/authService";
 import { protectedRoutes } from "@/constant";
 import { useGetMe, useUserData } from "@/hooks/user.hook";
-import { SignOutIcon, VerifiedBadgeIcon } from "../ui/icons";
+import { VerifiedBadgeIcon } from "../ui/icons";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,19 +66,24 @@ const NavbarProfileDropdown = () => {
         </Link>
       </Menu.Item>
       <Menu.Item className="!py-3" key="dashboard">
-        <AppstoreOutlined className="!mr-1 !text-xl" />
+        <AppstoreOutlined className="!mr-1 !text-lg" />
         <a href={`/dashboard/${user?.role}`}>Dashboard</a>
       </Menu.Item>
       <Menu.Item className="!py-3" key="Edit profile">
-        <EditOutlined className="!mr-1 !text-xl" />
+        <EditOutlined className="!mr-1 !text-lg" />
         <a href={`/dashboard/${user?.role}/profile`}>Edit Profile</a>
       </Menu.Item>
       <Menu.Item className="!py-3" key="change-password">
-        <LockOutlined className="!mr-1 !text-xl" />
+        <LockOutlined className="!mr-1 !text-lg" />
         <a href={`/dashboard/${user?.role}/change-password`}>Change Password</a>
       </Menu.Item>
-      <Menu.Item className="!py-3" key="signOut" danger onClick={handleSignOut}>
-        <SignOutIcon className="!mr-1 !text-xl" />
+      <Menu.Item
+        className="!py-3 !flex !gap-1"
+        key="signOut"
+        danger
+        onClick={handleSignOut}
+      >
+        <LogoutOutlined className="!mr-1 !text-lg" />
         Sign out
       </Menu.Item>
     </Menu>
