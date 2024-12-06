@@ -1,9 +1,9 @@
 import Container from "@/components/ui/Container";
 import React, { Suspense } from "react";
 import PackageSection from "./_components/PackageSection";
-import PackageLoadingCard from "./_components/PackageLoadingCard";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import PackageErrorCard from "./_components/PackageErrorCard";
+import Loading from "@/components/ui/Loading";
 
 const PackagePage = () => {
   return (
@@ -13,7 +13,7 @@ const PackagePage = () => {
           Pricing_
         </h2>
         <ErrorBoundary fallback={<PackageErrorCard />}>
-          <Suspense fallback={<PackageLoadingCard />}>
+          <Suspense fallback={<Loading />}>
             <PackageSection />
           </Suspense>
         </ErrorBoundary>

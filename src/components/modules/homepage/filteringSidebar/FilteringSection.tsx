@@ -88,7 +88,6 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
           : "hidden md:block w-[210px] h-[92vh] sticky space-y-4"
       }`}
     >
-   
       {/* Home and popular */}
       <ul className="flex flex-col space-y-1">
         {[
@@ -149,7 +148,15 @@ const FilteringSection = ({ isMobile }: { isMobile: boolean }) => {
           </p>
 
           {isLoadingCategories ? (
-            <Skeleton.Button className="!h-full !w-full" active />
+            <div className="flex flex-col gap-2">
+              {[...Array(9)].map((_, ind) => (
+                <Skeleton.Button
+                  key={ind}
+                  className="!h-[36px] !w-full bg-slate-700 rounded"
+                  active
+                />
+              ))}
+            </div>
           ) : categories?.meta?.total === 0 ? (
             <Empty description="No categories found!" />
           ) : (

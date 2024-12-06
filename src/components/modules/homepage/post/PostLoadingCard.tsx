@@ -7,13 +7,25 @@ const PostLoadingCard = () => {
     <div className="px-4 relative flex justify-between gap-2 flex-1">
       <div className="py-4 w-4/6 mx-auto space-y-2">
         <div className="space-y-2 rounded">
-          <Skeleton.Button active className="!h-[550px] !w-full" />
+          <Skeleton.Button active className="!h-[550px] !w-full !bg-slate-700" />
 
           <div className="flex items-center gap-4">
-            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
-            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
-            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
-            <Skeleton.Button active className="!h-[40px] !w-[40px] rounded mr-4" />
+            <Skeleton.Button
+              active
+              className="!h-[40px] !w-[40px] rounded mr-4 !bg-slate-700"
+            />
+            <Skeleton.Button
+              active
+              className="!h-[40px] !w-[40px] rounded mr-4 !bg-slate-700"
+            />
+            <Skeleton.Button
+              active
+              className="!h-[40px] !w-[40px] rounded mr-4 !bg-slate-700"
+            />
+            <Skeleton.Button
+              active
+              className="!h-[40px] !w-[40px] rounded mr-4 !bg-slate-700"
+            />
           </div>
         </div>
       </div>
