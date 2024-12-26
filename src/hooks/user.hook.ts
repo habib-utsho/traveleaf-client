@@ -11,7 +11,8 @@ import {
 } from "@/services/user";
 import { TFilterQuery } from "@/types";
 import { message } from "antd";
-import { getAdminById, getMe, getTravelerById } from "@/services/authService";
+import { getAdminById, getCurrentUser, getMe, getTravelerById } from "@/services/authService";
+import { TDecodedUser } from "@/types/user";
 
 const useUserData = () => {
   const context = useContext(UserContext);
@@ -137,6 +138,7 @@ const useUnfollowTraveler = () => {
 };
 const useUpdateAdmin = () => {
   const queryClient = useQueryClient();
+  const { setUser } = useUserData();
   return useMutation({
     mutationKey: ["admin"],
     mutationFn: async (payload: { _id: string; formData: FormData }) =>

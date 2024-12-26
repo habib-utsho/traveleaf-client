@@ -21,9 +21,13 @@ export const useUserSignin = ({ redirect }: { redirect: string | null }) => {
     async onSuccess(data) {
       if (data?.success) {
         message.success(data?.message || "User signin successfully!");
-        router.push(redirect || "/");
         const user = (await getCurrentUser()) as TDecodedUser;
         setUser(user);
+        if(user && user.role === 'admin') {
+          router.push('/dashboard/admin');
+        } else{
+          router.push(redirect || "/");
+        }
       } else {
         message.error(data?.message || "Failed to signin user!");
       }
